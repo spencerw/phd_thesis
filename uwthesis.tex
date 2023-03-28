@@ -43,6 +43,8 @@
 %
  
 \documentclass [11pt, proquest] {uwthesis}[2020/02/24]
+
+\usepackage{graphicx}
  
 %
 % The following line would print the thesis in a postscript font 
@@ -175,13 +177,204 @@ formatting challenges found in thesis production.
 \section{Introduction} \label{sec:intro}
 
 The standard scenario of terrestrial planet formation involves the pairwise accretion of small rocky bodies, called planetesimals, 
-that condense from dust out of the protostellar disc \cite{1969Icar...10..109S}. This accretion process can be broken into a 
-series of distinct stages. First, dust particles settle toward the midplane of the disc and clump together via gravitational instability 
-\cite{1973ApJ...183.1051G, 2002ApJ...580..494Y}, streaming instabilities \cite{2007Natur.448.1022J, 2015SciA....1E0109J}, 
-turbulent concentration \cite{2010Icar..208..505C, 2010Icar..208..518C, 2008ApJ...687.1432C, 2016MNRAS.456.2383H} or 
-direct sticking \cite{2013ApJ...764..146G, 2013A&A...557L...4K, 2012ApJ...752..106O, 2012A&A...540A..73W}. These 
+that condense from dust out of the protostellar disc \cite{safronov69}. This accretion process can be broken into a series of 
+distinct stages. First, dust particles settle toward the midplane of the disc and clump together via gravitational instability 
+\cite{goldreich73, youdin02}, streaming instabilities \cite{johansen07, johansen15}, turbulent concentration 
+\cite{chambers10, cuzzi08, cuzzi10, hopkins16} or direct sticking \cite{okuzumi12, windmark12, garaud13, katoka13}. These 
 formation models predict a wide variation in the initial size of planetesimals, ranging from hundreds of meters up to a few 
 hundred kilometers in diameter.
+
+After this condensation process ends, growth continues via pairwise collisions between planetesimals. Above about 1 km in size, 
+gravitational focusing becomes effective and the collision rate strongly increases. This marks the beginning of the intermediate 
+stage of accretion. During this phase, runaway growth \cite{duncan89, kokubo96, barnes09} quickly increases the size of the 
+largest bodies. Eventually, the largest bodies grow massive enough to heat the small planetesimals, which then inhibits the 
+runaway growth effect. This marks the transition into the phase of oligarchic growth in which the handful of large bodies all tend 
+to grow at the same rate. This produces a bimodal size distribution of planetesimals, with many small bodies and a handful of 
+very large bodies. During this phase, a combination of scattering events between the oligarchs and dynamical friction from the 
+small planetesimals places the oligarchs on nearly circular orbits that are spaced apart by approximately 5-10 Hill radii 
+\cite{kokubo98}. Eventually, the oligarchs accrete most of the available material in the vicinity of their orbit, which eventually 
+throttles their growth rate. On much longer time scales, the large bodies perturb each other onto crossing orbits, forming Mars to 
+Earth sized bodies via occasional collisions. This phase of late stage accretion is highly chaotic and takes much longer to play 
+out than the previous stages \cite{chambers98, raymond06}.
+
+Generally, planetesimal accretion models fail to produce a configuration of planets that resembles that of the Solar System. 
+Planets produced in the vicinity of Mars are systematically too massive \cite{wetherill92, raymond09, morishima10, izidoro15} 
+and the terrestrial planets that form are too eccentric compared to their Solar System counterparts 
+\cite{chambers98, agnor99, chambers01}. In addition, the present day water content of Earth, along with the large D/H ratio of 
+Venus \cite{donahue82} does not match with models of solids that condensed out of the Solar nebula at 1 AU.
+
+These issues all have proposed solutions, which generally involve altering the initial conditions for late-stage
+accretion simulations. The condition of the Solar System at the beginning of the late stage accretion phase is poorly constrained. 
+This is mostly due to the fact that planetesimal formation, and therefore the intermediate accretion phase which produces the 
+planetary embryos, is not well understood. Although the present day population of small Solar System bodies has continued to 
+evolve since the end of the intermediate accretion phase, the current size frequency distribution (SFD) of asteroid belt and 
+Kuiper belt objects contains some clues about the accretion history. \cite{morbidelli09} argued that the SFD of asteroid belt 
+objects larger than 100 km in diameter has been largely unchanged, aside from a size independent depletion factor. 
+\cite{duncan89} did a long term stability analysis of small Solar System objects and found that small bodies left over from 
+accretion should still be largely unperturbed. For these reasons, it should be possible to connect observables in the Solar System to planetesimal formation theories by modeling only the intermediate stages of accretion.
+
+There are two common ways to model planetesimal growth. A powerful approach is to use statistical methods to track the 
+evolution of large groups of planetesimals. This is known as the particle-in-a-box method \cite{greenberg78, wetherill89}. The 
+evolution of growth is followed by tracking planetesimals in discrete bins of mass and semi-major axis. This removes the need to 
+calculate the motion of every individual body and allows very large collections of planetesimals to be followed. Unfortunately, the 
+dynamics that governs the evolution of these bodies does not always naturally emerge with this approach. As an example, 
+\cite{weidenschilling11} found that a careful treatment of three body encounters led to a different prediction for the initial size 
+distribution of planetesimals near the asteroid belt. Additionally, the particle-in-a-box method is not well suited for studying 
+oligarchic growth because the largest mass bins, which dominate the evolution in this stage, contain small numbers of bodies. 
+Non-gravitational effects such as gas drag and fragmentation require extra care to implement self-consistently 
+\cite{leinhardt08}, although it has been successfully done \cite{wetherill93, chambers01}. To alleviate some of these issues 
+while still being able to model large populations, a newer hybrid approach, in which large bodies are treated as single entities 
+and planetesimals are treated as statistical ensembles has been developed 
+\cite{weidenschilling97, kenyon06, levison12, morishima15}.
+
+The most reliable and straightforward approach is to use N-body methods to follow the evolution and growth of the planetesimals 
+\cite{lecar86}. By tracking the individual motions of bodies, the dynamics governing their evolution naturally emerges, no matter 
+what the distribution of bodies looks like. However, N-body simulations involving collision detection are extremely 
+computationally expensive, which severely limits both the resolution and number of timesteps that can be achieved. This is why 
+there are very few studies of runaway and oligarchic with direct N-body simulations in the literature 
+\cite{kokubo96, kokubo98, kokubo02, barnes09}. Instead, N-body methods are most commonly used to study late stage 
+accretion, where the self-gravity and collisional evolution of the residual planetesimals is largely unimportant 
+\cite{chambers98, agnor99,  chambers01, obrien06, morbidelli09}.
+
+To date, we are not aware of any N-body simulations that resolve both the runaway and oligarchic growth phase  with more than 
+about $10^4$ particles. At this resolution, stochasticity likely has a significant influence on dynamical friction and resonances 
+may not be sufficiently resolved. \cite{raymond06} found that insufficient planetesimal resolution during the oligarchic growth 
+phase limits the effectiveness of dynamical friction felt by the oligarchs, producing a population of embryos with unrealistically 
+high eccentricities. This idea has also been applied to planet migration through a disc of planetesimals. \cite{cionco02} showed 
+that resonances make a significant contribution to the dynamical friction torque exerted by the disc on the planet. This 
+phenomenon requires the planetesimals to be finely resolved \cite{brunini07}. Dynamical friction is also facilitated via 
+resonances in galactic dynamics \cite{lyndenbell72}. \cite{weinberg07, weinberg07} examined the effect of N-body particle 
+counts on galaxy dynamics and showed that resonant interactions between the bar and halo were only effective with sufficient 
+particle phase space coverage.
+
+For these reasons, we motivate the need for a high resolution N-body simulation of planetesimal growth. We do this to better 
+understand the effect that dynamical friction has on the intermediate stages of terrestrial planet growth and to examine what 
+predictions a high resolution model makes about the residual population of planetesimals in the Solar System. In particular, 
+resonances which are only effective with fine enough resolution, may have an important influence on planetesimal growth. In this 
+paper, we investigate planetesimal evolution during the runaway and oligarchic growth phases with a direct N-body model. We 
+begin by simulating an annulus of planetesimals with similar resolution to \cite{kokubo98} to validate our model. We then run the 
+same configuration with 100x more particles to better understand the effects of resolution on the intermediate stages of 
+terrestrial planet growth.
+
+In section \ref{sec:sim}, we describe the simulation code that we use and provide a detailed description of the collision model. 
+We also summarize the initial conditions used. In section \ref{sec:results}, we present the results of the low and high resolution 
+simulation of terrestrial planet growth and highlight differences between the two. We find that a bump develops in the mass 
+distribution of the high resolution simulation, which does not appear in the low resolution run. This feature manifests itself shortly 
+after oligarchic growth commences and we infer that it is produced by extra heating via mean motion resonances between the 
+oligarchs and small planetesimals. To further demonstrate this effect, we re-run the high resolution simulation with a narrower 
+annulus (depopulating many of the resonances) and show that this reduces the prominence of the bump in the mass distribution. 
+In section \ref{sec:dynfric}, we present a set of collisionless simulations of a planetary embryo embedded in an annulus of 
+planetesimals. This more clearly demonstrates the differences in dynamical behavior between the low and high resolution 
+models. In section \ref{sec:intermed}, we present two more simulations of planetesimal growth at intermediate resolutions and 
+demonstrate that the location of the bump is sensitive to the initial planetesimal mass. Finally, section \ref{sec:discussion} 
+connects these new results to our present understanding of terrestrial planet growth and we discuss the additional steps 
+necessary to use our results to constrain the initial size of planetesimals in the Solar System.
+
+\section{Simulations} \label{sec:sim}
+
+\subsection{Numerical Methods} \label{sec:numerical}
+
+All of the simulations described in this paper were performed with the highly parallel N-body code {\sc ChaNGa} . 
+{\sc ChaNGa} is written in the {\sc CHARM++} programming language and has been shown to perform well when using up to 
+half a million processors \cite{menon15} simultaneously. Gravitational forces are calculated using a modified Barnes-Hut tree 
+algorithm with hexadecapole order expansions of the moments. For all of the simulations described in this paper, a node 
+opening criterion of $\Theta_{BH}$ = 0.7 was used. \cite{richardson00} was able to resolve mean motion resonances in a 
+terrestrial disc using a similar tree code with the same node opening criterion, so we expect that our model should properly 
+handle resonance effects as well. The equations of motion are integrated using a kick-drift-kick leapfrog scheme. For more 
+information about the implementation of {\sc ChaNGa} see \cite{jetley08}.
+
+\subsection{Collision Model} \label{sec:collModel}
+
+{\sc ChaNGa} is a smoothed particle hydrodynamics code originally designed for cosmology simulations. In order to use 
+{\sc ChaNGa} to study planetesimal coagulation, we implemented a hard-body collision model that treats particles as solid 
+objects with a fixed radius, rather than as smooth tracers of a fluid with a characteristic softening length. This work was largely 
+based off of the hard body collision implementation in {\sc pkdgrav}, which is described in \cite{richardson94} and 
+\cite{richardson00}.
+
+Collisions are predicted at the beginning of each drift step by extrapolating the positions of the particles forward using the 
+velocities calculated during the first kick. For each particle, the closest 64 neighbors are considered in the collision search. 
+Because {\sc ChaNGa} is a tree code, the nearest neighbors of a particle can be retrieved in $\mathcal{O}(N\log{}N)$ time. After 
+extrapolating the positions forward and checking for overlap with any neighbors, the earliest collision time $t_{coll}$ is stored for 
+each particle.
+
+After the prediction phase, particles with $t_{coll}$ less than the time step size $\Delta T$ must have their collisions resolved. For 
+simplicity, all collisions in our simulations result in perfect accretion. \cite{ida93} showed that excluding the effects of 
+fragmentation and collisional rebound does not qualitatively change the growth modes of the planetesimals. A merger between 
+two particles of mass $m_{1}$ and $m_{2}$ results in a single particle of mass $M = m_{1} + m_{2}$, with the radius set to 
+conserve density. The position and velocity of the resulting particle is set to the centre of mass position and velocity of the 
+colliders at the moment of contact. The resulting merged particle is then drifted to the end of the step. If multiple collisions are 
+predicted during a time step, the earliest collision is resolved first. Because resolving a collision can result in another imminent 
+collision, collisions must be resolved one by one, with a new prediction check being run each time.
+
+As in \cite{kokubo96, kokubo98} we accelerate the accretion process by artificially inflating the physical radius of the bodies by 
+a factor of $f$. This technique reduces the accretion time-scale by approximately a factor of $f^{2}$, significantly reducing the 
+number of timesteps that must be integrated. Additionally, inflating the particle radii allows us to use a smaller annulus with less 
+planetesimals. The reason we cannot use an arbitrarily skinny annulus is because the edges tend to expand outward due to the 
+unrealistic boundary conditions, decreasing the surface density. The time-scale for this expansion is set by the two body 
+relaxation time-scale, which scales with $N$. Reducing the accretion time-scale by increasing $f$ allows us to study 
+planetesimal growth with a smaller, less computationally expensive annulus.
+
+We must be careful, however, to choose a value of $f$ that is not too large. The rms eccentricity and inclination of the 
+planetesimal disc grows as gravitational encounters transform energy due to Keplerian shear into random motions. By 
+accelerating the growth rate, we cause the transitions between growth modes to happen early, when the disc is less dynamically 
+excited. This discrepancy is partly compensated for by the fact that our model ignores the effects of gas drag, which would damp 
+the eccentricities and inclinations of the planetesimals. We adopt $f=6$ for our calculations, which reduces the amount of 
+gravitational scattering by less than 10\% of its true value and does not qualitatively change the modes of planetesimal growth 
+\cite{kokubo98}.
+
+\noindent As previously mentioned, simulation (ii) is meant to be compared with the results of \cite{kokubo98}. This allows us to 
+both validate our collision model and also have a baseline to compare our simulations to. In both cases, the planetesimals are 
+distributed randomly in an annulus centred at 1 AU with a width $\Delta a = 0.085$ AU around a 1 $\mathrm{M_{\odot}}$ star. 
+This annulus width was chosen so that the required particle count is minimized without boundary effects influencing planetesimal 
+growth. The surface mass density of the ring is set to 10 g cm$^{-2}$, which approximately corresponds to the minimum-mass 
+solar nebula model \cite{hayashi81} at 1 AU. In case (i), the eccentricities and inclinations are taken from a Rayleigh distribution 
+\cite{ida92} with $\langle e^2 \rangle^{1/2} = 2 \langle i^2 \rangle^{1/2} = 4 h/a$, where $h$ is the mutual Hill radius. To match 
+the same eccentricity and inclination dispersion with larger planetesimals in case (ii), we use $\langle e^2 \rangle^{1/2} = 2 
+\langle i^2 \rangle^{1/2} = 0.635 h/a$. In both simulations, the planetesimals are given an internal density of 2 g cm$^{-3}$. We 
+use fixed timesteps with $\Delta T$ = 0.0025 years and evolve the simulations for 20,000 years. Large timesteps diminish the 
+effectiveness of gravitational focusing, which inhibits the collision rate. We find that the collision rate is converged below $\Delta 
+T$ = 0.0025 years. The integration time was chosen to be comparable to the orbital repulsion and Hill radius growth time-scale 
+\cite{kokubo95} so that the effects of oligarchic growth are fully realized by the end of the simulation.
+
+It is worth noting that simulation (i) was a very computationally expensive undertaking. In total, the full 20,000 years of 
+integration required approximately 130,000 CPU hours and over 50 days of wall clock time.
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/plSS/mass_evo.eps}
+    \caption{Evolution of the maximum (solid curve) and mean (dashed curve) planetesimal mass in the N=4000 and N=$10^6$ particle simulations. At early times, the maximum mass grows more quickly than the mean mass, which is indicative of runaway growth. After a few thousand years, the separation between the curves becomes a constant factor, signalling the start of oligarchic growth.
+    \label{fig:mass_evo}}
+\end{figure}
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/plSS/ecc_evo.eps}
+    \caption{Snapshots from the low and high resolution models in the $a-e$ plane. On the left, the light dots represent individual planetesimals, while the contours on the right hand plots represent curves of constant number density. The contour levels are the same between all panels and correspond to $7.8 \times 10^6$, $1.6 \times 10^7$, $2.3 \times 10^7$, and $3.1 \times 10^7$ planetesimals per AU per unit eccentricity. The black circles denote the configuration of the 6 largest bodies in the simulation, with the area of the circles scaled to the mass of the body. The horizontal error bars are scaled to 5 times the Hill radius of the bodies.
+    \label{fig:ae}}
+\end{figure}
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/plSS/mass_spectrum_evo.eps}
+    \caption{Cumulative number of bodies in each mass bin for the low and high resolution runs, shown at the end of runaway growth (top row) and the end of the simulation (bottom row). The dashed line indicates a slope of -1.5, which is characteristic of runaway growth.
+    \label{fig:mass_spectrum_evo}}
+\end{figure}
+
+\subsection{Initial Conditions} \label{sec:ics}
+
+We begin by using our collision model to perform two sets of calculations:
+
+(i) $10^{6}$ equal mass bodies with $m = 1.2 \times 10^{21}$ g
+
+(ii) 4000 equal mass bodies with $m = 3 \times 10^{23}$ g
+
+\section{Results} \label{sec:results}
+
+\subsection{Low vs High Resolution}\label{sec:lowvshigh}
+
+We begin by comparing the evolution of growth between the low resolution (N=4000) and high resolution (N=$10^{6}$) models. 
+As planetesimals collide and grow, gravitational focusing becomes increasingly effective and the relative growth rate increases 
+with mass \cite{greenberg78}. Figure \ref{fig:mass_evo} shows the evolution of the average and maximum planetesimal 
+mass in both simulations. Runaway growth at early times is evident from the fact that the maximum mass grows more quickly 
+than the mean mass. Eventually, the largest bodies begin to dynamically heat the neighboring planetesimals, which slows the 
+growth rate of the largest bodies.
 
 \chapter {Detecting Cold Jupiters via Collisional Grinding of Planetesimals}
 
