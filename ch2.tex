@@ -69,7 +69,7 @@ phase limits the effectiveness of dynamical friction felt by the oligarchs, prod
 high eccentricities. This idea has also been applied to planet migration through a disc of planetesimals. \cite{cionco02} showed 
 that resonances make a significant contribution to the dynamical friction torque exerted by the disc on the planet. This 
 phenomenon requires the planetesimals to be finely resolved \cite{brunini07}. Dynamical friction is also facilitated via 
-resonances in galactic dynamics \cite{lyndenbell72}. \cite{weinberg07, weinberg07} examined the effect of N-body particle 
+resonances in galactic dynamics \cite{lyndenbell72}. \cite{weinberg07a, weinberg07b} examined the effect of N-body particle 
 counts on galaxy dynamics and showed that resonant interactions between the bar and halo were only effective with sufficient 
 particle phase space coverage.
 
@@ -201,3 +201,187 @@ with mass \cite{greenberg78}. Figure \ref{fig:mass_evo} shows the evolution of t
 mass in both simulations. Runaway growth at early times is evident from the fact that the maximum mass grows more quickly 
 than the mean mass. Eventually, the largest bodies begin to dynamically heat the neighboring planetesimals, which slows the 
 growth rate of the largest bodies.
+
+When gravitational focusing and dynamical friction are both effective, the growth rate of a planetesimal of mass $M$ is given by
+
+\begin{equation}\label{eq:growth_rate}
+\frac{dM}{dt} \propto \Sigma M^{4/3} e_{m}^{-2},
+\end{equation}
+
+\noindent where $\Sigma$ is the surface density of solid material and $e_m$ is the rms eccentricity of the planetesimals 
+\cite{kokubo95}. Before the oligarchs form, the eccentricity dispersion is independent of mass and the fractional growth rate 
+scales like $dM/dt \propto M^{4/3}$ \cite{wetherill93}. This implies that large bodies grow more quickly than small bodies, hence 
+the runaway effect. Once the oligarchs form and dynamical friction becomes effective, energy equipartition causes the velocity 
+dispersion to evolve toward $v_m \propto M^{-1/2}$\cite{ida93}. Using $v_m \propto e_m$ \cite{lissauer93}, the growth rate 
+during the oligarchic growth phase scales like  $dM/dt \propto M^{2/3}$. Note that this does not imply that smaller bodies grow 
+more quickly than large bodies. Rather, the growth rates tend towards the same value. This is reflected in figure 
+\ref{fig:mass_evo}, where the slope of the maximum mass curve flattens out to match the slope of the mean mass curve after a 
+few thousand years.
+
+Comparing the two panels in figure \ref{fig:mass_evo}, it is also evident that the rate of growth is more vigorous in the high 
+resolution case. This is due to the fact that the collision time-scale, given by 
+
+\begin{equation}\label{eq:coll_timescale}
+t_{coll} = \frac{1}{n \sigma v},
+\end{equation}
+
+\noindent is shorter in the latter case, where $n$ is the number density of planetesimals, $\sigma$ is the collision cross section 
+and $v$ is the typical encounter velocity. The collision cross section depends on both the geometric cross section ($\propto 
+N^{-2/3}$) and an extra term due to gravitational focusing ($\propto N^{-7/3}$), where $N$ is the total number of particles in the 
+simulation and the total disk mass is fixed. Because the eccentricity and inclination dispersion (and therefore the scale height of 
+the disk) are kept fixed between the low and high resolution simulations, the typical encounter velocity does not vary with $N$. 
+Here, we retain only the leading order term for the collision cross section, in which case these quantities scale like $n \propto N$, 
+$\sigma \propto N^{-2/3}$ and $v \propto const$ so that
+
+\begin{equation}\label{eq:coll_timescale_N}
+t_{coll} \propto N^{-1/3}.
+\end{equation}
+
+Figure \ref{fig:ae} shows the a-e distribution of planetesimals at three snapshots from both simulations. In both cases, the 
+eccentricity dispersion grows as energy from Keplerian shear is transformed into random motion, an effect known as viscous 
+stirring \cite{ohtsuki02}. The black circles denote the semi-major axis and eccentricity of the 6 largest bodies. The area of the 
+circles indicates the mass of the bodies and the horizontal bars are each scaled to 5 times the Hill radius of the bodies. 
+Gravitational scattering between the oligarchs, coupled with dynamical friction from the surrounding planetesimals, places the 
+oligarchs on low eccentricity orbits that are spaced apart by a 5-10 Hill radii via orbital repulsion \cite{kokubo98}.
+
+Next, we examine the evolution of the mass distribution of planetesimals. This is shown in figure \ref{fig:mass_spectrum_evo}. At 
+early times, both models exhibit a power law distribution $N(<M) \propto m^{-p}$, where $p$ = 1.5 for the small bodies. A mass 
+distribution with this slope is characteristic of runaway growth \cite{wetherill93}. The top panels show the mass distribution from 
+both simulations at the end of the the runaway growth phase. In all subsequent snapshots, the mass distribution deviates from a 
+single power law as the most massive bodies break away from the distribution, signaling the start of oligarchic growth. This 
+happens sooner in the high resolution case. The bottom panels show the mass distribution at the end of the simulation at T = 
+20,000 years.
+
+Besides the fact that growth is more vigorous at higher resolution, the final mass distribution of planetesimals in the $N = 10^{6}$ 
+case develops a feature that does not appear in the low resolution model. In the low resolution case, the low mass end of the 
+mass distribution of planetesimals retains a single power law slope. The high resolution model, on the other hand, develops a 
+bump in the mass distribution near $10^{22}$ g.
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/plSS/ecc_den_evo.eps}
+    \caption{The rms eccentricity (top) and planetesimal surface density at each mass (bottom) shown for the $N = 4000$ and 
+    $N = 10^6$ simulations. The blue points correspond to the quantities at the end of the runaway growth phase (when the 
+    mass distribution deviates from a single power law) and the orange points are from the end of the simulations (T = 20,000 
+    years). The vertical dashed lines indicate the value of $M_{stir}$ during that snapshot.}
+    \label{fig:ecc_den_evo}
+\end{figure}
+
+\subsection{Explaining the Bump in the High Resolution Mass Spectrum}\label{sec:bump}
+
+We would next like to determine what produces the feature at $10^{22}$ g in the high resolution simulation and why it is absent 
+from the low resolution run. Upon close inspection of the simulation snapshots, both models retain a mass distribution that 
+follows a single power law up until the onset of oligarchic growth. The bump in the high resolution mass spectrum becomes 
+visible shortly after the oligarchs form. Over the course of the simulation, the bump gradually becomes more prominent. Because 
+the bump appears shortly after the first oligarchs do, its presence is likely tied to the formation of the oligarchs.
+
+Other investigations of planetesimal growth have revealed a similar bump in the size frequency distribution (SFD) at intermediate 
+masses. \cite{morbidelli09} found that the location of this bump was set by the initial size of the planetesimals. Objects smaller 
+than this size were created through disruptive collisions, which resulted in a shallower slope on the SFD to the left of the bump. 
+Our collision model does not allow for fragmentation, so we must look for another explanation.
+
+\cite{wetherill11} showed that a bump in the SFD was an artefact of the transition between shear and dispersion dominated 
+growth. Objects in the shear regime, whose encounter velocities are dominated by the differential rotation of the disc, grow more 
+slowly than those in the dispersion regime, whose encounters are set by the random velocity dispersion. Because the velocity 
+dispersion varies with planetesimal mass, both of these growth modes can operate simultaneously. Energy equipartition should 
+cause the velocity dispersion to decrease with mass, so the transition between shear and dispersion dominated growth should 
+happen at some intermediate mass. Finally, the smallest bodies have a velocity dispersion that exceeds their escape velocities, 
+which sets a third, slow mode of growth in which gravitational focusing is ineffective. Although our high resolution simulation 
+resolves all three modes of growth, we find that the boundaries between these modes smoothly and steadily evolve. Over the 
+course of the simulation, the shear-dispersion boundary increases from about $10^{22}$ g to $10^{25}$ g, while the dispersion-
+escape boundary evolves from about $10^{21}$ to $10^{24}$ g. Any artefacts that these boundaries would leave on the 
+planetesimal mass distribution should get washed out, so we also rule these out as explanations for the $10^{22}$ g bump.
+
+Although the boundary between shear and dispersion dominated growth does not seem to be producing the bump, there still 
+must be some kind of transition between growth modes occurring near this mass. As shown by equation \ref{eq:growth_rate}, 
+the growth rate is controlled by both the surface density of the planetesimals and their eccentricities. In figure 
+\ref{fig:ecc_den_evo}, we show the rms eccentricity and surface mass density of the planetesimals as a function of mass at the 
+end of the runaway growth phase (blue points) and at the end of the simulation (orange points). In this figure, each point 
+corresponds to the relevant quantity calculated for all planetesimals with the exact same mass. Because the simulations start 
+with equal mass planetesimals which grow via pairwise collisions, the masses take on discrete, linearly spaced values. We found 
+that logarithmically binning the mass values alters the shape of the distributions, especially in the high resolution case where the 
+quantities span many orders of magnitude. For this reason, we chose not to bin any of the data. The error bars in figure 
+\ref{fig:ecc_den_evo} are obtained via 10,000 iterations of bootstrap resampling. For the high resolution simulation, the error 
+bars at low mass are smaller than the size of the points.
+
+The surface density was determined by calculating an azimuthally averaged density profile using the analysis package
+{\sc PYNBODY} \cite{pontzen13}. The surface density for each planetesimal mass was taken to be the average surface density 
+for those particles in a single radial bin from 0.9575 to 1.0425 AU, which spans the initial boundaries of the annulus.
+
+One might expect that the rms eccentricity spectrum should eventually reach energy equipartition ($e \propto m^{-1/2}$), but this 
+has been shown to only occur with a sufficiently steep mass distribution \cite{rafikov03}. In our case, the mass distribution is 
+shallow enough that the velocity evolution of the low mass bodies is set only by interactions with large planetesimals. The mass 
+below which this occurs, shown by the vertical dashed lines in figure \ref{fig:ecc_den_evo} is given by
+\cite{wetherill93, ormel10}
+
+\begin{equation}\label{eq:mstir}
+M_{stir} = \frac{\left< m^2 \right>}{\left< m \right>}.
+\end{equation}
+
+Below this mass, planetesimals do not produce a dynamical friction wake and their velocity evolution becomes independent of 
+mass \cite{rafikov03}. Because we started with equal mass planetesimals, the mass distribution was steep at early times. A 
+power law slope steeper than $p = -2$ should produce a mass-dependent velocity distribution everywhere \cite{rafikov03}. In 
+the top right panel of figure \ref{fig:ecc_den_evo}, the rms eccentricity distribution is not entirely flat below $M_{stir}$, which is 
+likely due to the evolving mass spectrum. The analysis of \cite{rafikov03}, however, assumes a static mass spectrum.
+
+At late times, a power law break in the surface density distribution forms near $10^{22}$ g in the high resolution simulation. 
+Because the surface density is tied to both the mass distribution and the spatial distribution of planetesimals, it is difficult to learn 
+anything else about the dynamics that are altering the growth rate from this information alone. We will examine this further in 
+section \ref{sec:dynint}.
+
+Given the power law break in the surface density distribution below $10^{22}$ g, we infer that there must be a dynamical 
+mechanism at work that alters the collision rates of the low mass bodies. By the time that the $10^{22}$ g bump begins to 
+appear, the planetesimals are sufficiently hot enough to render gravitational focusing ineffective (equation \ref{eq:growth_rate} is 
+also no longer applicable). In this case, any additional heating actually increases the collision rate. Because this effect appears 
+around the time of the onset of oligarchic growth, it likely has something to do with dynamical friction between the oligarchs and 
+the planetesimals. In the next section, we examine how dynamical friction might be more effective with small planetesimals.
+
+\section{Dynamical Friction and Resolution} \label{sec:dynfric}
+
+Although the Chandrasekhar formula \cite{chandraesekhar43} contains no dependence on particle mass, the 'granularity' of the 
+surrounding medium has been shown to influence the action of dynamical friction \cite{brunini07}. This is because the individual 
+kicks from gravitational encounters become less frequent and more powerful at coarse resolution, introducing extra stochasticity 
+as the system evolves toward energy equipartition. \cite{obrien06} showed that a finely resolved planetesimal distribution during 
+the oligarchic growth phase produced planetary embryos with low eccentricities. They did not, however, examine the mass 
+spectrum to see if the oligarchs were preferentially heating the smallest planetesimals. In addition, their simulations only 
+contained a few thousand particles, while our high resolution run contains in excess of 200,000 bodies at the onset of oligarchic 
+growth. Comparing the largest embryos at the end of simulation (i) to their results, we find that the largest embryo in our high 
+resolution run has an eccentricity that is a factor of 2 smaller than the embryos produced by \cite{obrien06}.
+
+In addition to altering the cumulative effect of close gravitational encounters, there is evidence that energy and angular 
+momentum exchange through resonances is more effective with fine granularity. For example, in collisionless simulations of 
+galaxies, \cite{weinberg07a, weinberg07b} showed that a minimum number of particles was required to populate 
+resonances and couple the rotation of a bar to the central halo cusp through Lindblad resonances. If the resolution was too 
+coarse, gravitational potential fluctuations would scatter particles out of resonances and prevent any strong torque between the 
+bar and the halo. Likewise, \cite{cionco02} showed that resonant torque has a measurable effect on the interaction between a 
+planet and a planetesimal disc.
+
+\begin{figure}
+    \includegraphics[width=\columnwidth]{figures/plSS/res_width.eps}
+    \caption{The average spacing in semi-major axis as a function of mass at the end of the high resolution growth simulation 
+    (black points). The gray regions indicate the libration width of planetesimals in each mass bin that are in resonance with the 
+    most massive oligarch. The light gray region corresponds to the libration width of the 65:64 (highest non-overlapping) 
+    resonance and the dark gray region corresponds to the 15:14 (most distant populated) resonance.}
+    \label{fig:res_mass}
+\end{figure}
+
+\subsection{Resolved Resonances}\label{sec:resonances}
+
+During the oligarchic growth phase, a handful of massive bodies lose energy and angular momentum to the surrounding 
+medium. The previous runaway growth phase leaves behind a steadily varying spectrum of planetesimal masses, whose number 
+decreases with mass. Assuming the planetesimals are randomly distributed throughout the disc, the granularity can be thought 
+of as increasing with mass. This implies that the dynamical friction should be more effective from the smallest planetesimals. 
+Because the planetesimals appear to be more strongly heated below a certain mass threshold, we hypothesize that the change 
+in growth modes has to do with the activation of resonances, rather than a smooth decrease in the stochasticity of scattering 
+events.
+
+Because spiral features like those seen in \cite{weinberg07a, weinberg07b} and \cite{cionco02} are unlikely to form in such a 
+narrow annulus, we will consider the effects of mean motion resonances (MMRs), which are a subset of the Lindblad resonances 
+considered in the aforementioned studies. In order to determine the resolution required to resolve MMRs, we calculate the 
+libration width of first order MMRs associated with the oligarchs and compare it to the average radial spacing between 
+planetesimals as a function mass. The average radial spacing is given by
+
+\begin{equation}\label{eq:spacing}
+\left< \Delta r \right> = \frac{\Delta a}{N(m)},
+\end{equation}
+
+\noindent where $\Delta a$ is the width of the annulus and $N(m)$ is the number of planetesimals of each mass.
