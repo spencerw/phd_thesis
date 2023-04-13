@@ -275,6 +275,12 @@
 \newcommand\aas{\ref@jnl{AAS Meeting Abstracts}}% American Astronomical Society Meeting Abstracts
 \newcommand\dps{\ref@jnl{AAS/DPS Meeting Abstracts}}% American Astronomical Society/Division for Planetary Sciences Meeting Abstracts
 
+% Astronomy-related symbols
+\newcommand\arcmin{\hbox{$^\prime$}}
+\newcommand\arcsec{\hbox{$^{\prime\prime}$}}
+\newcommand\degr{\hbox{$^\circ$}}
+\newcommand\sun{\hbox{$\odot$}}
+\newcommand\earth{\hbox{$\oplus$}}
  
 %
 %  ----  Footnotes  ------------------------------------------
