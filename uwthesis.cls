@@ -231,6 +231,7 @@
 \newcommand\jrasc{\ref@jnl{JRASC}}%   % Journal of the RAS of Canada 
 \newcommand\memras{\ref@jnl{MmRAS}}%  % Memoirs of the RAS 
 \newcommand\mnras{\ref@jnl{MNRAS}}%   % Monthly Notices of the RAS 
+\newcommand\psj{\ref@jnl{PSJ}}
 \newcommand\pra{\ref@jnl{PhRvA}}% % Physical Review A: General Physics 
 \newcommand\prb{\ref@jnl{PhRvB}}% % Physical Review B: Solid State 
 \newcommand\prc{\ref@jnl{PhRvC}}% % Physical Review C 
