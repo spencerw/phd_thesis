@@ -39,6 +39,26 @@ sensitively on the thermodynamic structure of the gas disk \cite{ayliffe10, bits
 
 Alternatively, these planets may have formed in situ, having been constructed only from the local mass budget of the disk. This appears to be the case for the gaseous envelopes of hot Jupiters formed near the inner edge of the disk \cite{bailey18}, although it is not clear whether the cores of these worlds require a migration model. Currently, there are no measurements constraining the mass budget of the innermost regions of planet-forming disks, so the initial conditions for in situ models tend to rely on wild speculation. By enhancing the solid surface density by a factor of $\sim$ 100 relative to the inner solar system, \cite{hansen12} was able to form compact multiplanet super-Earth systems without invoking any kind of planet migration. In situ formation may be particularly prevalent around low mass stars, as magnetically-driven disk winds tend to flatten out the radial gas density profile, which balances out the inner and outer torques from tidally-driven migration \cite{ogihara18}. One should note that no in situ models have yet to produce resonant chains of planets, so it seems likely that gas disk migration likely plays a role at least for the subset of planetary systems found in this type of configuration.
 
+Compared to planet formation models that involve gas disk-driven migration, an in situ model is relatively straightforward 
+(although expensive) to model, involving only mutual gravitational interactions and the occasional collision. In (Wallace + Quinn 
+2023, cite once published), we used a tree-based N-body code to follow the accumulation of near realistic-sized planetesimals 
+into protoplanets at short orbital period. We showed that oligarchic growth \cite{kokubo98}, which gives rise to a bimodal 
+population of protoplanets and residual planetesimals, does not operate at arbitrarily short orbital periods. In addition, the 
+boundary between oligarchic and non-oligarchic growth should be expected to lie somewhere in the middle of a typical STIP.
+
+In this work, we use a hybrid symplectic N-body code to grow the protoplanet systems from (Wallace + Quinn 2023, cite once 
+published) to completion. These comprise the first ever end-to-end N-body simulations that directly follow the growth of the 
+smallest gravitational aggregates to full-sized terrestrial planets. In section \ref{sec:}, we describe the simulation code we use, 
+along with how previous protoplanet simulations are used to construct the initial conditions for the final assembly phase. In 
+section \ref{sec:}, we examine the final orbital architectures of the simulated STIPs, and investigate whether the accretion mode 
+boundary persists in any measurable way. In section \ref{sec:}, we compare our results with a set of simulations run starting with 
+a more `typical' distribution of fully-formed, evenly spaced protoplanets and show that a more self-consistent treatment tends to 
+result in a subset of systems undergoing a potentially destructive phase in the inner disk. Due to the stochasticity of our results, 
+we use the simulation snapshots from (Wallace + Quinn 2023, cite when published) to train a neural network to produce an 
+infinite set of qualitatively similar, but numerically distinct initial conditions and then compare these with the full simulation runs. 
+Finally, we conclude in section \ref{sec:} and discuss whether the absence of any short-period planets in the solar system might 
+point toward a largely in situ formation history.
+
 % Text from NSF proposal:
 
 %With the number of confirmed exoplanets now exceeding 4000, there is now a large enough statistical sample from which to test planet formation theories. The most striking trend in this sample is the prevalence of planets with orbital periods shorter than that of Mercury. Many of these planets come in closely-packed multiples \citep{2014ApJ...790..146F}, known as systems of tightly packed inner planets (STIPs). So far, nearly all STIPs have been found around M stars \citep{2015ApJ...807...45D}. Extending the minimum-mass solar nebula (MMSN) model \citep{1981PThPS..70...35H} down to $\approx$ 0.05 AU, where the inner edge of many protoplanetary disks are thought to be \citep{1997AJ....114..288M} yields several extra Earth masses of material. Explaining why this material is missing from the solar system, but not some exoplanetary systems, is a key question that a complete theory of planet formation must be able to explain.
