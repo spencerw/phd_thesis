@@ -55,18 +55,133 @@ into protoplanets at short orbital period. We showed that oligarchic growth \cit
 population of protoplanets and residual planetesimals, does not operate at arbitrarily short orbital periods. In addition, the 
 boundary between oligarchic and non-oligarchic growth should be expected to lie somewhere in the middle of a typical STIP.
 
-In this work, we use a hybrid symplectic N-body code to grow the protoplanet systems from (Wallace + Quinn 2023, cite once 
-published) to completion. These comprise the first ever end-to-end N-body simulations that directly follow the growth of the 
-smallest gravitational aggregates to full-sized terrestrial planets. In section \ref{sec:}, we describe the simulation code we use, 
-along with how previous protoplanet simulations are used to construct the initial conditions for the final assembly phase. In 
-section \ref{sec:}, we examine the final orbital architectures of the simulated STIPs, and investigate whether the accretion mode 
-boundary persists in any measurable way. In section \ref{sec:}, we compare our results with a set of simulations run starting with 
-a more `typical' distribution of fully-formed, evenly spaced protoplanets and show that a more self-consistent treatment tends to 
-result in a subset of systems undergoing a potentially destructive phase in the inner disk. Due to the stochasticity of our results, 
-we use the simulation snapshots from (Wallace + Quinn 2023, cite when published) to train a neural network to produce an 
-infinite set of qualitatively similar, but numerically distinct initial conditions and then compare these with the full simulation runs. 
-Finally, we conclude in section \ref{sec:} and discuss whether the absence of any short-period planets in the solar system might 
-point toward a largely in situ formation history.
+In this work, we use a hybrid symplectic N-body code to grow the protoplanet systems from (Wallace + Quinn 2023, cite once published) to completion. These comprise the first ever end-to-end N-body simulations that directly follow the growth of the smallest gravitational aggregates to full-sized terrestrial planets. In section \ref{sec:numerical}, we describe the simulation code we use, along with how previous protoplanet simulations are used to construct the initial conditions for the final assembly phase. In section \ref{sec:results}, we examine the final orbital architectures of the simulated STIPs, and investigate whether the accretion mode boundary persists in any measurable way. In section \ref{sec:typicalICs}, we compare our results with a set of simulations run starting with a more `typical' distribution of fully-formed, evenly spaced protoplanets and show that a more self-consistent treatment tends to result in a subset of systems undergoing a potentially destructive phase in the inner disk. Due to the stochasticity of our results, we use the simulation snapshots from (Wallace + Quinn 2023, cite when published) to train a neural network to produce an infinite set of qualitatively similar, but numerically distinct initial conditions and then compare these with the full simulation runs in section \ref{sec:neuralICs}. Finally, we conclude in section \ref{sec:discuss} and discuss whether the absence of any short-period planets in the solar system might point toward a largely in situ formation history.
+
+% Plots to make:
+% 1 A summary of the initial conditions from the ChaNGa simulations, period-ecc, period-mass
+% 2 time-Period plot of ChaNGa-genga simulations (full page?) with collisions overlaid
+% 3 period-mass for final genga snapshots for each surface density profile
+% 4 composition plots with arbitrary snowline for final genga snapshots
+% 5 period-mass and period-ecc plots for full genga and iso sims
+% 6 composite time-period plot for all collisions in full changa+genga and iso sims
+% 7 collision speed plots for full changa+genga and iso sims
+% 8 plot planetary architectures with markers for destroyed planets, full changa+genga and iso sims
+% 9 diagram explaining how GAN model works
+% 10 corner plot showing training and synthetic data
+% 11 sdv data quality plots
+% 12 period-mass and period-ecc plots comparing changa+genga full sims and synthetic sims
+% 13 time-period plot for changa+genga full sims and synthetic sims
+% 14 corner plot comparing rmc, amd, mean_ecc and n_pl for full sims, syntheic sims and iso sims
+% 15 collision speed plots for full changa+genga and synthetic sims
+% 16 plot planetary architectures with markers for destroyed planets, full changa+genga and synthetic sims
+
+\section{Numerical Methods} \label{sec:numerical}
+
+\begin{figure*}
+\begin{center}
+    \includegraphics[width=\textwidth]{figures/stip/changa_ics.png}
+    \caption{Figure caption goes here.\label{fig:changa_ics}}
+\end{center}
+\end{figure*}
+
+\section{Results} \label{sec:results}
+
+\begin{figure*}
+\begin{center}
+    \includegraphics[width=\textwidth]{figures/stip/full_coll_evo.png}
+    \caption{Figure caption goes here.\label{fig:full_coll_evo}}
+\end{center}
+\end{figure*}
+
+\begin{figure*}
+\begin{center}
+    \includegraphics[width=\textwidth]{figures/stip/per_mass_full.png}
+    \caption{Figure caption goes here.\label{fig:per_mass_full}}
+\end{center}
+\end{figure*}
+
+\begin{figure}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/stip/snowline.png}
+    \caption{Figure caption goes here.\label{fig:snowline}}
+\end{center}
+\end{figure}
+
+\section{Comparison With Typical Planet Formation ICs} \label{sec:typicalICs}
+
+\begin{figure*}
+\begin{center}
+    \includegraphics[width=\textwidth]{figures/stip/per_mass_ecc_iso_comp.png}
+    \caption{Figure caption goes here.\label{fig:per_mass_ecc_iso_comp}}
+\end{center}
+\end{figure*}
+
+\begin{figure*}
+\begin{center}
+    \includegraphics[width=\textwidth]{figures/stip/full_coll_iso_comp.png}
+    \caption{Figure caption goes here.\label{fig:full_coll_iso_comp}}
+\end{center}
+\end{figure*}
+
+\begin{figure}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/stip/impact_iso_comp.png}
+    \caption{Figure caption goes here.\label{fig:impact_iso_comp}}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/stip/architectures_iso_comp.png}
+    \caption{Figure caption goes here.\label{fig:architectures_iso_comp}}
+\end{center}
+\end{figure}
+
+\section{Training a Neural Network to Synthesize ICs} \label{sec:neuralICs}
+
+\begin{figure*}
+\begin{center}
+    \includegraphics[width=\textwidth]{figures/stip/real_syn_corner.png}
+    \caption{Figure caption goes here.\label{fig:real_syn_corner}}
+\end{center}
+\end{figure*}
+
+\begin{figure*}
+\begin{center}
+    \includegraphics[width=\textwidth]{figures/stip/per_mass_ecc_syn_comp.png}
+    \caption{Figure caption goes here.\label{fig:per_mass_ecc_syn_comp}}
+\end{center}
+\end{figure*}
+
+\begin{figure*}
+\begin{center}
+    \includegraphics[width=\textwidth]{figures/stip/full_coll_syn_comp.png}
+    \caption{Figure caption goes here.\label{fig:full_coll_syn_comp}}
+\end{center}
+\end{figure*}
+
+\begin{figure*}
+\begin{center}
+    \includegraphics[width=\textwidth]{figures/stip/corner_full_syn_iso.png}
+    \caption{Figure caption goes here.\label{fig:corner_full_syn_iso}}
+\end{center}
+\end{figure*}
+
+\begin{figure}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/stip/impact_syn_comp.png}
+    \caption{Figure caption goes here.\label{fig:impact_syn_comp}}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/stip/architectures_syn_comp.png}
+    \caption{Figure caption goes here.\label{fig:architectures_syn_comp}}
+\end{center}
+\end{figure}
+
+\section{Summary and Discussion} \label{sec:discuss}
 
 % Text from NSF proposal:
 
