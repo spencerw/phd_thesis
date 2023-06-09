@@ -149,7 +149,17 @@ As with the {\sc ChaNGa} simulations, every collision results in a perfect merge
 
 \subsection{Typical Planet Formation ICs: Isolation Mass Embryos}
 
-% Talk about isolation mass ICs here as well
+We also construct a set of initial conditions to match a more typical scenario for an N-body simulation of terrestrial planet formation. Here, protoplanets throughout the disk are already fully formed and roughly evenly spaced. Although not as realistic, this type of setup is much simpler to construct and requires far fewer self-interacting bodies, which is a common point of trouble for most planet  formation simulations.
+
+As with the planetesimal disk, the protoplanets are placed on orbits between 1 and 100 days in orbital period, and the disk is constructed to contain the same amount of total mass (X earth masses). To place protoplanets, we begin at the outer disk edge and calculate the local isolation mass \cite{kokubo02}
+
+\begin{equation}\label{eq:iso}
+	M_{iso} = \left[ \frac{\left( 2 \pi a^2 \Sigma \tilde{b} \right)^3}{3 M_{*}} \right]^{1/2},
+\end{equation}
+
+\noindent where a is the current semimajor axis, $\Sigma$ is the local solid surface density (using $\delta = 1.5$) and $\tilde{b}$ is the local feeding zone size (in units of the Hill radius). Starting at the outer disk edge, protoplanets are place one-by-one and $\tilde{b}$ is then randomly chosen to be between 5 and 10. The current semimajor axis is then decremented by $\tilde{b}$, the local isolation mass is recalculated and another protoplanet is placed. This process repeats until the inner disk edge is reached.
+
+The eccentricities and inclinations are randomly drawn from a uniform distribution $\in \left[ 0, 0.01 \right]$ and the longitude of periastron, longitude of ascending node and mean anomaly are randomly drawn from a uniform distribution $\in \left[ 0, 2 \pi \right]$. In total, 5 sets of initial conditions using different random number seeds are constructed and integrated for 1 Myr.
 
 \section{Results} \label{sec:results}
 
@@ -164,25 +174,37 @@ In all cases, its apparent that the bodies in the non-oligarchic growth region (
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/stip/full_coll_evo.png}
-    \caption{Figure caption goes here.\label{fig:full_coll_evo}}
+    \caption{The evolution of the orbits of some of the last surviving bodies in the $\delta = 1.5$ simulations. Collisions are indicated with colored triangles, where the size and color denotes the relative mass of the body that was consumed in the merger. Green curves indicate bodies which survived through the end of the simulation and the line width indicates their relative mass. The vertical blue line marks the time at which the {\sc ChaNGA} snapshots were passed to {\sc genga}.\label{fig:full_coll_evo}}
 \end{center}
 \end{figure*}
+
+Next, we examine the final configurations of the simulated planetary systems. In figure \ref{fig:per_mass_full}, we show the final period-mass distributions for all three choices of the initial surface density profile. Planets in the same system are connected by a solid line and each choice of random number seed for the initial conditions is shown as a different color. In most cases, the planet mass increases with orbital period and then turns over at some intermediate value. The turnover distance appears to be inversely proportional to the power law slope of the initial planetesimal disk $\delta$. In addition, there is some significant scatter in the final planetary architectures formed which is particularly prevalent for smaller values of $\delta$. This is driven by the role that chaos plays during the giant impact phase. In section \ref{sec:neuralICs}, we will revisit this aspect of the simulations and use a neural network to generate a much larger set of late-stage initial conditions which can then be evolved with {\sc genga}.
 
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/stip/per_mass_full.png}
-    \caption{Figure caption goes here.\label{fig:per_mass_full}}
+    \caption{Final period-mass configurations for the planets formed in all fifteen simulations. Each panel contains a set of simulations using a different mass surface density profile. Points connected by lines represent planets from the same simulation snapshot. Each color represents a set of initial conditions constructed from a different random number seed.\label{fig:per_mass_full}}
 \end{center}
 \end{figure*}
+
+Having directly tracked every collision starting from the planetesimal phase allows us to make composition predictions for the resulting planets. To do so, we construct a collision tree for each planet in the final simulation snapshots, where the root node is the planet itself and the leaf nodes correspond to the initial mass planetesimals that went into its assembly. We place a snowline partway through the disk and for each planet, calculate the fraction of consumed planetesimals which originated from beyond the snowline location. Due to the fact that the inflated collision cross sections used during the planetesimal accretion phase alter the location of the accretion mode boundary in the disk (see Wallace + Quinn 2023), along with the fact that the snow line locations should be expected to vary widely over the course of the central star's pre-main sequence evolution \cite{baraffe15}, we choose to simply place a static snowline at 50 days in orbital period.
+
+Figure \ref{fig:snowline} shows the expected wet/dry compositions of the planetary systems formed in the $\delta = 1.5$ simulations. Each row of points on the y-axis corresponds to a separate iteration of the simulation and the point sizes indicate relative masses. The blue shading represents the total mass fraction of accreted planetesimals that originated from beyond the snowline, which is indicated by a vertical line. In all cases, we see that water-rich material is able to be incorporated into planets far interior to the snowline location. In one case, a significantly dry planet eventually ends up well beyond the snowline.
+
+As our model is purely in-situ and does not incorporate any significant dissipative forces from the gas disk, one would not expect any resonant chains to form. However, some recent work \cite{izidoro17, raymond18} has shown that super-Earths in resonant chain configurations can later destabilize. One would therefore wonder whether there is any distinguishable difference between a super-Earth system that had formed purely in-situ, and one that underwent convergent migration and was then destabilized. \cite{raymond18} found that the inward migration of wet embryos can actually concentrate and consolidate rocky material near the inner edge of the disk. This quality is also present in our in-situ systems. \cite{izidoro17}, however, found that only about 50 percent of resonant chains eventually go unstable, while 75 percent must do so to match observations. Given that our in-situ systems appear rather qualitatively similar to the convergent migration, followed by destabilization driven systems seen by \cite{raymond18}, it may be the case that disk-driven migration simply doesn't operate for some fraction of STIPs.
 
 \begin{figure}
 \begin{center}
     \includegraphics[width=0.5\textwidth]{figures/stip/snowline.png}
-    \caption{Figure caption goes here.\label{fig:snowline}}
+    \caption{Final compositions of planets from the five $\delta = 1.5$ simulations. Point sizes indicate relative mass and the pie fractions indicate the amount of wet/dry material incorporated into each planet. A snow line is placed at 50 days in orbital period and all planetesimals that originate from beyond this location are assumed to be wet.\label{fig:snowline}}
 \end{center}
 \end{figure}
 
 \section{Comparison With Typical Planet Formation ICs} \label{sec:typicalICs}
+
+The simulations presented in this work are not the first to investigate the outcome of an in-situ model on the formation of STIPs (see \cite{hansen12}). However, this work does self-consistently follow the terrestrial planet formation process from some of the smallest gravitationally bound objects, which is not the case for most planet formation N-body simulations. Typically, these types of simulations begin with either a set of equal-mass embryos placed in a wide annulus \cite{obrien06}, or a set of regularly spaced embryos that follow the local isolation mass of the disk (e.g. \cite{raymond05, raymond06, hansen12}). There are two implicit assumptions made in these models: 1. The embryo formation process behaves in a self-similar manner everywhere in the disk. 2. The embryo formation process has fully completed everywhere in the disk before the giant impact phase initiates. Assumption number two is generally valid for the inner solar system, as the planetesimal accretion timescale is much shorter than the instability timescale which gives rise to the giant impact phase \cite{chambers96}. However, assumption number one is not physically motivated.
+
+As we showed in (Wallace + Quinn 2023), the oligarchic growth process, which gives rise to planetary embryos, should only be expected to operate down to $\sim$ 5 days in orbital period. Furthermore, the late-stage instability that initiates collisions between protoplanets is a nonlinear process and there have yet to be any investigations of how it behaves at short period. Both of these concerns are naturally addressed in the simulations we present in this chapter. Except for the fact that the non-oligarchic accretion boundary has been moved out by a factor of a few in orbital period due to the inflation of the collision cross sections during the planetesimal growth phase, the state of the protoplanets at the beginning of the {\sc genga} simulations is free from any simplifying assumptions. To understand the influence that these simplifications made in typical N-body simulations of planet formation have on the final architectures of the systems, we compare our $\delta = 1.5$ simulations with a set of late-stage simulations which begin with fully-formed, isolation mass embryos in a disk with an identical mass profile.
 
 \begin{figure*}
 \begin{center}
