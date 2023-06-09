@@ -5,7 +5,7 @@
 % Outline of formation theories, migration vs in-situ
 % Problems with migration models, in-situ simpler
 % Outline my previous paper
-% Motivation: does accretion boundary leave any imprint on final orbital arcitectures?
+% Motivation: does accretion boundary leave any imprint on final orbital architectures?
 
 \section{Introduction} \label{sec:intro}
 
@@ -55,7 +55,18 @@ into protoplanets at short orbital period. We showed that oligarchic growth \cit
 population of protoplanets and residual planetesimals, does not operate at arbitrarily short orbital periods. In addition, the 
 boundary between oligarchic and non-oligarchic growth should be expected to lie somewhere in the middle of a typical STIP.
 
-In this work, we use a hybrid symplectic N-body code to grow the protoplanet systems from (Wallace + Quinn 2023, cite once published) to completion. These comprise the first ever end-to-end N-body simulations that directly follow the growth of the smallest gravitational aggregates to full-sized terrestrial planets. In section \ref{sec:numerical}, we describe the simulation code we use, along with how previous protoplanet simulations are used to construct the initial conditions for the final assembly phase. In section \ref{sec:results}, we examine the final orbital architectures of the simulated STIPs, and investigate whether the accretion mode boundary persists in any measurable way. In section \ref{sec:typicalICs}, we compare our results with a set of simulations run starting with a more `typical' distribution of fully-formed, evenly spaced protoplanets and show that a more self-consistent treatment tends to result in a subset of systems undergoing a potentially destructive phase in the inner disk. Due to the stochasticity of our results, we use the simulation snapshots from (Wallace + Quinn 2023, cite when published) to train a neural network to produce an infinite set of qualitatively similar, but numerically distinct initial conditions and then compare these with the full simulation runs in section \ref{sec:neuralICs}. Finally, we conclude in section \ref{sec:discuss} and discuss whether the absence of any short-period planets in the solar system might point toward a largely in situ formation history.
+In this work, we use a hybrid symplectic N-body code to grow the protoplanet systems from (Wallace + Quinn 2023, cite once 
+published) to completion. These comprise the first ever end-to-end N-body simulations that directly follow the growth of the 
+smallest gravitational aggregates to full-sized terrestrial planets. In section \ref{sec:simulations}, we describe the simulation code 
+we use, along with how previous protoplanet simulations are used to construct the initial conditions for the final assembly phase. In 
+section \ref{sec:results}, we examine the final orbital architectures of the simulated STIPs, and investigate whether the accretion 
+mode boundary persists in any measurable way. In section \ref{sec:typicalICs}, we compare our results with a set of simulations 
+run starting with a more `typical' distribution of fully-formed, evenly spaced protoplanets and show that a more self-consistent 
+treatment tends to result in a subset of systems undergoing a potentially destructive phase in the inner disk. Due to the 
+stochasticity of our results, we use the simulation snapshots from (Wallace + Quinn 2023, cite when published) to train a neural 
+network to produce an infinite set of qualitatively similar, but numerically distinct initial conditions and then compare these with the 
+full simulation runs in section \ref{sec:neuralICs}. Finally, we conclude in section \ref{sec:discuss} and discuss whether the absence 
+of any short-period planets in the solar system might point toward a largely in situ formation history.
 
 % Plots to make:
 % 1 A summary of the initial conditions from the ChaNGa simulations, period-ecc, period-mass
@@ -75,16 +86,80 @@ In this work, we use a hybrid symplectic N-body code to grow the protoplanet sys
 % 15 collision speed plots for full changa+genga and synthetic sims
 % 16 plot planetary architectures with markers for destroyed planets, full changa+genga and synthetic sims
 
-\section{Numerical Methods} \label{sec:numerical}
+\section{Simulations} \label{sec:simulations}
+
+\subsection{Numerical Methods} \label{sec:numerical}
+
+A direct N-body model of the full collisional evolution of a system of terrestrial planets, starting from planetesimals, covers over 
+6 orders of magnitude in mass growth. Although main physics drivers are gravity and solid body collisions, the wide range of 
+timescales that must be resolved during the accretion process necessitate the use of a multi-phase integration scheme. Early 
+on, interactions between planetesimals are frequent and encounter timescales can be as short as $\sim$ hours (check this). 
+As planetary embryos form, the timescale for gravitational instability can lengthen to $10^{5}$ years \cite{chambers96}, while 
+the final planet assembly process can take Myrs. For traditional N-body codes that use a leapfrog integrator, Myr integrations 
+of a planetary system require $\sim 10^{10}$ timesteps, which is prohibitively long for even the most modest resolutions. To 
+circumvent this problem, a hybrid mixed variable symplectic (MVS) scheme \cite{chambers99} can be used, which greatly 
+reduces the number of timesteps required so long as close encounters are extremely infrequent.
+
+However, close encounters are certainly frequent during the planetesimal accretion process, and so a hybrid MVS scheme is 
+not appropriate here. To properly resolve the planetesimal accretion process, while still being able to integrate the planet 
+formation process to completion, we split our simulations into two separate phases. In the first phase, we track planetesimal 
+growth using the highly parallel N-body code {\sc ChaNGa}. Gravitational forces are calculated using a modified Barnes-Hut 
+\cite{barnes86} tree with hexadecapole expansions of the moment. For all of our simulations, we use a node opening criterion 
+of $\Theta_{BH}$ = 0.7. The equations of motion are integrated using a kick-drift-kick leapfrog scheme and collisions are 
+treated as solid spherical bodies which produce a complete and instantaneous merger. A more complete description of  
+{\sc ChaNGa} can be found in \cite{jetley08, menon15} and a description of the collision detection and resolution module, 
+which is largely based off of the implementation in PKDGRAV \cite{richardson94, richardson00}, can be found in 
+\cite{wallace19}.
+
+As the particle count diminishes and the encounter timescales lengthen, the final simulation snapshots from {\sc ChaNGa} are 
+passed to the hybrid MVS code {\sc genga} \cite{grimm14, grimm22}. Like {\sc mercury} \cite{chambers99}, {\sc genga} splits 
+the Hamiltonian into a Keplerian and perturbing part and solves these independently using a mixed variable symplectic 
+scheme. For close encounters, the perturbing part of the Hamiltonian becomes large and a Bulirsch-Stoer integrator takes over 
+to update the equations of motion for these particles. To permit larger close encounter groups, a heirarchical method with 
+multiple changeover functions is used, which acts to break the close encounters into multiple subgroups which can be 
+integrated independently. All of this work is done on GPU hardware, and can be done with up to 60,000 particles while running 
+up to 30x faster than {\sc Mercury}. For all of the {\sc genga} simulations presented in this work, we use a maximum subgroup 
+size of 512 particles and allow for 2 substeps on each level of the changeover function.
+
+\subsection{Initial Conditions} \label{sec:ics}
+
+Each simulation begins with an equal-mass disk of planetesimals with $m_{pl} = 5 \times 10^{22}$ g and $\rho_{pl} = 3$ g cm$^{-3}$ orbiting a 0.08 $M_{\odot}$ star. Semimajor axes of the bodies are randomly drawn between 1 and 100 days in orbital period such that the mass surface density profile follows
+
+\begin{equation}
+	\Sigma(r) = \textrm{10 g cm}^{-2} \times A \left( \frac{M_{*}}{M_{\odot}} \right) \left( \frac{r}{\textrm{1 AU}} \right)^{-\delta}
+\end{equation}
+where $M_{*}$ is the mass of the central star, 10 g
+cm$^{-2}$ is the surface density of the minimum-mass solar nebula
+\cite[MMSN]{hayashi81} at 1 AU, $A$ is an enhancement factor and $\delta$ is the power law index. Following \cite{hansen12} we use $A = 100$. To test the influence that the surface density profile has on the final planet configuration, we use $\delta$ = 0.5, 1.5 and 2.5. 
+
+Due to the stochasticity of the final assembly phase, we generate 5 distinct initial conditions with each configuration, each using a different random number seed. In all cases, the eccentricities and inclinations are drawn from a Rayleigh distribution with $\left< e^{2} \right>^{1/2} = 2\left<i^{2} \right>^{1/2} = e_{eq}$ \cite{ida93}. The eccentricity dispersion is set such that the viscous stirring timescale is in balance with the aerodynamic gas drag timescale. In both phases of the simulations, the gas surface density is a factor of 240 times larger than the solid surface density, and a power law index of 1.5 is used, even in the cases where the profile of the solids is steeper or shallower than this. In addition to being used to construct the initial conditions, the prescribed gas profile is used to apply a Stokes drag force to the growing planetesimals and protoplanets.
+
+To make the planetesimal accretion phase more computationally tractable, the collision cross sections of particles are inflated by a factor of 6. This acts to shorten the growth timescale and number of timesteps required to produce protoplanets without qualitatively changing the growth modes. The collision cross section inflation, however, does move the boundary between oligarchic and non-oligarchic growth in the disk outward by a factor of $\sim$ 10 in orbital period. In figure \ref{fig:changa_ics}, we show the eccentricity and mass distribution at the end of the planetesimal accretion phase for a simulation using $\delta$ = 1.5. For a full description of how the initial conditions were constructed, along with the details of the simulations and the limitations created by expanding the collision cross sections, see Wallace + Quinn 2023.
+
+Once the simulations reach a point where the remaining planetesimals and protoplanets reach a quasi-steady state, the results are converted into a set of initial conditions for {\sc genga}.  When doing so, the inflated collision cross sections are removed and the particle radii are reduced back to their proper physical values. Each of the simulation snapshots passed to {\sc genga} contain roughly 10,000-15,000 particles. These are each integrated for 1 Myr using a timestep size of 0.05 days a fully interacting set of particles. Bodies which fall within the radius of the star (X solar radii) or beyond the truncation radius (0.24 AU) are removed from the simulation. In all cases, roughly half of the remaining planetesimals eventually scatter beyond the outer truncation radius and are considered ejected. This allows the particle count to reduce enough to allow the simulations to complete in a reasonable amount of time.
+
+As with the {\sc ChaNGa} simulations, every collision results in a perfect merger, where the resulting particle takes on the center of mass position and velocity of the participating particles. For high-velocity impacts which happen towards the final assembly stage, this is almost certainly not a realistic assumption \cite{marcus09}. We will explore the implications of destructive giant impacts in section \ref{sec:typicalICs}.
 
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/stip/changa_ics.png}
-    \caption{Figure caption goes here.\label{fig:changa_ics}}
+    \caption{The period-eccentricity (left) and period-mass (right) distribution of a planetesimal growth simulation run to completion with {\sc ChaNGa}. A transition between non-oligarchic and oligarchic growth is visible around 40-60 days and is characterized by a change in the amount of residual planetesimals, along with a change in the masses of the protoplanets. The positions, velocities and masses of these bodies are then used as initial conditions for a {\sc genga} simulation, which is run until a fully-formed set of terrestrial planets are constructed.\label{fig:changa_ics}}
 \end{center}
 \end{figure*}
 
+\subsection{Typical Planet Formation ICs: Isolation Mass Embryos}
+
+% Talk about isolation mass ICs here as well
+
 \section{Results} \label{sec:results}
+
+\subsection{In-Situ Formation Starting from Planetesimals}
+
+One of the motivating questions for this work is whether a fully in-situ formation model leaves any distinct imprints of the orbital architecture of the resulting planets. By stitching together the snapshots from both phases of the simulation and reconciling the particle IDs, we can construct and examine the full history of the collision and phase space evolution for the entire ensemble of particles. In all cases, the planetesimal disks start out with just under $10^{6}$ particles and eventually consolidate into 5-10 super Earths, with around $10^{4}$ particles being ejected during the giant impact phase.
+
+In figure \ref{fig:full_coll_evo}, we show the evolution of the orbits and the timing of collisions between bodies in the standard MMSN profile ($\delta = 1.5$) simulations. The gray curves show the orbital periods of the last 100 bodies to exist in each iteration of the simulation. The green curves indicate bodies which survived until the end of the simulation, where the line width denotes relative mass. Overlaid on top of the evolution curves are triangle markers, whose position on the plots indicates the instantaneous orbital period and timing of each collision event. The size of the markers indicates the relative mass of the body participating in the collision. In all cases, the secondary (less massive) body's state is used to determine the size and placement of the marker. Finally, the vertical blue line indicates the time at which the simulation state was transferred from {\sc ChaNGa} to {\sc genga}.
+
+In all cases, its apparent that the bodies in the non-oligarchic growth region (P $<$ 40 d) behave in a qualitatively different way during the giant impact phase. Rather than scattering events and instability propagating from inside-out in the disk, the opposite appears to be true. The inner disk remains in a meta-stable state while the outer bodies undergo scattering and giant collisions first. We postulate that this is due to the presence of a residual planetesimal population in the outer disk, which acts to facilitate a gradual inward `random walk' of the protoplanets until they have a close encounter with another large body. This effect was also seen in \cite{murrayclay06} when modeling the outer solar system, and was even seen to facilitate capture of the planets into resonance. This effect was found to be largely resolution dependent and resonance capture was only possible with a sufficiently fine-grained planetesimal disk. In any case, we attribute the much more static state of the inner disk to the lack of residual planetesimals in this region.
 
 \begin{figure*}
 \begin{center}
