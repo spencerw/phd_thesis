@@ -209,9 +209,20 @@ As we showed in (Wallace + Quinn 2023), the oligarchic growth process, which giv
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/stip/per_mass_ecc_iso_comp.png}
-    \caption{Figure caption goes here.\label{fig:per_mass_ecc_iso_comp}}
+    \caption{The period-mass (left) and period-eccentricity (right) distributions of the simulations starting from planetesimals (colored points) and isolation mass embryos (gray points). Each planetary system is connected by a series of lines.\label{fig:per_mass_ecc_iso_comp}}
 \end{center}
 \end{figure*}
+
+In figure \ref{fig:per_mass_ecc_iso_comp}, we compare the period-mass and period-eccentricity distributions of the planetary systems formed starting from planetesimals and starting from isolation mass embryos (shown in gray). Qualitatively, the eccentricity distributions are remarkably similar between the two sets of initial conditions, despite the fact that the protoplanet eccentricites at the end of the planetesimal accretion simulations start off nearly an order of magnitude smaller than the isolation mass embryos. The period-mass distributions, however, show some noticeable differences.
+
+Overall, the isolation mass embryo simulations tend to form larger planets. There are twice as many $> 2 M_{\odot}$ planets using the fully formed isolation mass set of initial conditions. In addition, the mass in these simulations tends to be less radially concentrated, with every single set of initial conditions producing a super-Earth beyond 80 days in orbital period. In contrast, two of the simulations starting from planetesimals produce a truncated set of planets that do not extend beyond 60 days. Most noticeably, the isolation mass embryo simulations produce a wider variety of masses and eccentricities between sets of initial conditions. This highlights the more influential role that stochasticity plays in these simulations. One possibility for this difference comes from the fact that the isolation mass embryo simulations do not contain any planetesimals, and the gravitational kicks between embryos do not get damped out. A second possibility comes from the way in which the instability which gives rise to the giant impact phase propagates through the disk in each case. For the simulations starting from planetesimals, there is a qualitative difference between the inner and outer disk, and the onset of chaos may occur in a different fashion.
+
+To test this second hypothesis, we examine the timing and location of collisions in the disk for each set of simulations. In figure \ref{fig:full_coll_iso_comp}, we show ensemble of collisions recorded in all five versions of the simulations starting from planetesimals (blue points) and isolation mass embryos (orange points). The point sizes indicate the relative masses of bodies consumed in the merger events. The orbital period of each collision is calculated using the phase space state of the consumed body at the moment of impact. For the isolation mass simulations, the collision times are offset by the integration time of the {\sc ChaNGa} simulations because there is no prior planetesimal accretion phase.
+
+During the giant impact phase, there is a clear qualitative difference in the location and timing of protoplanet collisions between the two sets of simulations. For the isolation mass embryo simulations, giant impacts begin almost immediately at the inner edge of the disk and propagate outward over a timescale of $\sim 10^{4}$ years. For the simulations starting from planetesimals, the commencement of giant impacts is nearly simultaneous everywhere in the disk. Additionally, this phase seems to be much longer-lived, particularly beyond about 20 days in orbital period.
+
+The near-instantaneous initiation of the giant impact phase in the simulations starting from planetesimals is a possible explanation as to why the variation in the final masses and eccentricites of the resulting planets is smaller. In contrast to the isolation mass simulations, giant impacts occur nearly everywhere in the disk simultaneously, which acts to damp eccentricities and reduces the distance over which protoplanets can communicate. A smaller interaction distance therefore reduces the possible outcomes of the giant impact phase and produces a smaller scatter in the final masses and eccentricities. Because collisions tend to happen at perihelion \cite{levison03}, protoplanets that are simultaneously excited in the outer disk tend to collide in the inner disk, which explains why there are so few planets end up in the outer disk for this set of simulations. The isolation mass embryos, on the other hand, interact with the rest of the disk in an inside-out fashion. This dynamically excited outward-propagating boundary has the opportunity to interact the entire outer disk, which is still an a non-excited state. Between different iterations of the simulation, scattering events happen at different points along an excited protoplanets orbit, which widens the possibilities for the final orbital configurations of the resulting planets. (Talk about role of planetesimals as well?)
+
 
 \begin{figure*}
 \begin{center}
@@ -220,12 +231,23 @@ As we showed in (Wallace + Quinn 2023), the oligarchic growth process, which giv
 \end{center}
 \end{figure*}
 
+Lastly, we examine the relative collision velocities of growing protoplanets during the giant impact phase. \cite{volk15} proposed that the lack of short-period planets in the solar system is due to an earlier phase of violent instability in the inner disk which destroyed any such worlds. Given the sudden onset of instability in our simulations starting from planetsimals, one might wonder whether some of the later collisions should be destructive. Because all collisions result in perfect mergers in our simulations, this effect is not self-consistently captured, but we can examine the collision statistics afterwards to determine which planets might have undergone earlier destruction.
+
+In figure \ref{fig:impact_iso_comp}, we show the timing and speed of collisions between bodies larger than 0.01 $M_{\odot}$ in each set of simulations. The gray points denote collisions from the isolation mass simulations, while the colored points indicate collisions from the simulations started from planetesimals. The collision speeds on the y-axis are shown in units of the mutual escape velocity of the colliding particles. For super-Earth and smaller sized bodies, $v_{coll}/v_{esc} > 2$ tends to produce destructive collisions \cite{marcus09} and so we have marked this region of the figure with a horizontal dashed line. Solid lines connecting points indicate subsequent collisions between the same body.
+
+With the exception of a single high-speed collision around $T = 20,000$ yr, (and another collision right on the destruction/accretion boundary) none of the collisions from the isolation mass simulations can be roughly categorized as destructive. In contrast, every simulation starting from planetesimals eventually produces at least one destructive collision. In three of these cases, multi-collision excitation eventually leads to a destructive encounter, which is the same mechanism seen by \cite{volk15}.
+
+In figure \ref{fig:impact_iso_comp}, we show the final orbital architectures of all ten simulations. Here, point sizes indicate relative mass and the simulations starting from planetesimals are colored blue, while the isolation mass embryo simulations are colored gray. Planets that underwent a destructive collision during their giant impact phase are marked with a red X. For the simulations starting from planetesimals, the destructive collisions all involve the planets at the innermost edge of the disk. This is only the case for one of the isolation mass embryo simulations. 
+
 \begin{figure}
 \begin{center}
     \includegraphics[width=0.5\textwidth]{figures/stip/impact_iso_comp.png}
     \caption{Figure caption goes here.\label{fig:impact_iso_comp}}
 \end{center}
 \end{figure}
+
+Although $v_{coll}/v_{esc} > 2$ are expected to be at least partially destructive \cite{marcus09}, it is not immediately clear whether the debris should be expected to re-accrete onto other bodies or be entirely removed from the system. For small grains (1-10 microns), dust blow out can entirely eject material from the system on timescales much shorter than re-accretion. Larger grains (cm-sized) can be removed by PR drag on $10^{5}$ yr timescales. This is particularly efficient if the timescale for collisional grinding of debris is fast \cite{melis12}. For planetesimal-sized objects (100 km), gravitational scattering can eventually eject material. This was the eventual fate of most remaining planetesimals at the end of the {\sc ChaNGa} simulations.
+% Talk about caveat that we only integrated for 1 Myr
 
 \begin{figure}
 \begin{center}
