@@ -247,7 +247,8 @@ In figure \ref{fig:impact_iso_comp}, we show the final orbital architectures of 
 \end{figure}
 
 Although $v_{coll}/v_{esc} > 2$ are expected to be at least partially destructive \cite{marcus09}, it is not immediately clear whether the debris should be expected to re-accrete onto other bodies or be entirely removed from the system. For small grains (1-10 microns), dust blow out can entirely eject material from the system on timescales much shorter than re-accretion. Larger grains (cm-sized) can be removed by PR drag on $10^{5}$ yr timescales. This is particularly efficient if the timescale for collisional grinding of debris is fast \cite{melis12}. For planetesimal-sized objects (100 km), gravitational scattering can eventually eject material. This was the eventual fate of most remaining planetesimals at the end of the {\sc ChaNGa} simulations.
-% Talk about caveat that we only integrated for 1 Myr
+
+Another caveat is that the integration time we use (1 Myr) is only a small fraction of the age of most STIPs \cite{silvaaguirre15} and our results should only be interpreted as applicable to expected behavior during the gaseous disk phase of the planet formation process. The solar system is thought to be in a state of constant metastability, having an instability timescales that matches its current age \cite{laskar96}. The same is likely true for many exoplanetary systems as well (see \cite{deck12, lissauer12, lissauer13}). In addition, the small sample size of our 5 simulations in each configuration is unlikely to have captured the full extent of the effects of dynamical chaos during the giant impact phase. To address this second point, we train a neural network to produce a much larger set of qualitatively similar, but numerically distinct initial conditions to pass to {\sc genga}, which we describe in detail in the next section.
 
 \begin{figure}
 \begin{center}
@@ -257,6 +258,20 @@ Although $v_{coll}/v_{esc} > 2$ are expected to be at least partially destructiv
 \end{figure}
 
 \section{Training a Neural Network to Synthesize ICs} \label{sec:neuralICs}
+
+To fully capture the role that stochasticity plays during the protoplanet assembly phase, a much larger set of simulations is required. As we have shown in the previous section, using a typical arrangements of isolation mass embryos to set up the giant impact phase does not seem to be sufficient. Each of the planetesimal accretion simulations run with {\sc ChaNGa}, however, require about 80,000 CPU hours. Passing each of these simulations to {\sc genga} and integrating to 1 Myr requires another 200 or so GPU hours. The large particle count, in addition to the fact that different parts of the disk evolve semi-independently of each other, means that stochasticity does not play an important role during the planetesimal accretion phase and a small number of simulations is sufficient to capture the outcome of the embryo formation process. When trying to capture the full breadth of planetary architectures possible with our in situ model, it is most useful to focus our computational resources on the {\sc genga} simulations. Doing so requires a much larger set of late-stage initial conditions.
+
+Although there is very little qualitative variation between the {\sc ChaNGa} simulations run in each initial disk configuration, slight differences in the masses, positions and velocities of the embryos and planetesimals lead to significantly different planetary systems, due to the chaotic nature of the giant impact phase. To generate numerically distinct late-stage initial conditions requires an underlying model for orbital distributions of the planetesimals and embryos. Given the presence of the accretion boundary at short period, an analytic model is likely insufficient. Instead, we use the existing simulation snapshots to construct posterior distributions for the particles, and then randomly draw from these distributions to generate more initial conditions.
+
+\subsection{Training a Generative Adversarial Network}
+
+We use an unsupervised machine learning technique known as a Generative Adversarial Network (GAN). A GAN is a deep learning method \cite{goodfellow14}, that uses two separate neural networks, a generator and a discriminator, to train itself to produce an infinite collection of qualitatively similar datasets based on some input training data.
+
+GANs are most well-known for use in synthetic image generation, and first gained traction in the astronomy community when they were used to enhance \cite{schawinski17} and even produce entirely new galaxy images \cite{dia20}. GANs have also recently been applied to N-body simulations to do things such as map large-scale gas and temperature distributions \cite{troster19} and generate mock galaxy catalogs \cite{jagvaral22}. In the planetary domain, GANs have been used for exoplanet atmosphere retrieval \cite{zingales18} and even to supplement transit detection models \cite{dvash22}.
+
+In a traditional GAN, the discriminator and generator are pitted against each other. A noise vector is fed to the generator which is used to produce a synthetic dataset. The synthetic data is then fed to the discriminator, alongside the original training data. The discriminator then determines whether the two datasets are distinguishable. In the case that the synthetic data is classified as `fake', a loss function is calculated and the result is used in a backward pass through both neural networks to update the weights. Over many iterations, the generator improves its ability to produce authentic-looking synthetic data and the discriminator gets better at distinguishing between real and fake data. Once the discriminator reaches a point where roughly 50 percent of the synthetic data is classified as fake, the algorithm reaches an equilibrium and the generator is considered to be fully trained.
+
+To construct a generator, we use the {\sc CT-GAN} \cite{xu19} package to train a neural network on our planetesimal accretion simulation results.
 
 \begin{figure*}
 \begin{center}
