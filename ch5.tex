@@ -270,7 +270,11 @@ GANs are most well-known for use in synthetic image generation, and first gained
 
 In a traditional GAN, the discriminator and generator are pitted against each other. A noise vector is fed to the generator which is used to produce a synthetic dataset. The synthetic data is then fed to the discriminator, alongside the original training data. The discriminator then determines whether the two datasets are distinguishable. In the case that the synthetic data is classified as `fake', a loss function is calculated and the result is used in a backward pass through both neural networks to update the weights. Over many iterations, the generator improves its ability to produce authentic-looking synthetic data and the discriminator gets better at distinguishing between real and fake data. Once the discriminator reaches a point where roughly 50 percent of the synthetic data is classified as fake, the algorithm reaches an equilibrium and the generator is considered to be fully trained.
 
-To construct a generator, we use the {\sc CT-GAN} \cite{xu19} package to train a neural network on our planetesimal accretion simulation results.
+To construct a generator, we use the {\sc CTGAN} \cite{xu19} package to train a neural network on our planetesimal accretion simulation results. Traditional GANs are notoriously sensitive to issues such as non-convergence and mode collapse, both of which prevent the generator from ever being able to produce sufficiently varied and useful results. To combat these issues, {\sc CTGAN} models are trained using a WGAN loss function with a gradient penalty \cite{gulrajani17}. Updates to the generator and discriminator between iterations are done using an Adam optimizer \cite{kingma14}, which is a stochastic gradient descent algorithm. Both neural networks are updated using a learning rate of $2 \times 10^{-4}$.
+
+One challenge when working with unsupervised machine learning techniques is determining the best way to format and represent the training data. In the case of the our planetesimal accretion simulations, the residual planetesimals greatly outnumber the protoplanets, which causes the neural networks to place much more emphasis on the planetesimal distribution. One solution to this problem is to modify the loss function to give more weight to the protoplanets. {\sc CTGAN}, however, does not provide a way to modify the loss functions, and we found that this approach did not work well in our own experiments when constructing a toy model. A simpler solution is to give every particle in the data set a mass of $m_{0}$ and then duplicate points based on their original mass. In addition to expanding the size of the training data set by a factor of nearly 100, this causes the GAN algorithm to fall into a perpetual state of non-convergence.
+
+An even simpler solution that works well with our simulation data is to simply split the dataset in two, with a mass cut that cleanly separates the protoplanets from the remaining planetesimals. To train our GAN, we concatenate all of the final $\delta = 1.5$ {\sc ChaNGa} snapshots into a single table and place a mass cut at 0.03 $M_{\oplus}$ to split the dataset into two parts. The state of the particles are passed to the deep learning algorithm in terms of orbital period, and logarithmic eccentricity, logarithmic inclination and logarithmic mass. To quantify the accretion histories of the particles, we also include the `smooth accretion fraction' (see Wallace + Quinn 2023) as a separate column in the training sets. Doing so naturally incorporates the effects of the oligarchic and non-oligarchic accretion modes into the data and substantially helps to tighten up the period-mass relation of the synthetic protoplanets.
 
 \begin{figure*}
 \begin{center}
@@ -279,6 +283,12 @@ To construct a generator, we use the {\sc CT-GAN} \cite{xu19} package to train a
 \end{center}
 \end{figure*}
 
+In figure \ref{fig:real_syn_corner}, we show the correlations between the features used to train the GANs in the training (blue) and synthetic (orange) datasets after 5,000 epochs. The discretization of the masses (due to growth via perfect mergers) is clearly visible in the synthetic data, despite no enforcement of this property in the model. This characteristic of the mass data, however, appear to produce some additional small artificial peaks in the synthetic mass distribution at equal intervals in logarithmic space. To circumvent this issue, we also tried training the models using linear masses but it did not appear to reconcile the match between the real and synthetic mass distributions. Due to the weak, indirect role that planetesimals play during the giant impact phase, we chose to leave the synthetic mass distribution as-is.
+
+To construct initial conditions from the synthetic data, particles are drawn one-by-one until the total mass exceeds the average disk mass of the full simulations. This is done separately for the planetesimal and embryo populations, and the total masses of each are matched accordingly. Out of the 100 sets of initial conditions we construct, the synthetic particle count matches the original particle count to within 5 percent, which is an encouraging sign that the generator is properly capturing the physical state of the disk.
+
+Once particles are drawn using the five features that the neural networks were trained on, the longitude of periastron, longitude of ascending node and mean anomaly are randomly drawn $\in \left[0, 2 \pi \right)$ for each particle. The six orbital elements are then converted to cartesian coordinates and particle radii are calculated using the synthetic masses under the assumption that the bulk density is 3 g $cm^{-3}$. All 100 sets of initial conditions are passed to {\sc genga} and integrated to 1 Myr.
+
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/stip/per_mass_ecc_syn_comp.png}
@@ -286,12 +296,18 @@ To construct a generator, we use the {\sc CT-GAN} \cite{xu19} package to train a
 \end{center}
 \end{figure*}
 
+In figure \ref{fig:per_mass_ecc_syn_comp}, we show the resulting period-mass and period-eccentricity distributions of the synthetic simulations (gray points) alongside the full simulations (colored points). Here, planets from the same system are connected by solid lines. The masses of the synthetic planets are quite similar to those in the full simulation, with the turnover in the period-mass relation occurring at roughly the same orbital period (20 days). The period-eccentricity distribution of both sets of simulations appears quite flat and both exhibit a similar mean eccentricity, which indicates that the giant impact phase plays out in a very similar way for the synthetic simulations. TODO: KS-test for real and synthetic mass, eccentricity distributions, the distributions are shown in figure 5.12.
+
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/stip/full_coll_syn_comp.png}
     \caption{Figure caption goes here.\label{fig:full_coll_syn_comp}}
 \end{center}
 \end{figure*}
+
+Next, we examine the timing and location of collisions between the full and synthetic simulations. This is shown in figure \ref{fig:full_coll_syn_comp}, where point sizes indicate relative mass of the body consumed in a merger and the point location indicates the timing and orbital period (calculated from the instantaneous position and velocity at the moment of impact) of the body. In the inner disk, collisions take about 100 yr to get underway for the full simulations, while giant impacts begin almost immediately for the synthetic simulations. Despite the features of the training set and the synthetic dataset matching up well in this region of the disk, the generator does not appear to be producing embryos in a metastable configuration here. To date, most deep learning techniques require more than just particle phase space information at a single snapshot in time to make accurate stability classifications (see \cite{tamayo20, cranmer21}), so it is not unexpected that our neural network can't reproduce a metastable configuration of embryos.
+
+With the exception of the inner 20 day orbital period region of the disk, giant impacts occur in a nearly instantaneous fashion for both the full and synthetic simulations, which is promising evidence that the synthetic data is still reproducing some of the same dynamical behavior as the training dataset. This also suggests that the early onset of giant impacts in the synthetic inner disk is not affecting the growth of planets elsewhere and is not a major concern. In addition, the resulting planetary masses in the inner disk are quite similar.
 
 \begin{figure*}
 \begin{center}
