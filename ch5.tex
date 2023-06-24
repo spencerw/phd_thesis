@@ -1,12 +1,5 @@
 \chapter {In-Situ Formation of STIPs}
 
-%Intro outline:
-% What are STIPs, why important
-% Outline of formation theories, migration vs in-situ
-% Problems with migration models, in-situ simpler
-% Outline my previous paper
-% Motivation: does accretion boundary leave any imprint on final orbital architectures?
-
 \section{Introduction} \label{sec:intro}
 
 One of the most surprising and intriguging results from NASA's \textit{Kepler} mission was the prevalance 
@@ -35,7 +28,7 @@ resonant chains \cite{lissauer11, fabrycky14}. One potential explanation for thi
 destabilization after convergent migration has completed and the gaseous disk subsequently dissipates 
 \cite{izidoro17, izidoro21}. However, the detailed behavior of tidal torque-driven migration is still very uncertain and it is not 
 entirely clear when and how convergent migration should operate. The strength and even direction of tidal migration depends 
-sensitively on the thermodynamic structure of the gas disk \cite{ayliffe10, bitsch13}.
+sensitively on the thermodynamic structure of the gas disk \cite{ayliffe10, bitsch13}. Furthermore, resonant locking often requires a specific amount of dissipation for a given planet mass \cite{batygin23}.
 
 Alternatively, these planets may have formed in situ, having been constructed only from the local mass budget of the disk. This 
 appears to be the case for the gaseous envelopes of hot Jupiters formed near the inner edge of the disk \cite{bailey18}, although 
@@ -68,23 +61,7 @@ network to produce an infinite set of qualitatively similar, but numerically dis
 full simulation runs in section \ref{sec:neuralICs}. Finally, we conclude in section \ref{sec:discuss} and discuss whether the absence 
 of any short-period planets in the solar system might point toward a largely in situ formation history.
 
-% Plots to make:
-% 1 A summary of the initial conditions from the ChaNGa simulations, period-ecc, period-mass
-% 2 time-Period plot of ChaNGa-genga simulations (full page?) with collisions overlaid
-% 3 period-mass for final genga snapshots for each surface density profile
-% 4 composition plots with arbitrary snowline for final genga snapshots
-% 5 period-mass and period-ecc plots for full genga and iso sims
-% 6 composite time-period plot for all collisions in full changa+genga and iso sims
-% 7 collision speed plots for full changa+genga and iso sims
-% 8 plot planetary architectures with markers for destroyed planets, full changa+genga and iso sims
-% 9 diagram explaining how GAN model works
-% 10 corner plot showing training and synthetic data
-% 11 sdv data quality plots
-% 12 period-mass and period-ecc plots comparing changa+genga full sims and synthetic sims
-% 13 time-period plot for changa+genga full sims and synthetic sims
-% 14 corner plot comparing rmc, amd, mean_ecc and n_pl for full sims, syntheic sims and iso sims
-% 15 collision speed plots for full changa+genga and synthetic sims
-% 16 plot planetary architectures with markers for destroyed planets, full changa+genga and synthetic sims
+% Also mention that we want to measure occurrence rates
 
 \section{Simulations} \label{sec:simulations}
 
@@ -262,6 +239,8 @@ To fully capture the role that stochasticity plays during the protoplanet assemb
 
 Although there is very little qualitative variation between the {\sc ChaNGa} simulations run in each initial disk configuration, slight differences in the masses, positions and velocities of the embryos and planetesimals lead to significantly different planetary systems, due to the chaotic nature of the giant impact phase. To generate numerically distinct late-stage initial conditions requires an underlying model for orbital distributions of the planetesimals and embryos. Given the presence of the accretion boundary at short period, an analytic model is likely insufficient. Instead, we use the existing simulation snapshots to construct posterior distributions for the particles, and then randomly draw from these distributions to generate more initial conditions.
 
+% Lead into synthetic simulations: want to construct statistical sample to measure occurrence rates
+
 \subsection{Training a Generative Adversarial Network}
 
 We use an unsupervised machine learning technique known as a Generative Adversarial Network (GAN). A GAN is a deep learning method \cite{goodfellow14}, that uses two separate neural networks, a generator and a discriminator, to train itself to produce an infinite collection of qualitatively similar datasets based on some input training data.
@@ -358,10 +337,25 @@ In figure \ref{fig:impact_syn_comp}, we show the timing and impact speed (in uni
 
 The final orbital architectures of the full (blue points) and synthetic simulations (gray points), including planets that underwent $v/v_{esc} > 2$ collisions during the giant impact phase are shown in figure \ref{fig:architectures_syn_comp}. Point sizes indicate the relative masses of planets, and red X's denote planets with a destructive collision in their accretion history. With the exception of two simulations, every synthetic system has a potentially destroyed planet within the inner $\sim 10$ or so days in orbital period. Unlike the full simulations, however, it is often not the innermost planet that undergoes a destructive collision. Instead, a much wider range of planets in the inner 20 days of the disk experience a destruction event. We attribute this difference to the much more immediate and widespread group of giant impacts that occur for P $< 20$ d in the synthetic case (see figure \ref{fig:full_coll_syn_comp}). Regardless of this difference, both sets of simulations should be expected to destroy or erode the innermost planets in most cases, although the region of destruction is a little bit narrower for the simulations followed from planetesimals.
 
-% Final point: does the set of synthetic simulations tell us anything we couldnt infer from the 5 full simulations?
+\subsection{Matching Occurrence Rates With Kepler Planets}
+
+Having a much larger sample of simulated planets from the synthetic simulations opens up the possibility of making some statistical comparisons with observed occurrence rates. \cite{petigura18} performed an analysis of 2,025 planet candidates from the California Kepler Survey and found a turnover in the orbital occurrence rate for super-Earths around 6.5 days. This turnover was only very weakly present for sub-Neptune planets, and was found to be entirely absent for sub-Saturns and Jupiters.
+
+\begin{figure}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/stip/occurrence_syn.png}
+    \caption{Figure caption goes here.\label{fig:occurrence_syn}}
+\end{center}
+\end{figure}
+
+In figure \ref{fig:occurrence_syn} we show the occurrence rates of planets from the synthetic simulations as a function of orbital period, in bins of 0.25 dex. Alongside the synthetic occurrence rates are the super-Earth occurrence rates measured by \cite{petigura18}. Beyond about 10 days, the two distributions match up remarkably well. Although we do not perform a full MCMC analysis as \cite{petigura18} does, it appears likely that the turnover in the synthetic simulations lies slightly further out than 6.5 days. Both the inferred initial solid surface density distribution of the CKS sample (see figure 2 of \cite{dai20}), along with the solid surface density distribution of our synthetic planets follow a single power law all the way to the shortest-period planets. This suggests that the steeper slope seen for the synthetic occurrence rate must be due to a difference in the way protoplanets consolidate in the inner disk. 
+
+Regardless of what drives the difference in the short period occurrence rate, the observed turnover at 6.5 days was postulated by \cite{petigura18} to be a sign of in-situ formation. \cite{lee17} found that the turnover in the period occurrence rates of Kepler planets could be reproduced by assuming that in-situ formation distributed planets randomly throughout the disk and then truncating the disks at the location of the stellar co-rotation radius. Our results in figure \ref{fig:occurrence_syn}, however, show that this cannot be the case. In all of our simulations, the disk is truncated at 1 day, but the turnover is closer to 10 days. This is a sign that even with an in-situ model, the connection between the solid surface density profile and the final orbital configuration is more nuanced. Furthermore, \cite{batygin23} found that the magnetospheric truncation radius should lie closer to 3 days and should not vary with the type of host star.
+
+Lastly, the observed turnover period for super-Earths is found to be dependent on the metallicity of the host star (see figure 9a of \cite{petigura18}). Assuming that stellar metallicity is broadly correlated with the bulk densities of the planet-building material, this suggests that fluffier planetesimals should move the turnover in occurrence rate to longer orbital periods. Given that the collision cross sections were artificially enhanced in our planetesimal accretion simulations, one would expect that the simulated location of the turnover should move further out. If this is the case, it also suggests that the boundary between oligarchic and non-oligarchic accretion seen by (Wallace + Quinn 2023) may play a role in producing the turnover in the observed super-Earth occurrence rate and is therefore another piece of evidence to suggest that in-situ formation may be the primary pathway to build these compact multi-planet systems.
 
 \section{Summary and Discussion} \label{sec:discuss}
 
-In this work, we have presented the first-ever N-body simulations that directly follow the planet formation process from the smallest gravitationally bound bodies (planetesimals) up to super-Earth sized planets using a disk wide enough to produce an entire terrestrial system. There are no tidal interactions with the gas disk and the final positions of the planets are set entirely by gravitational scattering and collision events, so the formation mechanism is largely in-situ. Because aerodynamic gas drag is the only dissipative force present, there is no large-scale inward migration of volatile-rich material. Despite this, some mass from the outer disk does manage to eventually incorporate itself into the innermost planets. In contrast, planet formation models that invoke convergent migration tend to produce some purely refractory worlds at the inner edge of the disk, even in cases where the resulting resonant chains eventually destabilize \cite{raymond18}.
+In this work, we have presented the first-ever N-body simulations that directly follow the planet formation process from the smallest gravitationally bound bodies (planetesimals) up to super-Earth sized planets using a disk wide enough to produce an entire terrestrial system. There are no tidal interactions with the gas disk and the final positions of the planets are set entirely by gravitational scattering and collision events, so the formation mechanism is largely in-situ. Because aerodynamic gas drag is the only dissipative force present, there is no large-scale inward migration of volatile-rich material. Despite this, some mass from the outer disk does manage to eventually incorporate itself into the innermost planets. In contrast, planet formation models that invoke convergent migration tend to produce some purely refractory worlds at the inner edge of the disk, even in cases where the resulting resonant chains eventually destabilize \cite{raymond18}. 
 
 We also compare the outcome of our simulations to a set of planet formation simulations that use a more typical and computationally inexpensive set of initial conditions which skip the planetesimal accretion phase and begin with a set of fully-formed planetary embryos \cite{raymond05, raymond06, hansen12}. In this case, the instability which gives rise to the giant impact phase occurs in an inside-out fashion and tends to produce a less radially concentrated set of planets. We attribute this difference to the fact that the protoplanet distribution in our fully simulations does not follow the `isolation mass' in the inner disk, where the conditions for oligarchic growth are not met. In addition to more centrally concentrating the solid mass, the self-consistent initial conditions result in much more violent collisions in the inner disk that have the potential to either completely destroy or strip the mantle off \cite{marcus09} of the innermost planets.
