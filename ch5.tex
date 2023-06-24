@@ -204,7 +204,7 @@ The near-instantaneous initiation of the giant impact phase in the simulations s
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/stip/full_coll_iso_comp.png}
-    \caption{Figure caption goes here.\label{fig:full_coll_iso_comp}}
+    \caption{The combined timing and location of collisions from all five versions of the full (blue) and isolation mass (orange) simulations. Point sizes indicate the relative masses of bodies consumed in each merger. The timings of the isolation mass simulations have been shifted to line up with the ending of the {\sc ChaNGa} segment of the full simulations.\label{fig:full_coll_iso_comp}}
 \end{center}
 \end{figure*}
 
@@ -219,7 +219,7 @@ In figure \ref{fig:impact_iso_comp}, we show the final orbital architectures of 
 \begin{figure}
 \begin{center}
     \includegraphics[width=0.5\textwidth]{figures/stip/impact_iso_comp.png}
-    \caption{Figure caption goes here.\label{fig:impact_iso_comp}}
+    \caption{Timing and velocities (in units of the mutual escape speed) of collisions between bodies larger than 0.1 $M_{\oplus}$ in the full (colored points) and isolation mass (gray points) simulations. Collisions between subsequent bodies are connected by lines. The dashed horizontal line at $v_{coll}/v_{mut,esc} = 2$ corresponds to boundary above which collisions should be destructive.\label{fig:impact_iso_comp}}
 \end{center}
 \end{figure}
 
@@ -230,7 +230,7 @@ Another caveat is that the integration time we use (1 Myr) is only a small fract
 \begin{figure}
 \begin{center}
     \includegraphics[width=0.5\textwidth]{figures/stip/architectures_iso_comp.png}
-    \caption{Figure caption goes here.\label{fig:architectures_iso_comp}}
+    \caption{Final orbital architectures of planetary systems formed in the full (blue points) and isolation mass (gray points) simulations. Point sizes indicate relative masses. Bodies which underwent a collision where $v_{coll}/v_{mut,esc} > 2$ with a $> 0.1 M_{oplus}$ body are marked with a red X.\label{fig:architectures_iso_comp}}
 \end{center}
 \end{figure}
 
@@ -257,7 +257,7 @@ An even simpler solution that works well with our simulation data is to simply s
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/stip/real_syn_corner.png}
-    \caption{Figure caption goes here.\label{fig:real_syn_corner}}
+    \caption{Corner plot showing the correlations between all five features (orbital period, mass, eccentricity, inclination and smooth accretion fraction) used to train the generator and discriminator. The training data is shown in blue and an example synthetic dataset is shown in orange.\label{fig:real_syn_corner}}
 \end{center}
 \end{figure*}
 
@@ -270,7 +270,7 @@ Once particles are drawn using the five features that the neural networks were t
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/stip/per_mass_ecc_syn_comp.png}
-    \caption{Figure caption goes here.\label{fig:per_mass_ecc_syn_comp}}
+    \caption{Period-mass and period-eccentricity distributions of planetary systems formed through the full simulations (colored points) and the synthetic simulations (gray points). Planets from the same system are connected with a line.\label{fig:per_mass_ecc_syn_comp}}
 \end{center}
 \end{figure*}
 
@@ -279,7 +279,7 @@ In figure \ref{fig:per_mass_ecc_syn_comp}, we show the resulting period-mass and
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/stip/full_coll_syn_comp.png}
-    \caption{Figure caption goes here.\label{fig:full_coll_syn_comp}}
+    \caption{The combined timing and location of collisions from all versions of the full (blue) and synthetic (orange) simulations. Point sizes indicate the relative masses of bodies consumed in each merger. Here, T=0 corresponds to the end of the {\sc ChaNGa} simulations and collisions from that phase are not shown.\label{fig:full_coll_syn_comp}}
 \end{center}
 \end{figure*}
 
@@ -290,7 +290,7 @@ With the exception of the inner 20 day orbital period region of the disk, giant 
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/stip/corner_full_syn_iso.png}
-    \caption{Figure caption goes here.\label{fig:corner_full_syn_iso}}
+    \caption{Corner plot showing the correlations between bulk properties of the final orbital architectures of the full, isolation mass and synthetic simulations (need to fix colors and update variable names).\label{fig:corner_full_syn_iso}}
 \end{center}
 \end{figure*}
 
@@ -321,7 +321,7 @@ An important question that figure  \ref{fig:corner_full_syn_iso} helps to answer
 \begin{figure}
 \begin{center}
     \includegraphics[width=0.5\textwidth]{figures/stip/impact_syn_comp.png}
-    \caption{Figure caption goes here.\label{fig:impact_syn_comp}}
+    \caption{Timing and velocities (in units of the mutual escape speed) of collisions between bodies larger than 0.1 $M_{\oplus}$ in the full (colored points) and synthetic (gray points) simulations. Collisions between subsequent bodies are connected by lines. The dashed horizontal line at $v_{coll}/v_{mut,esc} = 2$ corresponds to boundary above which collisions should be destructive.\label{fig:impact_syn_comp}}
 \end{center}
 \end{figure}
 
@@ -330,7 +330,7 @@ In figure \ref{fig:impact_syn_comp}, we show the timing and impact speed (in uni
 \begin{figure}
 \begin{center}
     \includegraphics[width=0.5\textwidth]{figures/stip/architectures_syn_comp.png}
-    \caption{Figure caption goes here.\label{fig:architectures_syn_comp}}
+    \caption{Final orbital architectures of planetary systems formed in the full (blue points) and isolation mass (gray points) simulations. Point sizes indicate relative masses. Bodies which underwent a collision where $v_{coll}/v_{mut,esc} > 2$ with a $> 0.1 M_{\oplus}$ body are marked with a red X.\label{fig:architectures_syn_comp}}
 \end{center}
 \end{figure}
 
@@ -343,7 +343,7 @@ Having a much larger sample of simulated planets from the synthetic simulations 
 \begin{figure}
 \begin{center}
     \includegraphics[width=0.5\textwidth]{figures/stip/occurrence_syn.png}
-    \caption{Figure caption goes here.\label{fig:occurrence_syn}}
+    \caption{Occurrence rates of planets as a function of orbital period in 0.25 dex logarithmic bins. The occurrence rate measured from our synthetic simulations is shown in blue and the occurrence rate measured from planet candidates in the California Kepler Survey \cite{petigura18} is shown in orange.\label{fig:occurrence_syn}}
 \end{center}
 \end{figure}
 
