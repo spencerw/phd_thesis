@@ -42,7 +42,52 @@ For planet-forming disks around other stars, the primary way to infer the presen
 
 Often, the collisionally generated dust emission is used to infer the presence of an unseen planet. The intricate structure of bright rings and gaps seen in the planet-forming disk HL Tau \cite{alma15} have been argued to be indicative of three embedded giant planets \cite{boley17}. \cite{dobinson13, dobinson16} showed that the presence of a giant planet produces distinct morphological features in the collisionally generated dust emission, the properties of which can be used to constrain the orbital properties of the planet itself.
 
-% Final point: no observational contrains on the terrestrial region of planet forming disks
+Despite power resolving capabilities ($\sim$ 1 AU resolution for the closest protoplanetary disks), sub-mm facilities like ALMA are not able to probe the terrestrial planet forming region of most disks. In fact, the inner 10 or so AU of most protoplanetary disks are optically thick at mm and shorter wavelengths \cite{beckwith90} and the conditions at the midplane where gravitationally bound solids are expected to form are completely hidden. Future radio observatories, such as the NG-VLA should be able to achieve sub-au resolution in the inner region of these disks \cite{ricci20}. In the meantime, constraints on planetesimal formation and terrestrial planet growth can only be attained by inward extrapolation of the solid distributions in the outer edges of observed protoplanetary disks, or by working backwards and reconstructing the conditions of the early solar system. Until better observational constraints can be obtained, smoothly varying power law models for the gas and solid distribution of the terrestrial planet formation regions remain a viable starting point.
 
 \section{Modeling Planetesimal Growth}
+
+\subsection{Collision Rates and Runwaway Growth}
+
+The problem of determining the outcome of planetesimal growth involves simultaneously evolving the mass distribution (as bodies collide and grow) and velocity distribution (as bodies gravitationally scatter) of the system. These models typically start with a collection of equal-mass planetesimals on nearly-circular, low inclination orbits about a much more massive central body. Predicting the evolution of the system requires a numerical approach, but some insights into the expected behavior can be obtained analytically. For an equal mass population of planetesimals with mass $m_{pl}$ and radius $r_{pl}$, the rate of change of the mass can be written as
+
+\begin{equation}\label{eq:massgrow}
+	\frac{dM}{dt} = \rho_{pl} v_{enc} \sigma = k \Sigma_{pl} \Omega \sigma
+\end{equation}
+
+\noindent where $\rho_{pl}$ is the mass density of planetesimals at the midplane of the disk, $v_{enc}$ is the typical encounter velocity between bodies, $\Omega$ is the Keplerian orbital frequency and $k$ is a numerical pre-factor which captures the geometric effects of encounters in a disk. The effective collision cross section $\sigma$ is set by the geometric value and is enhanced by gravitational focusing, which bends the trajectories of planetesimals that undergo a close encounter.
+
+\begin{equation}\label{eq:gf}
+	\sigma = \pi r_{pl}^2 \left( 1 + \frac{v_{esc}^2}{v_{enc}^2} \right)
+\end{equation}
+
+\noindent where $v_{esc}$ is the mutual escape velocity of two planetesimals that are in contact at their surfaces
+
+In the case where the planetesimal disk is dynamically cold ($v_{esc} \gg v_{enc}$), equation \ref{eq:massgrow} scales with mass as $dM/dt \propto M^{4/3}$. This implies that the growth rate accelerates with time and leads to a situation known as runaway growth \cite{wetherill89, kokubo96}.
+
+\subsection{Two-body Relaxation}
+
+At the same time, the encounter velocities in the disk evolve due to two-body relaxation. This is effectively due to gravitational encounters converting energy from the differential rotation of the disk into random motion. For an equal mass population of bodies, the timescale for relaxation can be written as 
+
+\begin{equation}\label{eq:relax}
+	t_{relax} = \frac{v_{enc}^2}{d v_{enc}^2 / dt} = \frac{v_{enc}^3}{\rho_{pl}^2 \pi G^{2} m_{pl}^4 ln \Lambda}
+\end{equation}
+
+\noindent where $G$ is the gravitational constant and $ln \Lambda$ is the Coulomb logarithm, which captures the effects of long-distance encounters and is typically taken to be $\simeq$ 10 for a planetesimal disk.
+
+As the planetesimal system evolves, the assumption of equal-mass bodies is quickly violated. In this situation, a numerical approach is required. This was first done by \cite{greenberg78} and involves dividing growing planetesimals into bins of mass and distance from the central star and evolving them using a statistical approach. This method, which provided the first confirmation that runaway growth indeed persists beyond the initial equal-mass phase \cite{wetherill89}, suffers from a few severe limitations. First, dynamical effects such as energy exchange between bodies of different masses and encounters between slow-moving bodies which are strongly mediated by the gravitational field of the central object, must be explicitly built in to the model. Second, runaway growth naturally produces a power law tail of bodies. In this situation, the highest mass bins eventually end up with only a few bodies which dominate the dynamical evolution of the system and a statistical approach begins to break down.
+
+\subsection{N-body Simulations of Planetesimal Accretion}
+
+The straightforward, albeit computationally expensive way to circumvent these problems is to instead evolve the equations of motion for the growing planetesimals individually. To do so explicitly requires pairwise force evaluations and collision checks between all bodies at every timestep. Given that these calculations naively require $O(n^2)$ evaluations per timestep, this can quickly become prohibitively expensive, especially considering that terrestrial planet formation timescales are on the order of Myrs, while dynamical timescales between planetesimals can be on the order of days. It took decades after the idea of runaway growth was first proposed before its effects and eventual end were directly simulated using an N-body code \cite{kokubo96, kokubo98}. Even then, the simulations were limited to a narrow annulus, where it was assumed that the growth modes scaled in a self-similar way throughout a full planetesimal disk.
+
+The introduction of tree-based N-body codes such as {\sc pkdgrav} \cite{richardson00, stadel01, wadsley04} finally allowed for much larger particle counts to be used, in which planetesimals were much closer to the sizes predicted by formation models. By dividing physical space into heirarchical subdomains, force calculations and neighbor lookups for collision detection can be done in $O (n log n)$ time using an algorithm similar to a Barnes-Hut tree \cite{barnes86}. 
+
+The simulation code used to model planetesimal accretion in this thesis is called {\sc ChaNGa}, which is a descendent of {\sc pkdgrav}. {\sc ChaNGa} is actively being developed by the N-body shop at the University of Washington and is designed to force calculations and neighbor finding for huge collections of particles by efficiently distributing the work across machines running in parallel on a supercomputing cluster \cite{jetley08, menon15}. This is done by splitting groups of particles into objects called TreePieces, which are then assigned to different compute domains and are designed so that calculations on a given TreePiece can be done semi-independently. Much of the power of {\sc ChaNGa} comes from the fact that load balancing and communication between cores is handled in a very dynamic and efficient way. For cosmological simulations, {\sc ChaNGa} can easily handle upwards of billions of particles, although the much larger range of timescales that must be handled in a planetesimal accretion simulation restricts this to a few million.
+
+\subsection{N-body Simulations of Final Planet Assembly}
+
+Although tree-based N-body codes work well for modeling planetesimal accretion, the later stages of terrestrial planet formation, in which protoplanets collide to form planets, requires integrating through prohibitively large number of dynamical times (on order $10^{10}$ timesteps). During this phase, collisions and close gravitational encounters are rather infrequent. During timesteps where there are no close encounters, a mixed variable symplectic integration scheme can be used \cite{wisdom91}. This involves splitting the Hamiltonian of system into a Keplerian and perturbing part. These two parts can be solved independently, the former of which is done analytically and can be done orders of magnitude more quickly than solving the equations of motion using a direct $O(n^{2})$ or a tree-based approach. In cases where a close encounter occurs, the perturbing term in the Hamiltonian becomes large and the motion of the interacting particles is solved directly. This hybrid integration scheme was first implemented in the code {\sc Mercury} \cite{chambers99} and allowed for the first time planet formation simulations using hundred to thousands of particles.
+
+ Restricting planet formation simulations to begin with no more than a few thousand particles, is still quite limiting. Due to this restriction, these types of simulations are often built with rather unrealistic initial conditions, in which planetary embryos are already fully formed in the disk and residual planetesimals are either represented by super-particles, or their gravitational influence is ignored. Recent advances in GPU hardware, however, have allowed more recent N-body codes to push beyond these limitations. In particular, the N-body code {\sc genga} \cite{grimm14, grimm22} has been developed to specifically take advantage of GPU hardware for running a hybrid MVS integrator up to 30 times faster than {\sc Mercury}. Recent versions of genga are able to efficiently handle prolonged close encounters between large groups of particles and the code has been successfully used to model the coalescence of tens of thousands of fully self-interacting particles into a system of terrestrial planets \cite{woo21}.
+
 \section{Thesis Goals and Outline}
