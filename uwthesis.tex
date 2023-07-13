@@ -53,7 +53,7 @@
 % \usepackage{natbib}
 % \def\bibpreamble{\protect\addcontentsline{toc}{chapter}{Bibliography}}
 
-\setcounter{tocdepth}{1}  % Print the chapter and sections to the toc
+\setcounter{tocdepth}{2}  % Print the chapter and sections to the toc
  
 
 % ==========   Local defs and mods
@@ -124,7 +124,7 @@ Abstract goes here.
 %
 \tableofcontents
 \listoffigures
-%\listoftables  % I have no tables
+\listoftables 
 
  
 %
@@ -168,47 +168,6 @@ Abstract goes here.
 \nocite{*}   % include everything in the uwthesis.bib file
 \bibliographystyle{plain}
 \bibliography{uwthesis}
-%
-% ==========   Appendices
-%
-\appendix
-\raggedbottom\sloppy
- 
-% ========== Appendix A
- 
-\chapter{Where to find the files}
- 
-The uwthesis class file, {\tt uwthesis.cls}, contains the parameter settings,
-macro definitions, and other \TeX nical commands which
-allow \LaTeX\ to format a thesis.  
-The source to
-the document you are reading, {\tt uwthesis.tex},
-contains many formatting examples
-which you may find useful.
-The bibliography database, {\tt uwthesis.bib}, contains instructions
-to BibTeX to create and format the bibliography.
-You can find the latest of these files on:
-
-\begin{itemize}
-\item My page.
-\begin{description}
-\item[] \verb%https://staff.washington.edu/fox/tex/thesis.shtml%
-\end{description}
-
-\item CTAN
-\begin{description}
-\item[]  \verb%http://tug.ctan.org/tex-archive/macros/latex/contrib/uwthesis/%
-\item[]  (not always as up-to-date as my site)
-\end{description}
-
-\end{itemize}
-
-\vita{Jim Fox is a Software Engineer with IT Infrastructure Division at the University of Washington.
-His duties do not include maintaining this package.  That is rather
-an avocation which he enjoys as time and circumstance allow.
-
-He welcomes your comments to {\tt fox@uw.edu}.
-}
 
 
 \end{document}
