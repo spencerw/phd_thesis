@@ -200,26 +200,9 @@ the next section.
 
 \subsection{Numerical Methods}\label{sec:methods}
 
-To follow the dynamical and collisional evolution of a planetesimal disc, we use the highly parallel N-body code {\sc ChaNGa}. This code, which is written in the {\sc CHARM++} parallel programming language, was originally designed for 
-cosmology simulations and has been shown to perform well on up to half a million processors \cite{menon15}. Using similar 
-methods to {\sc PKDGRAV}, which has been used for numerous studies of planet formation 
-\cite{richardson00, leinhardt05, dobinson13, leinhardt15}, {\sc ChaNGa} calculates gravitational forces using a modified Barnes-
-Hut \cite{barnes86} tree with hexadecapole expansions of the moments and integrates the equations of motion using a kick-drift-
-kick leapfrog scheme. All of the simulations we perform use a node opening criterion of $\theta_{BH}$ = 0.7. More information 
-about the code can be found in \cite{jetley08}.
-
-We have recently modified {\sc ChaNGa} to handle solid-body collisions between particles, by assigning them a fixed radius, 
-rather than treating them as tracers of a fluid with a characteristic softening length. We provide a brief summary of the collision 
-model here, although a full description is provided in \cite{wallace19}. This work is largely based on the solid-body collision 
-implementation in {\sc PKDGRAV}, which is detailed in \cite{richardson94} and \cite{richardson00}. Imminent collisions are found 
-during the drift phase of each time step by extrapolating the positions of bodies forward using the velocity calculated during the 
-first kick. For each body, the nearest 64 neighbors are tested for an imminent collision. If an imminent collision is detected, the 
-two particles of mass $m_{1}$ and $m_{2}$ are merged together together to form one single larger body with the same density 
-and a mass of $m_{1} + m_{2}$. The resulting body is then impartedwith the center of mass position and velocity of the 
-two colliders. Because the resolution of a collision can result in another imminent collision, these events must be handled one at 
-a time, with the soonest collision being resolved first. For this reason, another collision search is run each time a collision is 
-resolved, which continues until there are no more imminent collisions during the current time step. During the course of the 
-simulation, no debris is created by collisions. To model the collisionally generated dust distribution, we use the statistics ofthe 
+To follow the dynamical and collisional evolution of a planetesimal disc, we use the highly parallel N-body code {\sc ChaNGa}. A full 
+description of the code, along with the details of the solid body collision module are provided in chapter \ref{ch:intro}. During the course 
+of the simulation, no debris is created by collisions. To model the collisionally generated dust distribution, we use the statistics of the 
 resolved planetesimal collisions to build a dust profile. This process is discussed in detail in section \ref{sec:dust}.
 
 \begin{table}

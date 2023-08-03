@@ -82,8 +82,8 @@ begin by simulating an annulus of planetesimals with similar resolution to \cite
 same configuration with 100x more particles to better understand the effects of resolution on the intermediate stages of 
 terrestrial planet growth.
 
-In section \ref{sec:sim}, we describe the simulation code that we use and provide a detailed description of the collision model. 
-We also summarize the initial conditions used. In section \ref{sec:results}, we present the results of the low and high resolution 
+In section \ref{sec:sim}, we provide a summary of the simulation code, along with a description of the initial conditions used.
+In section \ref{sec:results}, we present the results of the low and high resolution 
 simulation of terrestrial planet growth and highlight differences between the two. We find that a bump develops in the mass 
 distribution of the high resolution simulation, which does not appear in the low resolution run. This feature manifests itself shortly 
 after oligarchic growth commences and we infer that it is produced by extra heating via mean motion resonances between the 
@@ -100,37 +100,11 @@ necessary to use our results to constrain the initial size of planetesimals in t
 
 \subsection{Numerical Methods} \label{sec:numerical}
 
-All of the simulations described in this paper were performed with the highly parallel N-body code {\sc ChaNGa} . 
-{\sc ChaNGa} is written in the {\sc CHARM++} programming language and has been shown to perform well when using up to 
-half a million processors \cite{menon15} simultaneously. Gravitational forces are calculated using a modified Barnes-Hut tree 
-algorithm with hexadecapole order expansions of the moments. For all of the simulations described in this paper, a node 
-opening criterion of $\Theta_{BH}$ = 0.7 was used. \cite{richardson00} was able to resolve mean motion resonances in a 
-terrestrial disc using a similar tree code with the same node opening criterion, so we expect that our model should properly 
-handle resonance effects as well. The equations of motion are integrated using a kick-drift-kick leapfrog scheme. For more 
-information about the implementation of {\sc ChaNGa} see \cite{jetley08}.
-
-\subsection{Collision Model} \label{sec:collModel}
-
-{\sc ChaNGa} is a smoothed particle hydrodynamics code originally designed for cosmology simulations. In order to use 
-{\sc ChaNGa} to study planetesimal coagulation, we implemented a hard-body collision model that treats particles as solid 
-objects with a fixed radius, rather than as smooth tracers of a fluid with a characteristic softening length. This work was largely 
-based off of the hard body collision implementation in {\sc pkdgrav}, which is described in \cite{richardson94} and 
-\cite{richardson00}.
-
-Collisions are predicted at the beginning of each drift step by extrapolating the positions of the particles forward using the 
-velocities calculated during the first kick. For each particle, the closest 64 neighbors are considered in the collision search. 
-Because {\sc ChaNGa} is a tree code, the nearest neighbors of a particle can be retrieved in $\mathcal{O}(N\log{}N)$ time. After 
-extrapolating the positions forward and checking for overlap with any neighbors, the earliest collision time $t_{coll}$ is stored for 
-each particle.
-
-After the prediction phase, particles with $t_{coll}$ less than the time step size $\Delta T$ must have their collisions resolved. For 
-simplicity, all collisions in our simulations result in perfect accretion. \cite{ida93} showed that excluding the effects of 
-fragmentation and collisional rebound does not qualitatively change the growth modes of the planetesimals. A merger between 
-two particles of mass $m_{1}$ and $m_{2}$ results in a single particle of mass $M = m_{1} + m_{2}$, with the radius set to 
-conserve density. The position and velocity of the resulting particle is set to the centre of mass position and velocity of the 
-colliders at the moment of contact. The resulting merged particle is then drifted to the end of the step. If multiple collisions are 
-predicted during a time step, the earliest collision is resolved first. Because resolving a collision can result in another imminent 
-collision, collisions must be resolved one by one, with a new prediction check being run each time.
+All of the simulations described in this paper were performed with the highly parallel N-body code {\sc ChaNGa}. A full description 
+of the code, along with the details of the solid body collision module are provided in chapter \ref{ch:intro}. For all of the simulations 
+presented below, we use a node opening criterion of $\Theta_{BH} = 0.7$. In section \ref{sec:openAngle}, we reduce the value of 
+$\Theta_{BH}$ and show that a more accurate and expensive force calculation does not meaningfully affect the timescale for 
+viscous stirring.
 
 As in \cite{kokubo96, kokubo98} we accelerate the accretion process by artificially inflating the physical radius of the bodies by 
 a factor of $f$. This technique reduces the accretion time-scale by approximately a factor of $f^{2}$, significantly reducing the 
@@ -972,7 +946,7 @@ configuration.
     \label{fig:theta_test}
 \end{figure*}
 
-\section{Appendix B: Tree Approximation and Opening Angle}
+\section{Appendix B: Tree Approximation and Opening Angle}\label{sec:openAngle}
 
 The results we have presented in this work depend on repeated two-body interactions between planetesimals. As discussed in 
 section \ref{sec:assumptions}, the location of the bump in the mass spectrum depends on the amount of viscous stirring that 

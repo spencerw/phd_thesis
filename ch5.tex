@@ -79,13 +79,9 @@ reduces the number of timesteps required so long as close encounters are extreme
 However, close encounters are certainly frequent during the planetesimal accretion process, and so a hybrid MVS scheme is 
 not appropriate here. To properly resolve the planetesimal accretion process, while still being able to integrate the planet 
 formation process to completion, we split our simulations into two separate phases. In the first phase, we track planetesimal 
-growth using the highly parallel N-body code {\sc ChaNGa}. Gravitational forces are calculated using a modified Barnes-Hut 
-\cite{barnes86} tree with hexadecapole expansions of the moment. For all of our simulations, we use a node opening criterion 
-of $\Theta_{BH}$ = 0.7. The equations of motion are integrated using a kick-drift-kick leapfrog scheme and collisions are 
-treated as solid spherical bodies which produce a complete and instantaneous merger. A more complete description of  
-{\sc ChaNGa} can be found in \cite{jetley08, menon15} and a description of the collision detection and resolution module, 
-which is largely based off of the implementation in PKDGRAV \cite{richardson94, richardson00}, can be found in 
-\cite{wallace19}.
+growth using the highly parallel N-body code {\sc ChaNGa}. The gravitational force and collision detection calculations in {\sc ChaNGa} 
+are done using a tree-based approximation, which allows us to easily track millions of self-interacting particles. A full description of the 
+code, along with the details of the solid body collision module are provided in chapter \ref{ch:intro}.
 
 As the particle count diminishes and the encounter timescales lengthen, the final simulation snapshots from {\sc ChaNGa} are 
 passed to the hybrid MVS code {\sc genga} \cite{grimm14, grimm22}. Like {\sc mercury} \cite{chambers99}, {\sc genga} splits 
