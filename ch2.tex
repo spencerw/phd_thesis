@@ -5,25 +5,30 @@
 \section{Introduction} \label{sec:intro}
 
 The standard scenario of terrestrial planet formation involves the pairwise accretion of small rocky bodies, called planetesimals, 
-that condense from dust out of the protostellar disc \cite{safronov69}. This accretion process can be broken into a series of 
-distinct stages. First, dust particles settle toward the midplane of the disc and clump together via gravitational instability 
-\cite{goldreich73, youdin02}, streaming instabilities \cite{johansen07, johansen15}, turbulent concentration 
-\cite{chambers10, cuzzi08, cuzzi10, hopkins16} or direct sticking \cite{okuzumi12, windmark12, garaud13, katoka13}. These 
-formation models predict a wide variation in the initial size of planetesimals, ranging from hundreds of meters up to a few 
-hundred kilometers in diameter.
+that condense from dust out of the protostellar disc \cite{safronov69}. \textbf{As discussed in chapter \ref{ch:intro}, the details of growth from cm to km sizes remains uncertain due to fragmentation, bouncing and radial drift barriers \cite{windmark12, weidenschilling77}. However, instabilities that produce large local concentrations of dust and pebbles may provide a way to circumvent these problems \cite{urpin98, youdin05, squire18, squire20}. Assuming larger solids do eventually form, gravity begins tho dominate the physics for objects around a hundred km in diameter.}
 
-After this condensation process ends, growth continues via pairwise collisions between planetesimals. Above about 1 km in size, 
-gravitational focusing becomes effective and the collision rate strongly increases. This marks the beginning of the intermediate 
-stage of accretion. During this phase, runaway growth \cite{duncan89, kokubo96, barnes09} quickly increases the size of the 
-largest bodies. Eventually, the largest bodies grow massive enough to heat the small planetesimals, which then inhibits the 
-runaway growth effect. This marks the transition into the phase of oligarchic growth in which the handful of large bodies all tend 
-to grow at the same rate. This produces a bimodal size distribution of planetesimals, with many small bodies and a handful of 
-very large bodies. During this phase, a combination of scattering events between the oligarchs and dynamical friction from the 
-small planetesimals places the oligarchs on nearly circular orbits that are spaced apart by approximately 5-10 Hill radii 
-\cite{kokubo98}. Eventually, the oligarchs accrete most of the available material in the vicinity of their orbit, which eventually 
-throttles their growth rate. On much longer time scales, the large bodies perturb each other onto crossing orbits, forming Mars to 
-Earth sized bodies via occasional collisions. This phase of late stage accretion is highly chaotic and takes much longer to play 
-out than the previous stages \cite{chambers98, raymond06}.
+\textbf{At this point, gravitational focusing \cite{safronov69} drives runaway growth \cite{duncan89, kokubo96, barnes09} and a handful of relatively large bodies develop. At this point, the largest bodies known as oligarchs, scatter the remaining planetesimals and act to slow the runaway effect. Eventually, the oligarchs accrete most of the available material in the vicinity of their orbit, and space themselves apart by approximately 5-10 Hill radii \cite{kokubo98, kokubo02}. On much longer time scales, the large bodies perturb each other onto crossing orbits, forming Mars to Earth sized bodies via occasional collisions. This phase of late stage accretion is highly chaotic and takes much longer to play out than the previous stages \cite{chambers98, raymond06}.}
+
+%The standard scenario of terrestrial planet formation involves the pairwise accretion of small rocky bodies, called planetesimals, 
+%that condense from dust out of the protostellar disc \cite{safronov69}. This accretion process can be broken into a series of 
+%distinct stages. First, dust particles settle toward the midplane of the disc and clump together via gravitational instability 
+%\cite{goldreich73, youdin02}, streaming instabilities \cite{johansen07, johansen15}, turbulent concentration 
+%\cite{chambers10, cuzzi08, cuzzi10, hopkins16} or direct sticking \cite{okuzumi12, windmark12, garaud13, katoka13}. These 
+%formation models predict a wide variation in the initial size of planetesimals, ranging from hundreds of meters up to a few 
+%hundred kilometers in diameter.
+
+%After this condensation process ends, growth continues via pairwise collisions between planetesimals. Above about 1 km in size, 
+%gravitational focusing becomes effective and the collision rate strongly increases. This marks the beginning of the intermediate 
+%stage of accretion. During this phase, runaway growth \cite{duncan89, kokubo96, barnes09} quickly increases the size of the 
+%largest bodies. Eventually, the largest bodies grow massive enough to heat the small planetesimals, which then inhibits the 
+%runaway growth effect. This marks the transition into the phase of oligarchic growth in which the handful of large bodies all tend 
+%to grow at the same rate. This produces a bimodal size distribution of planetesimals, with many small bodies and a handful of 
+%very large bodies. During this phase, a combination of scattering events between the oligarchs and dynamical friction from the 
+%small planetesimals places the oligarchs on nearly circular orbits that are spaced apart by approximately 5-10 Hill radii 
+%\cite{kokubo98}. Eventually, the oligarchs accrete most of the available material in the vicinity of their orbit, which eventually 
+%throttles their growth rate. On much longer time scales, the large bodies perturb each other onto crossing orbits, forming Mars to 
+%Earth sized bodies via occasional collisions. This phase of late stage accretion is highly chaotic and takes much longer to play 
+%out than the previous stages \cite{chambers98, raymond06}.
 
 Generally, planetesimal accretion models fail to produce a configuration of planets that resembles that of the Solar System. 
 Planets produced in the vicinity of Mars are systematically too massive \cite{wetherill92, raymond09, morishima10, izidoro15} 
@@ -41,11 +46,12 @@ objects larger than 100 km in diameter has been largely unchanged, aside from a 
 \cite{duncan89} did a long term stability analysis of small Solar System objects and found that small bodies left over from 
 accretion should still be largely unperturbed. For these reasons, it should be possible to connect observables in the Solar System to planetesimal formation theories by modeling only the intermediate stages of accretion.
 
-There are two common ways to model planetesimal growth. A powerful approach is to use statistical methods to track the 
-evolution of large groups of planetesimals. This is known as the particle-in-a-box method \cite{greenberg78, wetherill89}. The 
-evolution of growth is followed by tracking planetesimals in discrete bins of mass and semi-major axis. This removes the need to 
-calculate the motion of every individual body and allows very large collections of planetesimals to be followed. Unfortunately, the 
-dynamics that governs the evolution of these bodies does not always naturally emerge with this approach. As an example, 
+%There are two common ways to model planetesimal growth. A powerful approach is to use statistical methods to track the 
+%evolution of large groups of planetesimals. This is known as the particle-in-a-box method \cite{greenberg78, wetherill89}. The 
+%evolution of growth is followed by tracking planetesimals in discrete bins of mass and semi-major axis. This removes the need to 
+%calculate the motion of every individual body and allows very large collections of planetesimals to be followed. Unfortunately, the 
+%dynamics that governs the evolution of these bodies does not always naturally emerge with this approach. 
+\textbf{Statistical methods \cite{greenbern78, wetherill89} have proven to be a powerful approach to model planetesimal growth. However, the dynamics governing the evolution of growing planetesimals and protoplanets does not always naturally emerge with this technique.} As an example, 
 \cite{weidenschilling11} found that a careful treatment of three body encounters led to a different prediction for the initial size 
 distribution of planetesimals near the asteroid belt. Additionally, the particle-in-a-box method is not well suited for studying 
 oligarchic growth because the largest mass bins, which dominate the evolution in this stage, contain small numbers of bodies. 
@@ -79,13 +85,13 @@ For these reasons, we motivate the need for a high resolution N-body simulation 
 understand the effect that dynamical friction has on the intermediate stages of terrestrial planet growth and to examine what 
 predictions a high resolution model makes about the residual population of planetesimals in the Solar System. In particular, 
 resonances which are only effective with fine enough resolution, may have an important influence on planetesimal growth. In this 
-paper, we investigate planetesimal evolution during the runaway and oligarchic growth phases with a direct N-body model. We 
+chapter, we investigate planetesimal evolution during the runaway and oligarchic growth phases with a direct N-body model. We 
 begin by simulating an annulus of planetesimals with similar resolution to \cite{kokubo98} to validate our model. We then run the 
 same configuration with 100x more particles to better understand the effects of resolution on the intermediate stages of 
 terrestrial planet growth.
 
 In section \ref{sec:sim}, we provide a summary of the simulation code, along with a description of the initial conditions used.
-In section \ref{sec:results}, we present the results of the low and high resolution 
+In section \ref{sec:plSS_results}, we present the results of the low and high resolution 
 simulation of terrestrial planet growth and highlight differences between the two. We find that a bump develops in the mass 
 distribution of the high resolution simulation, which does not appear in the low resolution run. This feature manifests itself shortly 
 after oligarchic growth commences and we infer that it is produced by extra heating via mean motion resonances between the 
@@ -102,7 +108,7 @@ necessary to use our results to constrain the initial size of planetesimals in t
 
 \subsection{Numerical Methods} \label{sec:numerical}
 
-All of the simulations described in this paper were performed with the highly parallel N-body code {\sc ChaNGa}. A full description 
+All of the simulations described in this chapter were performed with the highly parallel N-body code {\sc ChaNGa}. A full description 
 of the code, along with the details of the solid body collision module are provided in chapter \ref{ch:intro}. For all of the simulations 
 presented below, we use a node opening criterion of $\Theta_{BH} = 0.7$. In section \ref{sec:openAngle}, we reduce the value of 
 $\Theta_{BH}$ and show that a more accurate and expensive force calculation does not meaningfully affect the timescale for 
@@ -123,6 +129,14 @@ excited. This discrepancy is partly compensated for by the fact that our model i
 the eccentricities and inclinations of the planetesimals. We adopt $f=6$ for our calculations, which reduces the amount of 
 gravitational scattering by less than 10\% of its true value and does not qualitatively change the modes of planetesimal growth 
 \cite{kokubo98}.
+
+\subsection{Initial Conditions} \label{sec:ics}
+
+We begin by using our collision model to perform two sets of calculations:
+
+(i) $10^{6}$ equal mass bodies with $m = 1.2 \times 10^{21}$ g
+
+(ii) 4000 equal mass bodies with $m = 3 \times 10^{23}$ g
 
 \noindent As previously mentioned, simulation (ii) is meant to be compared with the results of \cite{kokubo98}. This allows us to 
 both validate our collision model and also have a baseline to compare our simulations to. In both cases, the planetesimals are 
@@ -159,15 +173,9 @@ integration required approximately 130,000 CPU hours and over 50 days of wall cl
     \label{fig:mass_spectrum_evo}}
 \end{figure}
 
-\subsection{Initial Conditions} \label{sec:ics}
+% TODO: Is this described by the schmochwski equation (citation)?
 
-We begin by using our collision model to perform two sets of calculations:
-
-(i) $10^{6}$ equal mass bodies with $m = 1.2 \times 10^{21}$ g
-
-(ii) 4000 equal mass bodies with $m = 3 \times 10^{23}$ g
-
-\section{Results} \label{sec:results}
+\section{Results} \label{sec:plSS_results}
 
 \subsection{Low vs High Resolution}\label{sec:lowvshigh}
 
@@ -194,7 +202,7 @@ more quickly than large bodies. Rather, the growth rates tend towards the same v
 \ref{fig:mass_evo}, where the slope of the maximum mass curve flattens out to match the slope of the mean mass curve after a 
 few thousand years.
 
-Comparing the two panels in figure \ref{fig:mass_evo}, it is also evident that the rate of growth is more vigorous in the high 
+Comparing the two panels in Figure \ref{fig:mass_evo}, it is also evident that the rate of growth is more vigorous in the high 
 resolution case. This is due to the fact that the collision time-scale, given by 
 
 \begin{equation}\label{eq:coll_timescale}
@@ -204,7 +212,7 @@ t_{coll} = \frac{1}{n \sigma v},
 \noindent is shorter in the latter case, where $n$ is the number density of planetesimals, $\sigma$ is the collision cross section 
 and $v$ is the typical encounter velocity. The collision cross section depends on both the geometric cross section ($\propto 
 N^{-2/3}$) and an extra term due to gravitational focusing ($\propto N^{-7/3}$), where $N$ is the total number of particles in the 
-simulation and the total disk mass is fixed. Because the eccentricity and inclination dispersion (and therefore the scale height of 
+simulation and the total disk mass \textbf{and geometry} is fixed. Because the eccentricity and inclination dispersion (and therefore the scale height of 
 the disk) are kept fixed between the low and high resolution simulations, the typical encounter velocity does not vary with $N$. 
 Here, we retain only the leading order term for the collision cross section, in which case these quantities scale like $n \propto N$, 
 $\sigma \propto N^{-2/3}$ and $v \propto const$ so that
@@ -213,15 +221,15 @@ $\sigma \propto N^{-2/3}$ and $v \propto const$ so that
 t_{coll} \propto N^{-1/3}.
 \end{equation}
 
-Figure \ref{fig:ae} shows the a-e distribution of planetesimals at three snapshots from both simulations. In both cases, the 
+Figure \ref{fig:plSS_ae} shows the a-e distribution of planetesimals at three snapshots from both simulations. In both cases, the 
 eccentricity dispersion grows as energy from Keplerian shear is transformed into random motion, an effect known as viscous 
 stirring \cite{ohtsuki02}. The black circles denote the semi-major axis and eccentricity of the 6 largest bodies. The area of the 
 circles indicates the mass of the bodies and the horizontal bars are each scaled to 5 times the Hill radius of the bodies. 
 Gravitational scattering between the oligarchs, coupled with dynamical friction from the surrounding planetesimals, places the 
 oligarchs on low eccentricity orbits that are spaced apart by a 5-10 Hill radii via orbital repulsion \cite{kokubo98}.
 
-Next, we examine the evolution of the mass distribution of planetesimals. This is shown in figure \ref{fig:mass_spectrum_evo}. At 
-early times, both models exhibit a power law distribution $N(<M) \propto m^{-p}$, where $p$ = 1.5 for the small bodies. A mass 
+Next, we examine the evolution of the mass distribution of planetesimals. This is shown in Figure \ref{fig:mass_spectrum_evo}. At 
+early times, both models exhibit a power law distribution $N(<M) \propto m^{-\gamma}$, where $\gamma$ = 1.5 for the small bodies. A mass 
 distribution with this slope is characteristic of runaway growth \cite{wetherill93}. The top panels show the mass distribution from 
 both simulations at the end of the the runaway growth phase. In all subsequent snapshots, the mass distribution deviates from a 
 single power law as the most massive bodies break away from the distribution, signaling the start of oligarchic growth. This 
@@ -238,7 +246,7 @@ bump in the mass distribution near $10^{22}$ g.
     \caption{The rms eccentricity (top) and planetesimal surface density at each mass (bottom) shown for the $N = 4000$ and 
     $N = 10^6$ simulations. The blue points correspond to the quantities at the end of the runaway growth phase (when the 
     mass distribution deviates from a single power law) and the orange points are from the end of the simulations (T = 20,000 
-    years). The vertical dashed lines indicate the value of $M_{stir}$ during that snapshot.}
+    years). The vertical dashed lines indicate the value of $M_{stir}$ \textbf{(defined by equation \ref{eq:mstir})} during that snapshot.}
     \label{fig:ecc_den_evo}
 \end{figure}
 
@@ -263,8 +271,7 @@ cause the velocity dispersion to decrease with mass, so the transition between s
 happen at some intermediate mass. Finally, the smallest bodies have a velocity dispersion that exceeds their escape velocities, 
 which sets a third, slow mode of growth in which gravitational focusing is ineffective. Although our high resolution simulation 
 resolves all three modes of growth, we find that the boundaries between these modes smoothly and steadily evolve. Over the 
-course of the simulation, the shear-dispersion boundary increases from about $10^{22}$ g to $10^{25}$ g, while the dispersion-
-escape boundary evolves from about $10^{21}$ to $10^{24}$ g. Any artefacts that these boundaries would leave on the 
+course of the simulation, the shear-dispersion boundary increases from about $10^{22}$ g to $10^{25}$ g, while the \textbf{boundary at which the encounter velocity exceeds the mutual escape velocity} evolves from about $10^{21}$ to $10^{24}$ g. Any artifacts that these boundaries would leave on the 
 planetesimal mass distribution should get washed out, so we also rule these out as explanations for the $10^{22}$ g bump.
 
 Although the boundary between shear and dispersion dominated growth does not seem to be producing the bump, there still 
@@ -286,7 +293,7 @@ for those particles in a single radial bin from 0.9575 to 1.0425 AU, which spans
 One might expect that the rms eccentricity spectrum should eventually reach energy equipartition ($e \propto m^{-1/2}$), but this 
 has been shown to only occur with a sufficiently steep mass distribution \cite{rafikov03}. In our case, the mass distribution is 
 shallow enough that the velocity evolution of the low mass bodies is set only by interactions with large planetesimals. The mass 
-below which this occurs, shown by the vertical dashed lines in figure \ref{fig:ecc_den_evo} is given by
+below which this occurs, shown by the vertical dashed lines in Figure \ref{fig:ecc_den_evo} is given by
 \cite{wetherill93, ormel10}
 
 \begin{equation}\label{eq:mstir}
@@ -295,8 +302,8 @@ M_{stir} = \frac{\left< m^2 \right>}{\left< m \right>}.
 
 Below this mass, planetesimals do not produce a dynamical friction wake and their velocity evolution becomes independent of 
 mass \cite{rafikov03}. Because we started with equal mass planetesimals, the mass distribution was steep at early times. A 
-power law slope steeper than $p = -2$ should produce a mass-dependent velocity distribution everywhere \cite{rafikov03}. In 
-the top right panel of figure \ref{fig:ecc_den_evo}, the rms eccentricity distribution is not entirely flat below $M_{stir}$, which is 
+power law slope steeper than $\gamma = 2$ should produce a mass-dependent velocity distribution everywhere \cite{rafikov03}. In 
+the top right panel of Figure \ref{fig:ecc_den_evo}, the rms eccentricity distribution is not entirely flat below $M_{stir}$, which is 
 likely due to the evolving mass spectrum. The analysis of \cite{rafikov03}, however, assumes a static mass spectrum.
 
 At late times, a power law break in the surface density distribution forms near $10^{22}$ g in the high resolution simulation. 
@@ -307,9 +314,7 @@ section \ref{sec:dynint}.
 Given the power law break in the surface density distribution below $10^{22}$ g, we infer that there must be a dynamical 
 mechanism at work that alters the collision rates of the low mass bodies. By the time that the $10^{22}$ g bump begins to 
 appear, the planetesimals are sufficiently hot enough to render gravitational focusing ineffective (equation \ref{eq:growth_rate} is 
-also no longer applicable). In this case, any additional heating actually increases the collision rate. Because this effect appears 
-around the time of the onset of oligarchic growth, it likely has something to do with dynamical friction between the oligarchs and 
-the planetesimals. In the next section, we examine how dynamical friction might be more effective with small planetesimals.
+also no longer applicable). In this case, any additional heating actually increases the collision rate. In the next section, we examine how dynamical friction might be more effective with small planetesimals.
 
 \section{Dynamical Friction and Resolution} \label{sec:dynfric}
 
@@ -339,6 +344,8 @@ planet and a planetesimal disc.
     resonance and the dark gray region corresponds to the 15:14 (most distant populated) resonance.}
     \label{fig:res_mass}
 \end{figure}
+
+% TODO: Why is this figure so large?
 
 \subsection{Resolved Resonances}\label{sec:resonances}
 
@@ -371,7 +378,9 @@ mean motion resonance can be derived analytically using the pendulum approximati
 \frac{\delta a}{a} = \pm \left(\frac{16}{3} \frac{\left| C_{r} \right|}{n} e \right)^{1/2} \left(  1 + \frac{1}{27 j_{2}^2 e^3} \frac{\left| C_{r} \right|}{n} \right)^{1/2} - \frac{2}{9 j_{2} e}  \frac{\left| C_{r} \right|}{n},
 \end{equation}
 
-\noindent where $a$ is the semi-major axis at the centre of the resonance, $e$ is the eccentricity of the body in resonance and 
+% TODO: Not applicable for small e, does this matter?
+
+\noindent where $a$ is the semi-major axis at the center of the resonance, $e$ is the eccentricity of the body in resonance and 
 $j_2 = -q$ where $p:q$ is the MMR being considered. $\left| C_{r} \right|/n = (m^{\prime}/m_{c}) \alpha f_{d}(\alpha)$, where $
 (m^{\prime}/m_{c})$ is the mass ratio of the body associated with the resonance to the central body, $\alpha$ is the semi-major 
 axis ratio associated with the resonance and $f_{d}(\alpha)$ is the disturbing function. For an interior first order resonance, the 
@@ -406,28 +415,28 @@ MMR for which the libration width is smaller than the spacing between resonances
 exhibit any resolution dependence because they overlap. For planetesimals less massive than about $10^{22}$ g, the average 
 particle spacing drops below the libration width. Bodies below this mass cutoff, which we will refer to as the resonance heating 
 mass $M_{res}$, are more likely to populate MMRs. This provides an explanation for how the oligarchs are preferentially heating 
-the low mass bodies. Comparing with figure \ref{fig:ecc_den_evo}, the mass of the power law break in the surface density 
+the low mass bodies. Comparing with Figure \ref{fig:ecc_den_evo}, the mass of the power law break in the surface density 
 matches very closely with $M_{res}$, which also matches the location of the $10^{22}$ g bump in figure 
 \ref{fig:mass_spectrum_evo}. Over the course of the simulation, $M_{res}$ increases by no more than a factor of 2, so the 
 growth mode boundary could easily leave an imprint on the mass spectrum, unlike the shear/dispersion dominated growth 
 boundary, which evolves from $10^{22}$ to $10^{25}$ g.
 
 In the restricted three-body problem, the orbital parameters of a test particle receiving energy and angular momentum via a 
-mean motion resonance will evolve such that \cite{murray00}
+mean motion resonance will evolve such that
 
 \begin{equation}\label{eq:tiss}
 \frac{de}{da} = \frac{a^{3/2} - 1}{2 a^{5/2} e},
 \end{equation}
 
 \noindent where $a$ is in units relative to the semi-major axis of the perturbing body. In the above equation, the inclination is 
-assumed to be negligibly small.
+assumed to be negligibly small \cite{murray00}.
 
 Equation \ref{eq:tiss} can be used to place an upper limit on the change in eccentricity that a planetesimal in resonance will 
 experience. Because any $\delta a$ larger than the resonance width will remove the planetesimal from the resonant influence of 
 the oligarch, $\delta e$ is also restricted by the resonance width. Taking $a \approx 0.95$ (the location of the 15:14 resonance), 
 $e \approx 10^{-3}$ and $\delta a \approx 10^{-4}$ (the libration width of the 15:14 MMR) we predict a first order change in 
 eccentricity of $10^{-4}$. This value is small relative to the rms eccentricity of the planetesimals, which explains why the effects 
-of the  mean motion resonances are not visible in figure \ref{fig:ae} or in the top right panel of figure \ref{fig:ecc_den_evo}.
+of the  mean motion resonances are not visible in Figure \ref{fig:plSS_ae} or in the top right panel of Figure \ref{fig:ecc_den_evo}.
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{figures/plSS/mass_spectrum_comp.eps}
@@ -437,6 +446,9 @@ of the  mean motion resonances are not visible in figure \ref{fig:ae} or in the 
     \label{fig:mass_spectrum_comp}}
 \end{figure}
 
+% TODO: Large figure
+% TODO: Bump isn't clear in this figure
+
 Because the resonances are not possible to pick out by eye on an $a-e$ plot, we ran a modified version of simulation (i), the 
 purpose of which is to show how planetesimal growth proceeds when the mean motion resonances are not present. The initial 
 conditions are identical to those described in section \ref{sec:ics}, except that the annulus only extends from 0.98 to 1.02 AU. 
@@ -444,13 +456,13 @@ This effectively depopulates all of the first order mean motion resonances below
 an annulus skinnier than this without introducing strong boundary effects which influence the growth of the planetesimals. This 
 makes it impossible to depopulate all of the resolved resonances. The mass spectrum at the end of the skinny annulus 
 simulation (also evolved for 20,000 years), along with the mass spectrum at the end of the high resolution growth simulation, is 
-shown in figure \ref{fig:mass_spectrum_comp}. With a narrower annulus, the change in slope of the mass distribution below 
+shown in Figure \ref{fig:mass_spectrum_comp}. With a narrower annulus, the change in slope of the mass distribution below 
 $10^{22}$ g is noticeably weaker. We attribute this to the fact that the resonant interaction between the planetesimals and 
 oligarchs is diminished because many of the MMRs are now empty.
 
 \subsection{Planetesimal and Oligarch Mixing}\label{sec:mix}
 
-Although figures \ref{fig:res_mass} and \ref{fig:mass_spectrum_comp} provide strong evidence that the $10^{22}$ g bump is 
+Although figures \ref{fig:res_mass} and \ref{fig:mass_spectrum_comp} provide \textbf{circumstantial} evidence that the $10^{22}$ g bump is 
 being produced by mean motion resonances, it is not immediately clear how the resonances affect such a large fraction of the 
 planetesimals. To have a noticeable effect on the mass distribution, the oligarchs must be affecting bodies below $M_{res}$ 
 everywhere in the disc, not just within the small fraction of space covered by the MMRs at a given time.
@@ -469,13 +481,13 @@ planetesimals through the resonances and allow the oligarchs to eventually heat 
     \label{fig:scatter_timescale}
 \end{figure}
 
+% TODO: Large figure
+
 In order for this effect to work, the bodies must keep a constant semi-major axis long enough for resonant interactions to play 
-out, while still moving by an appreciable amount over the course of the simulation. The strong scattering time-scale for oligarch-
-oligarch interactions and oligarch-planetesimal interactions is shown in figure \ref{fig:scatter_timescale}. This is the timescale 
+out, while still moving by an appreciable amount over the course of the simulation. The strong scattering time-scale for embryo-embryo interactions and planetesimal-embryo interactions is shown in Figure \ref{fig:scatter_timescale}. This is the timescale 
 over which bodies of mass $m$ moving with speed $v$ relative to the local Keplerian velocity will approach each other with an 
 impact parameter $b \leq G m / v^{2}$. This is sufficient to cause a large deflection and effectively randomize the orbital 
-elements of the bodies. In both cases, the average time between scattering events falls between the longest resonance time-
-scale (set by the 65:64 resonance) and the growth time-scale (set by the duration of the simulation). This indicates that the 
+elements of the bodies. In both cases, the average time between scattering events falls between the longest resonance timescale (set by the 65:64 resonance) and the growth time-scale (set by the duration of the simulation). This indicates that the 
 scattering is vigorous enough to occur many times over the course of the simulation, while still being slow enough to allow mean 
 motion resonances to act. The strong scattering rate is given by
 
@@ -535,18 +547,20 @@ transfer between the oligarchs and planetesimals is facilitated by mean motion r
 \subsection{Collisionless Dynamics}\label{sec:dynint}
 
 So far, the most compelling evidence of the resonance heating effect that we have shown is the power law break in the surface 
-density distribution in the bottom right panel of figure \ref{fig:ecc_den_evo}. Because the surface density depends on both the 
+density distribution in the bottom right panel of Figure \ref{fig:ecc_den_evo}. Because the surface density depends on both the 
 mass distribution and spatial distribution of the planetesimals, it is difficult to tell whether the power law break is caused by 
 resonances moving the planetesimals around or is simply set by the mass distribution. To clear up this ambiguity, we ran an 
 additional set of simulations in which a large planetary embryo is embedded in an annulus of planetesimals, this time ignoring 
 the effects of collisions. This forces the mass distribution to be static.
 
+% TODO: Make bump more clear in figure 2.4
+
 The initial conditions for these simulations were taken from intermediate snapshots from the runs described in section 
-\ref{sec:results}. Specifically, the initial conditions are taken from the end of the runaway growth phase, which correspond to the 
-snapshots shown in the top row of figure \ref{fig:mass_spectrum_evo}. Additionally, a planetary embryo is placed in the centre of 
+\ref{sec:plSS_results}. Specifically, the initial conditions are taken from the end of the runaway growth phase, which correspond to the 
+snapshots shown in the top row of Figure \ref{fig:mass_spectrum_evo}. Additionally, a planetary embryo is placed in the center of 
 the annulus at 1 AU with an eccentricity of 0.02 and an inclination of 0.01. The mass of the embryo is set at $M = 10^{26}$ g, 
 which is approximately the mass of the largest oligarch at the end of the high resolution simulation. Because collisions are 
-ignored, close encounters are handled with a gravitational softening parameter, the length of which is set to the physical radius 
+ignored, \textbf{bodies are allowed to pass through each other and} close encounters are handled with a gravitational softening parameter, the length of which is set to \textbf{what would have been} the physical radius 
 of the planetesimals. Both runs are integrated for 2,000 years with fixed timesteps of 0.0025 years. We will refer to the 
 collisionless versions of these simulations as $e_{low}$ and $e_{hi}$, respectively. To further demonstrate that the dynamical 
 excitation of the small planetesimals is driven by mean motion resonances, we also ran a high resolution collisionless simulation 
@@ -563,24 +577,24 @@ such that the total number of planetesimals in the subsample matches that of the
 
 In both cases, the particle number density is slightly enhanced around 1 AU, which is due to bodies trapped in the corotation 
 resonance with the embryo. For the wide annulus, the surface number density decreases and then begins to increase again 
-approximately 0.01 AU away from the embryo. As is evident in the left panel of figure \ref{fig:num_den}, the location at which the 
+approximately 0.01 AU away from the embryo. As is evident in the left panel of Figure \ref{fig:num_den}, the location at which the 
 number density begins to increase corresponds to the location of the closest non-overlapping (j $<$ 65) mean motion 
 resonances. Due to conservation of the Jacobi energy (see equation \ref{eq:tiss}), interior MMRs will push bodies inward, while 
 exterior resonances move bodies outward. This effect was also observed by \cite{richardson00} (see model B) in that the 
 density decreases to the right of interior resonances and increases to the left. Because our setup contains many closely spaced 
 resonances, the cumulative effect is that the density smoothly increases as one moves through the resonances. 
 
-Hence, the number density distribution acquires a 'W' shape around the embryo, with the low points corresponding to the inner 
+Hence, the number density distribution acquires a `W' shape around the embryo, with the low points corresponding to the inner 
 edges of the resonant regions. An inspection of the earlier snapshots from this simulation shows that the 'W' structure becomes 
 deeper and narrower with time. This is consistent with our resonance heating argument because the resonance time-scale 
 decreases as one moves away from the embryo. The stronger, closer resonances become effective last, causing the profile to 
 deepen and narrow with time.
 
 The strength of the resonance heating effect depends on the number density of bodies outside of the $0.99 < a < 1.01$ AU 
-region, where the resonances are not overlapping. The 'W' shaped structure relative to the noise of the high mass (orange) and 
+region, where the resonances are not overlapping. The `W' shaped structure relative to the noise of the high mass (orange) and 
 subsampled population (green) is weak compared to the low mass population (blue) due to the fact that there simply aren't many 
 bodies sitting within the resonances. This structure is entirely absent from the narrow annulus, shown in the right hand panel of 
-figure \ref{fig:num_den} because the planetesimal number density near the resonances is too low. We infer that this decrease in 
+Figure \ref{fig:num_den} because the planetesimal number density near the resonances is too low. We infer that this decrease in 
 number density of the low mass bodies adjacent to the embryo must also be present in the high resolution growth simulation and 
 is enhancing the collision rate below the resonance heating mass.
 
@@ -594,7 +608,7 @@ resonance heating is effective. In the $e_{hi}$ simulation, the eccentricity of 
 1000 years. This effect is also noticeable for the $e_{narrow}$ simulation, although it happens sooner. Because we are suddenly 
 dropping a massive body into the annulus of planetesimals, the system likely requires some time to return to a state of quasi-
 equilibrium. The two-body relaxation time, which is well-described by the viscous stirring timescale \cite{ida93} appears to 
-roughly coincide with the change in slope for each of the curves in figure \ref{fig:e_oli_evo}, although the connection between the 
+roughly coincide with the change in slope for each of the curves in Figure \ref{fig:e_oli_evo}, although the connection between the 
 relaxation of the planetesimals and the eccentricity evolution of the oligarch is not immediately clear. In the $e_{low}$ simulation, 
 the change in slope may not be visible due to the fact that the two-body relaxation time is nearly instantaneous due to the small particle count (the relaxation time scales as $N / \ln N$).
 
@@ -612,6 +626,8 @@ frequency of a planetesimal in resonance with an embryo is given by \cite{murray
     \omega_{0}^{2} = -3 j_{2}^{2} C_{r} n e^{\left| j_{4} \right|},
 \end{equation}
 
+% TODO: wrong J coefficients here?
+
 \noindent where $j_{2}$ = -15 and $j_{4}$ = -1 for the 15:14 MMR and $n = \sqrt{G M_{*} / a^{3}}$ is the mean motion of the 
 planetesimal. For a planetesimal with a typical eccentricity of $10^{-3}$ inside the 15:14 mean motion resonance with a 
 $10^{26}$ g embryo, the libration period is approximately 1000 years. For this reason, it is likely that a particle will undergo only 
@@ -625,13 +641,13 @@ interaction produces a permanent change in the action (and therefore the energy 
 (see the text following equation 10 in \cite{weinberg07a} for a further discussion of this).
 
 The typical change in the resonant arguments of the planetesimals from the $e_{hi}$ simulation over multiple synodic periods is 
-shown in figure \ref{fig:lib_arg}. The resonant argument is given by \cite{murray00}
+shown in Figure \ref{fig:lib_arg}. The resonant argument is given by \cite{murray00}
 
 \begin{equation}\label{eq:res_arg}
     \phi = j_{1} \lambda_{e} + j_{2} \lambda_{p} + j_{4} \varpi_{p},
 \end{equation} where $j_{1} = -j_{2} - j_{4} = 16$ for the 15:14 MMR. $\lambda_{e}$ and $\lambda_{p}$ are the mean longitudes 
 of the embryo and planetesimal, respectively and $\varpi_{p}$ is the longitude of pericenter of the planetesimal. The $\Delta 
-\phi$ shown in figure \ref{fig:lib_arg} is the change in this resonant argument between t=1500 and t=1550 years, well after the 
+\phi$ shown in Figure \ref{fig:lib_arg} is the change in this resonant argument between t=1500 and t=1550 years, well after the 
 system has relaxed back to a state of quasi-equilibirum. The blue diagonal lines represent the change in the resonant argument 
 due to the Keplerian shearing of the disc. This quantity is derived by taking the time derivative of equation \ref{eq:res_arg},  
 which is given by
@@ -688,10 +704,10 @@ motions is given by \cite{lissauer93}
 sub-Keplerian motion of the gas is given by \cite{adachi76}
 
 \begin{equation}\label{eq:vgas}
-    v_{gas} = v_{k} \left( 1 - (1 - 2 \eta)^{1/2} \right).
+    v_{gas} = v_{k} \left( 1 - (1 - 2 \eta)^{1/2} \right),
 \end{equation}
 
-\noindent At 1 AU in the solar nebula, $\eta \approx$ 0.002, which gives $v_{gas} \approx$ 6000 cm s$^{-1}$. From equation 
+\noindent \textbf{where $\eta$ is a dimensionless parameter that describes the strength of the headwind.} At 1 AU in the solar nebula, $\eta \approx$ 0.002, which gives $v_{gas} \approx$ 6000 cm s$^{-1}$. From equation 
 \ref{eq:t_stop}, the smallest planetesimals in simulation (i) have a stopping time on the order of $10^4$ years. This is much 
 longer than the synodic period of the relevant planetesimal-oligarch resonances, therefore we expect the dynamics of even the 
 smallest planetesimals to be entirely dominated by the resonances.
@@ -729,6 +745,8 @@ body and $r$ is the orbital distance of the body. The radial migration velocity 
     \dot{r} = \frac{-2 r \Gamma}{L},
 \end{equation}
 
+% TODO: Ask rory about concern that alpha = 3/2 too large?
+
 \noindent where $L = m \left( G M_{*} r \right)^{1/2}$ is the total angular momentum of the body. For a $10^{26}$ g embryo 
 orbiting at 1 AU and taking $\alpha$ = 3/2, $\Sigma$ = 1700 g cm$^{-2}$ and $c_{s}$ = $10^{5}$ cm s$^{-1}$ \cite{hayashi81}, 
 the inward migration speed is $2 \times 10^{-7}$ AU yr$^{-1}$. At this rate, the 15:14 MMR with an embryo will migrate by a 
@@ -759,8 +777,8 @@ It is difficult to predict exactly how much $f$ reduces the accretion timescale,
 than factor of $f^2$. Integrating equation \ref{eq:vs_timescale}, the rms eccentricity scales with $t^{1/4}$. Having enhanced the 
 collision cross section by a factor of 6, the rms eccentricity should be a factor of $(f^2)^{1/4} \approx 2.5$ times larger with a 
 realistic collision cross section. Using equation \ref{eq:lib_width}, a factor of 2.5 increase in the eccentricity of a planetesimal 
-increases the libration width by a factor of about 1.6. Looking at figure \ref{fig:res_mass}, this would cause an extremely 
-insignificant change in the resonance heating mass.
+increases the libration width by a factor of about 1.6. Looking at Figure \ref{fig:res_mass}, this would cause an extremely 
+insignificant \footnote{The difference in libration width between the 65:64 and 15:14 resonance produces a much larger spread in the exact value of the resonance heating mass.} change in the resonance heating mass.
 
 \subsection{Fragmentation}
 
@@ -821,12 +839,12 @@ The size frequency distribution of asteroid belt objects is known to exhibit a p
 $1.05 \times 10^{21}$ g \cite{jedicke02}. The fact that the knee in the mass distribution is reproducible and appears sensitive to 
 $m_{0}$ demonstrates that this value could be tuned to constrain planetesimal formation models by matching the observed 
 mass of the bump with simulations. There is evidence that the shape of the SFD for asteroid belt objects more massive than 
-about 100 km reflects that of the primordial population \cite{morbidelli09}. Although the purpose of this paper is not to try to tune 
+about 100 km reflects that of the primordial population \cite{morbidelli09}. Although the purpose of this chapter is not to try to tune 
 the model to match observations, we show the mass distribution from the $N=10^6$ growth simulation alongside the SFD of 
-asteroid belt objects \cite{bottke05} in figure \ref{fig:mass_dist_ast_compare} for comparison. Although the bump location in all 
+asteroid belt objects \cite{bottke05} in Figure \ref{fig:mass_dist_ast_compare} for comparison. Although the bump location in all 
 of our simulations is larger than 100 km, a smaller initial planetesimal mass would probably produce a better match. The slope of 
 the mass distribution above the bump mass matches reasonably well in both cases, but the slopes on the low mass end are 
-discrepant. As the results from figure \ref{fig:mass_spectrum_comp} show, a wider annulus tends to produce a shallower slope 
+discrepant. As the results from Figure \ref{fig:mass_spectrum_comp} show, a wider annulus tends to produce a shallower slope 
 below the resonance heating mass. A better match might be made by simulating a wider annulus which includes resonances 
 further from the embryos. Unfortunately, simulating an annulus wide enough to resolve all of the first order MMRs would require 
 an extremely large number of particles.
@@ -838,7 +856,7 @@ asteroid belt SFD, we briefly consider the smallest sized planetesimals for whic
 gas drag. This will occur when the synodic period of the resonance becomes comparable to the stopping time. The latter quantity 
 is given by equation \ref{eq:t_stop} and scales linearly with planetesimal size. For 100 km planetesimals, we showed that the 
 stopping time is around $10^4$ years. The stopping time becomes comparable to the synodic period for bodies smaller than a 
-few km in size, at which point our calculations would become invalid.
+few km in size, at which point \textbf{the resonant heating mechanism should no longer operate}.
 
 \section{Summary and Discussion} \label{sec:discussion}
 
@@ -870,6 +888,8 @@ the MMRs are responsible for creating this bump.
     \label{fig:mass_dist_ast_compare}
 \end{figure}
 
+% TODO: Figure too large
+
 We confirmed this dynamical effect by placing a massive oligarch into a smoothly varying distribution of planetesimal masses. 
 Within a few thousand orbits, the low mass planetesimals sitting within the zone of influence of the resonances began to migrate 
 outwards, leaving a dearth of low mass bodies around the embryo. This effect did not appear when we simulated a similar 
@@ -898,12 +918,13 @@ effects of collisional fragmentation would significantly affect the location or 
 demonstrate that a careful treatment of the dynamics is necessary to properly model planetesimal accretion during the oligarchic 
 growth phase.
 
+% TODO: Rory comment. Make appendices sections
 
 \section{Appendix A: Mean Motion Resonance Test}
 
 To demonstrate that {\sc ChaNGa} can properly track the motions of bodies in a mean motion resonance over many orbits, we 
 present a test case with a central star, a perturbing massive body and a planetesimal. Although the simulations presented in this 
-paper are far more complex than this three body setup, the resonant interactions that produce the bump in the mass distribution 
+chapter are far more complex than this three body setup, the resonant interactions that produce the bump in the mass distribution 
 are driven by the most massive bodies in the simulation. Because there are only a handful of these massive bodies, the tree 
 approximation should have a negligible effect on the force contribution from these objects. For this reason, the behavior shown 
 here should also apply to the previously presented simulations of planetesimal growth.
@@ -966,10 +987,10 @@ Because we expand forces from tree nodes to hexadecapole order, an opening angle
 the error in the force calculations by a factor of 16. Additionally, we test $\Theta_{BH} = 0.7$ with a timestep of $\Delta T$ = 
 0.00125 years.
 
-A comparison between the three versions of the $e_{hi}$ simulation is shown in figure \ref{fig:theta_test}. In all cases, the 
+A comparison between the three versions of the $e_{hi}$ simulation is shown in Figure \ref{fig:theta_test}. In all cases, the 
 oligarch slowly loses eccentricity for about 1000 years before the curve drops more steeply. With a smaller opening angle or a 
 smaller timestep size, the downturn appears to happen slightly sooner. By the end of the simulation, the resulting eccentricities 
-of the oligarchs are still within 10 percent of each other. The right hand panel of figure \ref{fig:theta_test} shows the evolution of 
+of the oligarchs are still within 10 percent of each other. The right hand panel of Figure \ref{fig:theta_test} shows the evolution of 
 the rms eccentricity of the lowest mass planetesimals. There is some divergence between the curves early on, but this only 
 lasts for a fraction of the viscous stirring timescale. As was shown in section \ref{sec:assumptions}, it would take a much larger 
 difference in the rms eccentricity than is seen here here to alter the bump in the mass spectrum. The evolution of the rms 
