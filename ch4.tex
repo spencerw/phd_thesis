@@ -35,7 +35,7 @@ planetesimals, severely limiting further growth \cite{kokubo98}. The final outco
 dynamically cold oligarchs, surrounded by dynamically hot, difficult to accrete residual planetesimals. Lines of evidence suggest 
 that the asteroid belt \cite{bottke05, morbidelli09}, Kuiper belt \cite{duncan89, levison08, sheppard10} and the Oort cloud  \cite{levison11} are largely composed of the leftovers of this stage of planet formation.
 
-Tidal interactions between protoplanets and the gaseous disk keep eccentricities and inclinations low until the gas disk dissipates, typically over the course of a few Myr \cite{mamajek09}. Eventually, gravitational perturbations eventually trigger an instability which drives bodies onto crossing orbits. This instability occurs on a timescale of $\sim 10^{5}$ years and involves large scale oscillations of the eccentricity and inclinations of the bodies as they strongly interact through secular resonances \cite{chambers98}.
+Tidal interactions between protoplanets and the gaseous disk keep eccentricities and inclinations low until the gas disk dissipates, typically over the course of a few Myr \cite{mamajek09}. Eventually, gravitational perturbations trigger an instability which drives bodies onto crossing orbits. This instability occurs on a timescale of $\sim 10^{5}$ years and involves large scale oscillations of the eccentricity and inclinations of the bodies as they strongly interact through secular resonances \cite{chambers98}.
 As a consequence of the instability, the oligarchics are no longer
 on isolated, stable orbits and coalesce to form Earth-sized planets
 through a series of extremely energetic giant 
@@ -45,13 +45,13 @@ Due to the relative ease of modeling the early dust coagulation phases
 and the final giant impact phase, these steps in the terrestrial
 planet formation process have received most of the attention in the
 literature. The planetesimal accretion phase, which we will focus on
-in this paper, is more difficult and expensive to model because there are too
+in this chapter, is more difficult and expensive to model because there are too
 many particles to directly track with traditional N-body codes, while
 the gravitational interactions between the few massive bodies produced by the runaway growth phase \cite{ida93, kokubo95, kokubo98} render statistical methods inappropriate. Due to computational expense, N-body simulations of
 planetesimal accretion are usually modeled in a narrow
 ring \cite{kokubo96, kokubo98}, and the results and timescales are then scaled to suit whatever relevant orbital period is being 
 studied. N-body simulations of terrestrial planet assembly typically begin with a series of neatly spaced oligarchs, whose mass 
-varies smoothly with orbital period. As we will show in this paper, oligarchic growth does not scale to arbitrarily short
+varies smoothly with orbital period. As we will show in this chapter, oligarchic growth does not scale to arbitrarily short
 orbital periods.
 
 Given that Systems of Tightly-packed Inner Planets (STIPs) appear to
@@ -59,7 +59,7 @@ be a common outcome of planet formation \cite{lantham11, lissauer11, rowe14}, un
 solids accumulate at short orbital periods is crucial. Although
 gas-disk driven migration of the planets themselves is often invoked
 to explain the observed architectures \cite{izidoro17, izidoro21}, we will focus on an in-situ
-model in this paper. That is, once the planetesimals themselves form,
+model in this chapter. That is, once the planetesimals themselves form,
 they largely stay in place, and any subsequent large-scale movement of
 the solids are the result of mutual gravitational interactions. The
 focus of this work will be to understand how the outcome of the
@@ -78,7 +78,7 @@ section \ref{sec:narrow}, we present a parameter study of planetesimal
 accretion using a series of simulations of narrow annuli that exhibit both oligarchic and non-oligarchic growth. In section 
 \ref{sec:fulldisk} we present a set of simulations starting with a  wide planetesimal disk and demonstrate that a transition 
 between accretion modes occurs at moderately small orbital periods. Next, we assess the impact of 
-simplifications made to our collision model on this result in section \ref{sec:assump}. In section \ref{sec:discuss}, we discuss the 
+simplifications made to our collision model on this result in section \ref{sec:assump}. In section \ref{sec:pl_stip_discuss}, we discuss the 
 implications of this multimodal accretion behavior throughout the disk for planet formation models and conclude.
 
 \section{Overview of Planetesimal Accretion}\label{sec:theory}
@@ -273,6 +273,8 @@ These scaling considerations motivate the range of parameters we choose for the 
 \end{center}
 \end{figure*}
 
+% TODO: Alpha and beta labels look like axis labels
+
 \begin{figure}
 \begin{center}
     \includegraphics[width=0.5\textwidth]{figures/plStip/alpha_beta_mass.png}
@@ -339,7 +341,7 @@ $\alpha$ (case c, d) does a residual population of dynamically hot planetesimals
 develop. The lack of high eccentricity planetesimals (relative to the protoplanets) in the large
 $\alpha$ (case a, b) simulations suggests that most encounters result in accretion
 rather than scattering. For large $\beta$ (case b, d), the growing protoplanets
-and end up in a dynamically cool state,
+end up in a dynamically cool state,
 relative with the initial conditions. This is due to kinetic energy 
 being lost as particles inelastically collide. One last point we note
 is the difference between the eccentricities of protoplanets in the 
@@ -527,6 +529,8 @@ boundaries, while also minimizing the number of `skipped' collisions. In the cas
 \end{center}
 \end{figure}
 
+% TODO: try x log scale?
+
 \begin{figure}
 \begin{center}
     \includegraphics[width=0.5\textwidth]{figures/plStip/surfden_b.png}
@@ -536,6 +540,8 @@ boundaries, while also minimizing the number of `skipped' collisions. In the cas
     days in all cases. \label{fig:surfden_b}}
 \end{center}
 \end{figure}
+
+% TODO: try x log scale?
 
 \subsection{Results}
 
@@ -561,7 +567,7 @@ the chosen surface density profile, along with the local orbital
 timescale. Protoplanets form first at the inner edge of the disk,
 where the dynamical timescales are short. Growth proceeds in an
 inside-out fashion, with the outermost regions of the disk completing
-the protoplanet assembly phase last (as an example, see figure 1 of \cite{kokubo02}. This radial timescale dependence is not typically
+the protoplanet assembly phase last (as an example, see figure 1 of \cite{kokubo02}). This radial timescale dependence is not typically
 accounted for in planet formation simulations a notable exception being \cite{emsenhuber21a, emsenhuber21b}, and appears to be an
 important component to forming realistic solar system analogs
 \cite{clement20}. As with the narrow annulus simulations, we stop the
@@ -702,7 +708,7 @@ collision cross section of the particles in our simulations by a factor of $f$, 
 of the particles are reduced, and the accretion boundary is shifted outward.
 However, the scaling relation between $\alpha$ and $\rho$ ($\alpha \sim \rho_{pl}^{-1/3}$) can be used
 to predict where this accretion boundary should lie in a disk with realistic-sized planetesimals. The simulations
-presented in this paper use a collision cross section enhancement factor of 6, which moves the boundary outward in orbital
+presented in this chapter use a collision cross section enhancement factor of 6, which moves the boundary outward in orbital
 period by a factor of approximately 15 (For a fixed value of $\alpha$, equation \ref{eq:alpha} gives $a \sim r_{pl} \sim f$ and therefore $P_{orbit} \sim f^{-3/2}$). One would therefore expect the accretion boundary to lie between 3 and 5 days in orbital period
 for 3 g $cm^{-3}$ bodies.
 
@@ -809,7 +815,7 @@ calculating the planetesimal accretion zones using the same method as was done t
 that the embryos in the bounce-merge simulation annulus do have modestly wider accretion zones than those produced in the 
 merger-only simulation.
 
-\section{Summary and Discussion} \label{sec:discuss}
+\section{Summary and Discussion} \label{sec:pl_stip_discuss}
 
 In this work, we have demonstrated that planetary embryo growth
 can simultaneously operate in two distinct modes in a planet-forming disk. In the first
@@ -885,7 +891,7 @@ To connect these accretion modes to the final orbital architecture,
 and to ultimately determine what implications an in-situ formation model has for the growth of STIPs, we will evolve the final 
 simulation snapshots presented here with a hybrid-symplectic integrator for Myr timescales. The final distribution of planets 
 formed, along with composition predictions generated by applying cosmochemical models to our initial planetesimal distributions 
-and propagating compositions through the collision trees, will be examined in a follow-up paper.
+and propagating compositions through the collision trees, will be examined in the following chapter.
 
 \section{Appendix A: Robustness of Timestepping Scheme}\label{sec:rung_ecc}
 
