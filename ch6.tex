@@ -25,4 +25,35 @@ Despite the crucial role that this delayed assembly model plays, the behavior an
 
 In most cases, a smoothly varying `minimum mass solar nebula' (MMSN) disk model is used (e.g. \cite{kominami02, dawson15}), which triggers the instability everywhere once the gas density sufficiently decays. However, a MMSN model is not compatible with many exoplanetary systems \cite{chiang13, schlichting14}. As I showed in chapter \ref{ch:stipPl}, a smooth distribution of planetesimals does not always produce a smooth distribution of protoplanets. Furthermore, non-monotonic gas profiles are being invoked in protoplanetary disk models \cite{chatterjee14, ogihara15} and are even supported by observations of nearby disks with ALMA \cite{isella16, andrews16}. For these cases, the instability might trigger only in special places in the disk and could even spread to regions where substantial amounts of gas are still present. If protoplanetary cores in the terrestrial region can grow large enough to accrete gas before photoevaporation from the central star removes the majority of it, the need for migration in formation models for super-Earths and hot Jupiters would be greatly reduced.
 
-% TODO: Final summary of future work to close things off
+\section{Toward a Fully Self-Consistent Simulation of Planet Formation}
+
+\textbf{The work presented in this thesis represents the cutting edge of simulating the accumulation of solids into planet-sized bodies. In addition to resolution requirements, simulations of planet formation require a vast range of timescales to be resolved. To satisfy the resolution requirements, we have made use of the highly-parallel tree-based N-body code {\sc ChaNGa} to follow self-interactions between growing planetesimals and protoplanets at near-realistic resolution (100 km, which is on the upper end of predictions made by planetesimal formation model models). Much of the effort to implement a framework to handle collision detection between this vast of a collection of bodies was done in chapter \ref{ch:plSS}.}
+
+\textbf{Due to the disparate timescales that need to be resolved in a planet-forming disk, the simulations presented in this thesis were largely limited by the number of timesteps that could be integrated in a reasonable amount of time. The simplest way to circumvent this issue is to artificially inflate the collision cross sections of particles, thereby reducing the growth timescale relative to the local dynamical time (which sets the minimum required timestep size). This approach was taken in chapters \ref{ch:plSS} and \ref{ch:stipPl}. In chapter \ref{ch:grind}, we made our first attempt at connecting the collision detection framework to the multi-tiered timestep capabilities of {\sc ChaNGa} (see \cite{menon15}) by only allowing particles undergoing near-collisions to evolve on the smaller step size.}
+
+\textbf{In chapter \ref{ch:stipPl}, we modeled a growing planetesimal disk spanning two orders of magnitude in dynamical time from the inner to outer edge. To make these simulations computationally tractable, a new, multi-tiered timestepping condition was implemented in which a particle's step size is set by the present pericenter distance of its orbit. This was done to prevent particles on eccentric orbits from repeatedly `jumping' between discretized timesteps as they move between peri- and apocenter. This also introduced some complications with the onset of runaway growth in the disk, the details of which are described in section \ref{sec:timestep}.}
+
+\textbf{Despite the improvements we made to {\sc ChaNGa}, the simulations presented in chapter \ref{ch:stipPl} would require billions of steps to reach planet formation timescales ($\sim$ Myr) when using a leapfrog integration scheme, which would require multiple years of wall time. To circumvent this, we run the {\sc ChaNGa} simulations until growth has proceeded such that the particle count reduces to $\sim 10^{4}$ and then pass the results to the MVS code {\sc genga}. Until recently, MVS codes have been unable to handle more than a few thousand self-interacting particles, but improvements in GPU hardware are quickly changing that. Some recent improvements to the code allowed for a 1.5 Gyr simulation of the inner solar system to be run using more than 60,000 particles \cite{grimm22}. A summary of improvements to the resolution and integration time capabilities of N-body simulations of planet formation is shown in table \ref{tab:nbody_improve}.}
+
+\textbf{Lastly, the influence of a collision model which incorporates partial accretion events has yet to be fully understood, particularly in the context of STIPs. A model capturing the effects of more realistic collision outcomes has already been implemented in the tree-based code {\sc pkdgrav} \cite{leinhardt12, leinhardt15}, but has yet to be ported to {\sc ChaNGa}. One complication with this model is that the particle count can actually increase as growth proceeds, due to the production of debris. In doing so, some of the physical situations we modeled in this thesis may become computationally intractable. Taking advantage of the latest improvements in GPU hardware capabilities, however, may provide a path to circumvent this.}
+
+\begin{table*}
+\begin{center}
+\caption{Highlights of Advances in N-body Simulations of Planet Growth}
+\begin{tabularx}{1.0\textwidth}{l@{\extracolsep{\fill}}ccc} \hline \hline
+Paper & N & t (yr) & Method \\ \hline
+Lecar \& Aarseth (1986) & 200 & $6 \times 10^{4}$ & Direct (2-dimensional) \\
+Kokubo \& Ida (1998) & 4,000 & 20,000 & Modified Hermite scheme \\
+Richardson (2000) & $10^{6}$ & 1,000 & Tree-based \\
+Kokubo (2002) & $10^{4}$ & $4 \times 10^{5}$ & Modified Hermite Scheme \\
+Raymond \& Quinn (2005) & 380 & $200 \times 10^{6}$ & MVS \\
+Barnes (2009) & $10^{5}$ & 90 & Tree-based (patch) \\
+Wallace \& Quinn (2019) & $10^{6}$ &  20,000 & Tree-based \\
+Grimm (2022) & 65,000 & $3.5 \times 10^{9}$ & MVS \\
+Wallace \& Quinn (2022) & $10^{6}$ &  $10^{6}$ & Tree-based + MVS \\ \hline
+\end{tabularx}\\
+\begin{flushleft}
+\end{flushleft}
+\label{tab:nbody_improve}
+\end{center}
+\end{table*}
