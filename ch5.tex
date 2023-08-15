@@ -44,7 +44,7 @@ models have yet produced resonant chains of planets, so it seems likely that gas
 subset of planetary systems found in this type of configuration.
 
 Compared to planet formation models that involve gas disk-driven migration, an in situ model is relatively straightforward 
-(although expensive) to model, involving only mutual gravitational interactions and the occasional collision. In \cite{wallace},
+(although expensive) to model, involving only mutual gravitational interactions and the occasional collision. In \cite{wallace23},
 we used a tree-based N-body code to follow the accumulation of near realistic-sized planetesimals 
 into protoplanets at short orbital period. We showed that oligarchic growth \cite{kokubo98}, which gives rise to a bimodal 
 population of protoplanets and residual planetesimals, does not operate at arbitrarily short orbital periods. In addition, the 
@@ -110,9 +110,7 @@ Due to the stochasticity of the final assembly phase, we generate 5 distinct ini
 
 To make the planetesimal accretion phase more computationally tractable, the collision cross sections of particles are inflated by a factor of 6. This acts to shorten the growth timescale and number of timesteps required to produce protoplanets without qualitatively changing the growth modes. The collision cross section inflation, however, does move the boundary between oligarchic and non-oligarchic growth in the disk outward by a factor of $\sim$ 10 in orbital period. In figure \ref{fig:changa_ics}, we show the eccentricity and mass distribution at the end of the planetesimal accretion phase for a simulation using $\delta$ = 1.5. For a full description of how the initial conditions were constructed, along with the details of the simulations and the limitations created by expanding the collision cross sections, see \cite{wallace23}.
 
-Once the simulations reach a point where the remaining planetesimals and protoplanets reach a quasi-steady state, the results are converted into a set of initial conditions for {\sc genga}.  When doing so, the inflated collision cross sections are removed and the particle radii are reduced back to their proper physical values. Each of the simulation snapshots passed to {\sc genga} contain roughly 10,000-15,000 particles. These are each integrated for 1 Myr using a timestep size of 0.05 days a fully interacting set of particles. Bodies which fall within the radius of the star (X solar radii) or beyond the truncation radius (0.24 AU) are removed from the simulation. In all cases, roughly half of the remaining planetesimals eventually scatter beyond the outer truncation radius and are considered ejected. This allows the particle count to reduce enough to allow the simulations to complete in a reasonable amount of time.
-
-% TODO: fill in star radius
+Once the simulations reach a point where the remaining planetesimals and protoplanets reach a quasi-steady state, the results are converted into a set of initial conditions for {\sc genga}.  When doing so, the inflated collision cross sections are removed and the particle radii are reduced back to their proper physical values. Each of the simulation snapshots passed to {\sc genga} contain roughly 10,000-15,000 particles. These are each integrated for 1 Myr using a timestep size of 0.05 days a fully interacting set of particles. Bodies which fall within the radius of the star ($7.7 \times 10{-4} R_{\odot}$) or beyond the truncation radius (0.24 AU) are removed from the simulation. In all cases, roughly half of the remaining planetesimals eventually scatter beyond the outer truncation radius and are considered ejected. This allows the particle count to reduce enough to allow the simulations to complete in a reasonable amount of time.
 
 As with the {\sc ChaNGa} simulations, every collision results in a perfect merger, where the resulting particle takes on the center of mass position and velocity of the participating particles. For high-velocity impacts which happen towards the final assembly stage, this is almost certainly not a realistic assumption \cite{marcus09}. We will explore the implications of destructive giant impacts in section \ref{sec:typicalICs}.
 
@@ -127,9 +125,7 @@ As with the {\sc ChaNGa} simulations, every collision results in a perfect merge
 
 We also construct a set of initial conditions to match a more typical scenario for an N-body simulation of terrestrial planet formation. Here, protoplanets throughout the disk are already fully formed and roughly evenly spaced. \textbf{This is a very typical starting configuration for late-stage planet formation simulations \cite{kokubo02, raymond05, raymond06}.} Although not as realistic, this type of setup is much simpler to construct and requires far fewer self-interacting bodies, which is a common point of trouble for most planet  formation simulations.
 
-As with the planetesimal disk, the protoplanets are placed on orbits between 1 and 100 days in orbital period, and the disk is constructed to contain the same amount of total mass (X earth masses). To place protoplanets, we begin at the outer disk edge and calculate the local isolation mass \cite{kokubo02}
-
-%TODO: calculate disk mass
+As with the planetesimal disk, the protoplanets are placed on orbits between 1 and 100 days in orbital period, and the disk is constructed to contain the same amount of total mass (5 $M_{oplus}$). To place protoplanets, we begin at the outer disk edge and calculate the local isolation mass \cite{kokubo02}
 
 \begin{equation}\label{eq:iso}
 	M_{iso} = \left[ \frac{\left( 2 \pi a^2 \Sigma \tilde{b} \right)^3}{3 M_{*}} \right]^{1/2},
@@ -152,11 +148,9 @@ In all cases, its apparent that the bodies in the non-oligarchic growth region (
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/stip/full_coll_evo.png}
-    \caption{The evolution of the orbits of some of the last surviving bodies in the $\delta = 1.5$ simulations. Collisions are indicated with colored triangles, where the size and color denotes the relative mass of the body that was consumed in the merger. Green curves indicate bodies which survived through the end of the simulation and the line width indicates their relative mass. The vertical blue line marks the time at which the {\sc ChaNGA} snapshots were passed to {\sc genga}.\label{fig:full_coll_evo}}
+    \caption{The evolution of the orbits of some of the last surviving bodies in the $\delta = 1.5$ simulations. Collisions are indicated with  triangles, where the size denotes the relative mass of the body that was consumed in the merger. Gray curves indicate bodies which survived through the end of the simulation and the line width indicates their relative mass. The vertical blue line marks the time at which the {\sc ChaNGA} snapshots were passed to {\sc genga}.\label{fig:full_coll_evo}}
 \end{center}
 \end{figure*}
-
-% TODO: get rid of color scale?
 
 Next, we examine the final configurations of the simulated planetary systems. In figure \ref{fig:per_mass_full}, we show the final period-mass distributions for all three choices of the initial surface density profile. Planets in the same system are connected by a solid line and each choice of random number seed for the initial conditions is shown as a different color. In most cases, the planet mass increases with orbital period and then turns over at some intermediate value. The turnover distance appears to be inversely proportional to the power law slope of the initial planetesimal disk $\delta$. In addition, there is some significant scatter in the final planetary architectures formed which is particularly prevalent for smaller values of $\delta$. This is driven by the role that chaos plays during the giant impact phase. In section \ref{sec:neuralICs}, we will revisit this aspect of the simulations and use a neural network to generate a much larger set of late-stage initial conditions which can then be evolved with {\sc genga}.
 
@@ -167,9 +161,6 @@ Next, we examine the final configurations of the simulated planetary systems. In
 \end{center}
 \end{figure*}
 
-% TODO: Try log x axis
-% TODO: plot titles should have delta, not alpha
-
 Having directly tracked every collision starting from the planetesimal phase allows us to make composition predictions for the resulting planets. To do so, we construct a collision tree for each planet in the final simulation snapshots, where the root node is the planet itself and the leaf nodes correspond to the initial mass planetesimals that went into its assembly. We place a snowline partway through the disk and for each planet, calculate the fraction of consumed planetesimals which originated from beyond the snowline location. Due to the fact that the inflated collision cross sections used during the planetesimal accretion phase alter the location of the accretion mode boundary in the disk (see \cite{wallace23}), along with the fact that the snowline locations should be expected to vary widely over the course of the central star's pre-main sequence evolution \cite{baraffe15}, we choose to simply place a static snowline at 50 days in orbital period \textbf{to gain a broad sense of how much radial mixing occurs over the course of the simulations}.
 
 Figure \ref{fig:snowline} shows the expected wet/dry compositions of the planetary systems formed in the $\delta = 1.5$ simulations. Each row of points on the y-axis corresponds to a separate iteration of the simulation and the point sizes indicate relative masses. The blue shading represents the total mass fraction of accreted planetesimals that originated from beyond the snowline, which is indicated by a vertical line. In all cases, we see that water-rich material is able to be incorporated into planets far interior to the snowline location. In one case, a significantly dry planet eventually ends up well beyond the snowline.
@@ -178,7 +169,7 @@ As our model is purely in-situ and does not incorporate any significant dissipat
 
 \begin{figure}
 \begin{center}
-    \includegraphics[width=0.5\textwidth]{figures/stip/snowline.png}
+    \includegraphics[width=\textwidth]{figures/stip/snowline.png}
     \caption{Final compositions of planets from the five $\delta = 1.5$ simulations. Point sizes indicate relative mass and the pie fractions indicate the amount of wet/dry material incorporated into each planet. A snow line is placed at 50 days in orbital period and all planetesimals that originate from beyond this location are assumed to be wet.\label{fig:snowline}}
 \end{center}
 \end{figure}
@@ -195,8 +186,6 @@ As we showed in \cite{wallace23}, the oligarchic growth process, which gives ris
     \caption{The period-mass (left) and period-eccentricity (right) distributions of the simulations starting from planetesimals (colored points) and isolation mass embryos (gray points). Each planetary system is connected by a series of lines.\label{fig:per_mass_ecc_iso_comp}}
 \end{center}
 \end{figure*}
-
-% TODO: try log x axis
 
 In figure \ref{fig:per_mass_ecc_iso_comp}, we compare the period-mass and period-eccentricity distributions of the planetary systems formed starting from planetesimals and starting from isolation mass embryos (shown in gray). Qualitatively, the eccentricity distributions are remarkably similar between the two sets of initial conditions, despite the fact that the protoplanet eccentricites at the end of the planetesimal accretion simulations start off nearly an order of magnitude smaller than the isolation mass embryos. The period-mass distributions, however, show some noticeable differences.
 
@@ -217,9 +206,7 @@ The near-instantaneous initiation of the giant impact phase in the simulations s
 \end{center}
 \end{figure*}
 
-% TODO: Blue points on top
-
-Lastly, we examine the relative collision velocities of growing protoplanets during the giant impact phase. \cite{volk15} and \cite{batygin15} proposed that the lack of short-period planets in the solar system is due to an earlier phase of violent instability in the inner disk which destroyed any such worlds. Given the sudden onset of instability in our simulations starting from planetsimals, one might wonder whether some of the later collisions should be destructive. Because all collisions result in perfect mergers in our simulations, this effect is not self-consistently captured, but we can examine the collision statistics afterwards to determine which planets might have undergone earlier destruction.
+Lastly, we examine the relative collision velocities of growing protoplanets during the giant impact phase. \cite{volk15} and \cite{batygin15} proposed that the lack of short-period planets in the solar system is due to an earlier phase of violent instability in the inner disk which destroyed any such worlds. Given the sudden onset of instability in our simulations starting from planetesimals, one might wonder whether some of the later collisions should be destructive. Because all collisions result in perfect mergers in our simulations, this effect is not self-consistently captured, but we can examine the collision statistics afterwards to determine which planets might have undergone earlier destruction.
 
 In figure \ref{fig:impact_iso_comp}, we show the timing and speed of collisions between bodies larger than 0.01 $M_{\oplus}$ in each set of simulations. The gray points denote collisions from the isolation mass simulations, while the colored points indicate collisions from the simulations started from planetesimals. The collision speeds on the y-axis are shown in units of the mutual escape velocity of the colliding particles. For super-Earth and smaller sized bodies, $v_{coll}/v_{esc} > 2$ tends to produce destructive collisions \cite{marcus09} and so we have marked this region of the figure with a horizontal dashed line. Solid lines connecting points indicate subsequent collisions between the same body.
 
@@ -244,8 +231,6 @@ Another caveat is that the integration time we use (1 Myr) is only a small fract
     \caption{Final orbital architectures of planetary systems formed in the full (blue points) and isolation mass (gray points) simulations. Point sizes indicate relative masses. Bodies which underwent a collision where $v_{coll}/v_{mut,esc} > 2$ with a $> 0.1 M_{\oplus}$ body are marked with a red X.\label{fig:architectures_iso_comp}}
 \end{center}
 \end{figure}
-
-% TODO: Bigger points
 
 \section{Training a Neural Network to Synthesize ICs} \label{sec:neuralICs}
 
@@ -274,8 +259,6 @@ An even simpler solution that works well with our simulation data is to simply s
 \end{center}
 \end{figure*}
 
-% TODO: Normalize 1d distributions
-
 In figure \ref{fig:real_syn_corner}, we show the correlations between the features used to train the GANs in the training (blue) and synthetic (orange) datasets after 5,000 epochs. The discretization of the masses (due to growth via perfect mergers) is clearly visible in the synthetic data, despite no enforcement of this property in the model. This characteristic of the mass data, however, appear to produce some additional small artificial peaks in the synthetic mass distribution at equal intervals in logarithmic space. To circumvent this issue, we also tried training the models using linear masses but it did not appear to reconcile the match between the real and synthetic mass distributions. Due to the weak, indirect role that planetesimals play during the giant impact phase, we chose to leave the synthetic mass distribution as-is.
 
 To construct initial conditions from the synthetic data, particles are drawn one-by-one until the total mass exceeds the average disk mass of the full simulations. This is done separately for the planetesimal and embryo populations, and the total masses of each are matched accordingly. Out of the 100 sets of initial conditions we construct, the synthetic particle count matches the original particle count to within 5 percent, which is an encouraging sign that the generator is properly capturing the physical state of the disk.
@@ -288,8 +271,6 @@ Once particles are drawn using the five features that the neural networks were t
     \caption{Period-mass and period-eccentricity distributions of planetary systems formed through the full simulations (colored points) and the synthetic simulations (gray points). Planets from the same system are connected with a line.\label{fig:per_mass_ecc_syn_comp}}
 \end{center}
 \end{figure*}
-
-% TODO: log x axis
 
 In figure \ref{fig:per_mass_ecc_syn_comp}, we show the resulting period-mass and period-eccentricity distributions of the synthetic simulations (gray points) alongside the full simulations (colored points). Here, planets from the same system are connected by solid lines. The masses of the synthetic planets are quite similar to those in the full simulation, with the turnover in the period-mass relation occurring at roughly the same orbital period (20 days). The period-eccentricity distribution of both sets of simulations appears quite flat and both exhibit a similar mean eccentricity, which indicates that the giant impact phase plays out in a very similar way for the synthetic simulations. We perform a Kolmogrov-Smirnov test on the mass and eccentricity distributions for both the full and synthetic simulations. A KS test for the planet masses yields a p-value of 0.063, which marginally suggests that the two distributions are statistically different. The eccentricity distributions, however are much more firmly statistically distinct, with a p-value of 0.0084.
 

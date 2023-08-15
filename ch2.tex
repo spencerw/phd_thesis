@@ -143,7 +143,7 @@ both validate our collision model and also have a baseline to compare our simula
 distributed randomly in an annulus centred at 1 AU with a width $\Delta a = 0.085$ AU around a 1 $\mathrm{M_{\odot}}$ star. 
 This annulus width was chosen so that the required particle count is minimized without boundary effects influencing planetesimal 
 growth. The surface mass density of the ring is set to 10 g cm$^{-2}$, which approximately corresponds to the minimum-mass 
-solar nebula model \cite{hayashi81} at 1 AU. In case (i), the eccentricities and inclinations are taken from a Rayleigh distribution 
+solar nebula model \cite{hayashi81} at 1 AU \footnote{For a discussion of the considerations taken when choosing an initial disk profile, see section 5, chapter 4.}. In case (i), the eccentricities and inclinations are taken from a Rayleigh distribution 
 \cite{ida92} with $\langle e^2 \rangle^{1/2} = 2 \langle i^2 \rangle^{1/2} = 4 h/a$, where $h$ is the mutual Hill radius. To match 
 the same eccentricity and inclination dispersion with larger planetesimals in case (ii), we use $\langle e^2 \rangle^{1/2} = 2 
 \langle i^2 \rangle^{1/2} = 0.635 h/a$. In both simulations, the planetesimals are given an internal density of 2 g cm$^{-3}$. We 
@@ -169,11 +169,9 @@ integration required approximately 130,000 CPU hours and over 50 days of wall cl
 
 \begin{figure}
     \includegraphics[width=\textwidth]{figures/plSS/mass_spectrum_evo.eps}
-    \caption{Cumulative number of bodies in each mass bin for the low and high resolution runs, shown at the end of runaway growth (top row) and the end of the simulation (bottom row). The dashed line indicates a slope of -1.5, which is characteristic of runaway growth.
+    \caption{Cumulative number of bodies in each mass bin for the low and high resolution runs, shown at the end of runaway growth (top row) and the end of the simulation (bottom row). The dashed line indicates a slope of -1.5, which is characteristic of runaway growth \textbf{and can be derived analytically using the coagulation equation \cite{mcleod62, trubnikov71}}. 
     \label{fig:mass_spectrum_evo}}
 \end{figure}
-
-% TODO: Is this described by the schmochwski equation (citation)?
 
 \section{Results} \label{sec:plSS_results}
 
@@ -246,7 +244,7 @@ bump in the mass distribution near $10^{22}$ g.
     \caption{The rms eccentricity (top) and planetesimal surface density at each mass (bottom) shown for the $N = 4000$ and 
     $N = 10^6$ simulations. The blue points correspond to the quantities at the end of the runaway growth phase (when the 
     mass distribution deviates from a single power law) and the orange points are from the end of the simulations (T = 20,000 
-    years). The vertical dashed lines indicate the value of $M_{stir}$ \textbf{(defined by equation \ref{eq:mstir})} during that snapshot.}
+    years). The vertical dashed lines indicate the value of $M_{stir}$ \textbf{(defined in equation \ref{eq:mstir})} during that snapshot.}
     \label{fig:ecc_den_evo}
 \end{figure}
 
@@ -337,15 +335,15 @@ bar and the halo. Likewise, \cite{cionco02} showed that resonant torque has a me
 planet and a planetesimal disc.
 
 \begin{figure}
-    \includegraphics[width=\columnwidth]{figures/plSS/res_width.eps}
+    \begin{center}
+    \includegraphics[width=0.5\columnwidth]{figures/plSS/res_width.eps}
     \caption{The average spacing in semi-major axis as a function of mass at the end of the high resolution growth simulation 
     (black points). The gray regions indicate the libration width of planetesimals in each mass bin that are in resonance with the 
     most massive oligarch. The light gray region corresponds to the libration width of the 65:64 (highest non-overlapping) 
     resonance and the dark gray region corresponds to the 15:14 (most distant populated) resonance.}
     \label{fig:res_mass}
+    \end{center}
 \end{figure}
-
-% TODO: Why is this figure so large?
 
 \subsection{Resolved Resonances}\label{sec:resonances}
 
@@ -378,8 +376,6 @@ mean motion resonance can be derived analytically using the pendulum approximati
 \frac{\delta a}{a} = \pm \left(\frac{16}{3} \frac{\left| C_{r} \right|}{n} e \right)^{1/2} \left(  1 + \frac{1}{27 j_{2}^2 e^3} \frac{\left| C_{r} \right|}{n} \right)^{1/2} - \frac{2}{9 j_{2} e}  \frac{\left| C_{r} \right|}{n},
 \end{equation}
 
-% TODO: Not applicable for small e, does this matter?
-
 \noindent where $a$ is the semi-major axis at the center of the resonance, $e$ is the eccentricity of the body in resonance and 
 $j_2 = -q$ where $p:q$ is the MMR being considered. $\left| C_{r} \right|/n = (m^{\prime}/m_{c}) \alpha f_{d}(\alpha)$, where $
 (m^{\prime}/m_{c})$ is the mass ratio of the body associated with the resonance to the central body, $\alpha$ is the semi-major 
@@ -402,6 +398,8 @@ b_{s}^{j}(\alpha) = \frac{1}{2 \pi} \int_{0}^{2 \pi} \frac{cos \, j \theta \, d 
 \begin{equation}\label{eq:lap_d}
 \frac{d b_{s}^{j}}{d \alpha} = s \left( b_{s+1}^{j-1} - 2 \alpha b_{s+1}^{j} + b_{s+1}^{j+1} \right).
 \end{equation}
+
+\textbf{One should exercise caution, however, when using a perturbative approach to understand resonant behavior at small eccentricities. Naively, one might interpret equation \ref{eq:lib_width} to imply that the width of a first order interior MMR grows to infinity as $e \to 0$. Instead, recent non-perturbative numerical analyses have shown that these resonances instead split into pericentric and apocentric branches, which diverge away from the nominal resonance location and have a very narrow radial and azimuthal extent \cite{malhotra23}. The mass ranges relevant for our growing planetesimal disk have yet to be explored in this context (see \cite{malhotra22} for a review). However, the dynamical heating that naturally emerges due to repeated gravitational interactions between protoplanets and planetesimals should act to keep resonant bodies out of this low-eccentricity regime.}
 
 Figure \ref{fig:res_mass} shows the libration width and average radial spacing of the planetesimals as a function of mass at the 
 end of the high resolution run. To calculate the libration width as a function of planetesimal mass, the $e$ used in equation 
@@ -439,16 +437,14 @@ eccentricity of $10^{-4}$. This value is small relative to the rms eccentricity 
 of the  mean motion resonances are not visible in Figure \ref{fig:plSS_ae} or in the top right panel of Figure \ref{fig:ecc_den_evo}.
 
 \begin{figure}
-    \includegraphics[width=\columnwidth]{figures/plSS/mass_spectrum_comp.eps}
+    \begin{centering}
+    \includegraphics[width=0.5\columnwidth]{figures/plSS/mass_spectrum_comp.png}
     \caption{The cumulative fraction of bodies as a function of mass in the wide (solid dark curve) and narrow (gray curve) high 
     resolution growth simulations. Decreasing the annulus width, which depopulates resonances, produces a less prominent 
-    $10^{22}$ g bump.
-    \label{fig:mass_spectrum_comp}}
+    $10^{22}$ g bump. The dashed black line shows the mass spectrum predicted  by a runaway growth scenario using the coagulation equation \cite{mcleod62, trubnikov71}.}
+    \end{centering}
+    \label{fig:mass_spectrum_comp}
 \end{figure}
-
-% TODO: Large figure
-% TODO: Bump isn't clear in this figure
-
 Because the resonances are not possible to pick out by eye on an $a-e$ plot, we ran a modified version of simulation (i), the 
 purpose of which is to show how planetesimal growth proceeds when the mean motion resonances are not present. The initial 
 conditions are identical to those described in section \ref{sec:ics}, except that the annulus only extends from 0.98 to 1.02 AU. 
@@ -474,14 +470,14 @@ In addition, we infer that the planetesimals are occasionally scattered by the o
 planetesimals through the resonances and allow the oligarchs to eventually heat a large fraction of the small bodies.
 
 \begin{figure}
-    \includegraphics[width=\columnwidth]{figures/plSS/scatter_timescale.eps}
+    \begin{centering}
+    \includegraphics[width=0.5\columnwidth]{figures/plSS/scatter_timescale.eps}
     \caption{The mean scattering time-scale for embryo-embryo (blue curve) and planetesimal-embryo (orange curve) interactions 
     over the course of the high resolution growth simulation. The dashed lines correspond to the simulation time-scale (upper) and 
     longest relevant mean motion resonance time-scale (lower), which is set by the 65:64 resonance.}
     \label{fig:scatter_timescale}
+    \end{centering}
 \end{figure}
-
-% TODO: Large figure
 
 In order for this effect to work, the bodies must keep a constant semi-major axis long enough for resonant interactions to play 
 out, while still moving by an appreciable amount over the course of the simulation. The strong scattering time-scale for embryo-embryo interactions and planetesimal-embryo interactions is shown in Figure \ref{fig:scatter_timescale}. This is the timescale 
@@ -553,8 +549,6 @@ resonances moving the planetesimals around or is simply set by the mass distribu
 additional set of simulations in which a large planetary embryo is embedded in an annulus of planetesimals, this time ignoring 
 the effects of collisions. This forces the mass distribution to be static.
 
-% TODO: Make bump more clear in figure 2.4
-
 The initial conditions for these simulations were taken from intermediate snapshots from the runs described in section 
 \ref{sec:plSS_results}. Specifically, the initial conditions are taken from the end of the runaway growth phase, which correspond to the 
 snapshots shown in the top row of Figure \ref{fig:mass_spectrum_evo}. Additionally, a planetary embryo is placed in the center of 
@@ -613,10 +607,12 @@ relaxation of the planetesimals and the eccentricity evolution of the oligarch i
 the change in slope may not be visible due to the fact that the two-body relaxation time is nearly instantaneous due to the small particle count (the relaxation time scales as $N / \ln N$).
 
 \begin{figure}
-    \includegraphics[width=\columnwidth]{figures/plSS/hetero_e_oli.eps}
+    \begin{centering}
+    \includegraphics[width=0.5\columnwidth]{figures/plSS/hetero_e_oli.eps}
     \caption{Time evolution of the eccentricity of the oligarch in the $e_{hi}$ (solid), $e_{narrow}$ (dotted) and $e_{low}$ (dashed) 
     simulation.}
     \label{fig:e_oli_evo}
+    \end{centering}
 \end{figure}
 
 To verify the effectiveness of the resonant interactions, we next examine the evolution of the resonant arguments. The libration 
@@ -625,8 +621,6 @@ frequency of a planetesimal in resonance with an embryo is given by \cite{murray
 \begin{equation}\label{eq:lib_period}
     \omega_{0}^{2} = -3 j_{2}^{2} C_{r} n e^{\left| j_{4} \right|},
 \end{equation}
-
-% TODO: wrong J coefficients here?
 
 \noindent where $j_{2}$ = -15 and $j_{4}$ = -1 for the 15:14 MMR and $n = \sqrt{G M_{*} / a^{3}}$ is the mean motion of the 
 planetesimal. For a planetesimal with a typical eccentricity of $10^{-3}$ inside the 15:14 mean motion resonance with a 
@@ -643,9 +637,12 @@ interaction produces a permanent change in the action (and therefore the energy 
 The typical change in the resonant arguments of the planetesimals from the $e_{hi}$ simulation over multiple synodic periods is 
 shown in Figure \ref{fig:lib_arg}. The resonant argument is given by \cite{murray00}
 
+
 \begin{equation}\label{eq:res_arg}
     \phi = j_{1} \lambda_{e} + j_{2} \lambda_{p} + j_{4} \varpi_{p},
-\end{equation} where $j_{1} = -j_{2} - j_{4} = 16$ for the 15:14 MMR. $\lambda_{e}$ and $\lambda_{p}$ are the mean longitudes 
+\end{equation} 
+
+\noindent where $j_{1} = 15$, $j_{2} = 14$ and $j_{4} = 1$ for the 15:14 MMR. $\lambda_{e}$ and $\lambda_{p}$ are the mean longitudes 
 of the embryo and planetesimal, respectively and $\varpi_{p}$ is the longitude of pericenter of the planetesimal. The $\Delta 
 \phi$ shown in Figure \ref{fig:lib_arg} is the change in this resonant argument between t=1500 and t=1550 years, well after the 
 system has relaxed back to a state of quasi-equilibirum. The blue diagonal lines represent the change in the resonant argument 
@@ -661,12 +658,14 @@ which is given by
 \end{equation} where $\Delta t$ is the time interval that we are considering. Note that at the nominal resonance location, $\Delta \phi_{Kepler} = 0$.
 
 \begin{figure}
-    \includegraphics[width=\columnwidth]{figures/plSS/lib_arg.eps}
+    \begin{centering}
+    \includegraphics[width=0.5\columnwidth]{figures/plSS/lib_arg.eps}
     \caption{The change in the resonant argument for the oligarch and planetesimals near the 15:14 MMR over a 50 year time 
     interval from the $e_{hi}$ simulation. The solid vertical line designates the nominal resonance location and the dashed vertical 
     lines indicate the minimum libration width. The diagonal blue lines represent the change in $\phi$ due to the Keplerian shear 
     of the disc, which is calculated analytically.}
     \label{fig:lib_arg}
+    \end{centering}
 \end{figure}
 
 Over a 50 year time interval, which is approximately 3 times longer than the synodic period with the embryo, the change in the 
@@ -745,8 +744,6 @@ body and $r$ is the orbital distance of the body. The radial migration velocity 
     \dot{r} = \frac{-2 r \Gamma}{L},
 \end{equation}
 
-% TODO: Ask rory about concern that alpha = 3/2 too large?
-
 \noindent where $L = m \left( G M_{*} r \right)^{1/2}$ is the total angular momentum of the body. For a $10^{26}$ g embryo 
 orbiting at 1 AU and taking $\alpha$ = 3/2, $\Sigma$ = 1700 g cm$^{-2}$ and $c_{s}$ = $10^{5}$ cm s$^{-1}$ \cite{hayashi81}, 
 the inward migration speed is $2 \times 10^{-7}$ AU yr$^{-1}$. At this rate, the 15:14 MMR with an embryo will migrate by a 
@@ -764,7 +761,7 @@ resonances should be effective at trapping drifting planetesimals.
 
 \subsection{Inflated Collision Cross Section}
 
-As discussed in section \ref{sec:collModel}, enhancing the geometric collision cross section $f$ of the planetesimals by a factor 
+As discussed in section \ref{sec:numerical}, enhancing the geometric collision cross section $f$ of the planetesimals by a factor 
 of 6 only slightly reduces the effectiveness of gravitational scattering. More importantly, varying $f$ alters the accretion 
 timescale. The implication of this is that a longer accretion timescale causes oligarchic growth to commence later when the disk 
 is more dynamically excited. The dynamical excitation of the disk, which is set by the rms eccentricity, alters the libration width of 
@@ -828,11 +825,13 @@ This increases the libration width of the resonances, which moves the intersecti
 width to a higher mass.
 
 \begin{figure}
-    \includegraphics[width=\columnwidth]{figures/plSS/cum_model_comparison.eps}
+    \begin{centering}
+    \includegraphics[width=0.5\columnwidth]{figures/plSS/cum_model_comparison.eps}
     \caption{The cumulative mass distribution of planetesimals at the end of the three high-resolution growth simulations. The 
     vertical lines represent the mass at which the planetesimal spacing in semi major axis falls below the libration width of the 
     MMRs.}
     \label{fig:resolution_mass_dist}
+    \end{centering}
 \end{figure}
 
 The size frequency distribution of asteroid belt objects is known to exhibit a power law break around around 
@@ -882,13 +881,13 @@ feature in the mass distribution was greatly diminished when the many of the res
 the MMRs are responsible for creating this bump.
 
 \begin{figure}
-    \includegraphics[width=\columnwidth]{figures/plSS/cum_asteroid_comparison.eps}
+    \begin{centering}
+    \includegraphics[width=0.5\columnwidth]{figures/plSS/cum_asteroid_comparison.eps}
     \caption{A comparison between the cumulative number of objects in our high resolution growth simulation (black curve) and 
     the present day asteroid belt \cite{bottke05} (gray curve) as a function of size and mass.}
     \label{fig:mass_dist_ast_compare}
+    \end{centering}
 \end{figure}
-
-% TODO: Figure too large
 
 We confirmed this dynamical effect by placing a massive oligarch into a smoothly varying distribution of planetesimal masses. 
 Within a few thousand orbits, the low mass planetesimals sitting within the zone of influence of the resonances began to migrate 
@@ -918,9 +917,7 @@ effects of collisional fragmentation would significantly affect the location or 
 demonstrate that a careful treatment of the dynamics is necessary to properly model planetesimal accretion during the oligarchic 
 growth phase.
 
-% TODO: Rory comment. Make appendices sections
-
-\section{Appendix A: Mean Motion Resonance Test}
+\section{Mean Motion Resonance Test}
 
 To demonstrate that {\sc ChaNGa} can properly track the motions of bodies in a mean motion resonance over many orbits, we 
 present a test case with a central star, a perturbing massive body and a planetesimal. Although the simulations presented in this 
@@ -955,10 +952,12 @@ approximate Hamiltonian is preserved and the integration is accurate enough to f
 configuration.
 
 \begin{figure}
-    \includegraphics[width=\columnwidth]{figures/plSS/threebody_complex.eps}
+    \begin{centering}
+    \includegraphics[width=0.5\columnwidth]{figures/plSS/threebody_complex.eps}
     \caption{The evolution of the planetesimal in the complex plane defined by equation \ref{eq:complex}. Each point represents 
     the state of the system when the perturber and planetesimal are at opposition.}
     \label{fig:threebody}
+    \end{centering}
 \end{figure}
 
 \begin{figure*}
@@ -969,7 +968,7 @@ configuration.
     \label{fig:theta_test}
 \end{figure*}
 
-\section{Appendix B: Tree Approximation and Opening Angle}\label{sec:openAngle}
+\section{Tree Approximation and Opening Angle}\label{sec:openAngle}
 
 The results we have presented in this work depend on repeated two-body interactions between planetesimals. As discussed in 
 section \ref{sec:assumptions}, the location of the bump in the mass spectrum depends on the amount of viscous stirring that 

@@ -94,7 +94,7 @@ encounter speeds of planetesimals. When the dynamical excitation of the disc is 
 the free eccentricity can be described by a Rayleigh distribution \cite{ida92}.
 
 For the case of a Jupiter mass planet at 5.2 au perturbing a test particle at 3 au, the timescale for secular forcing is 
-approximately 12,000 years. The details of this calculation can be found in appendix \ref{sec:sec_forcing_timescale}. \textbf{As we will show in section \ref{sec:pl_drag}, this is much shorter than the aerodynamic gas drag timescale. Therefore, the damping effects of gas should not be expected to circularize the orbits of the planetesimals.}
+approximately 12,000 years. The details of this calculation can be found in section \ref{sec:sec_forcing_timescale}. \textbf{As we will show in section \ref{sec:pl_drag}, this is much shorter than the aerodynamic gas drag timescale. Therefore, the damping effects of gas should not be expected to circularize the orbits of the planetesimals.}
 
 \subsection{Mean-Motion Resonances}\label{sec:mmr}
 
@@ -128,7 +128,7 @@ eccentricities, this behavior is analogous to the motion of a pendulum. Furtherm
 changes in the mean motion and semimajor axis \cite{murray99}. An important point to note, which we will revisit later, is that the 
 variation frequency of this angle approaches zero near the edge of a resonance. The width of a resonance can be defined by 
 determining the largest variation in semimajor axis that permits librational, rather than circulatory motion of $\phi$. Calculations 
-for the widths of first and second order interior MMRs are shown in appendix \ref{sec:libration}, along with a timescale for the 
+for the widths of first and second order interior MMRs are shown in section \ref{sec:libration}, along with a timescale for the 
 libration. For the most prominent interior mean-motion resonances, including the 2:1 and 3:1, the timescale associated with 
 these oscillations driven by a Jupiter mass planet is  $\sim$ 1,000 - 2,000 years.
 
@@ -224,7 +224,9 @@ e2m3 & 2.0 $M_{jup}$                     & 1.0 $e_{jup}$                        
 
 In total, five simulations are run, which are listed in table \ref{tab:sims}. The second is a ``nominal'' case, in which the perturbing 
 planet's mass and eccentricity are set to that of Jupiter's. In the other four cases, the mass or eccentricity is altered by a factor of 
-two from the nominal value. In all cases, the perturbing giant is placed on a 5.2 au orbit around a 1 $M_{\odot}$ star. The 
+two from the nominal value. \textbf{One should note that we did not choose to include a planet on a circular orbit because the perturbative approach used deriving MMR widths breaks down for small eccentricities. For more discussion of this issue, see section \ref{sec:libration}.} 
+
+In all cases, the perturbing giant is placed on a 5.2 au orbit around a 1 $M_{\odot}$ star. The 
 planetesimal disc extends from 2.2 to 3.8 au, which covers the two most prominent mean-motion resonances with the giant 
 planet, the 2:1 at 3.27 au and the 3:1 at 2.5 au. The planetesimal disc loosely follows a minimum-mass solar nebula surface 
 density profile \cite{hayashi81}
@@ -291,8 +293,6 @@ from reducing the effectiveness of gravitational focusing, while minimizing the 
 \end{center}
 \end{figure}
 
-% TODO: 8:3 should say 7:3
-
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/grind/long_ph.png}
@@ -302,8 +302,6 @@ from reducing the effectiveness of gravitational focusing, while minimizing the 
     orientations of their orbits.\label{fig:long_ph}}
 \end{center}
 \end{figure*}
-
-% TODO: 8:3 should say 7:3
 
 \section{Results} \label{sec:jup_results}
 
@@ -326,7 +324,7 @@ of integration are shown in Figure \ref{fig:xy}. In all cases, the coordinate sy
 nonaxisymmetric gaps in this figure. Upon close inspection of a series of simulation snapshots, these gaps appear to follow the 
 planet in its orbit, rather than aligning themselves with the longitude of perihelion. A similar substructure, which is most 
 noticeable near the 2:1 MMR, reveals itself in \cite{richardson00} (see their figures 3c and 3f) and \cite{tabeshian16} (see their 
-figure 3a). This structure is also present in the \cite{boley17} simulations, although it was not reported at the time (see Appendix 
+figure 3a). This structure is also present in the \cite{boley17} simulations, although it was not reported at the time (see section 
 \ref{sec:boley_plot}). It is worth noting that both \cite{richardson00} and \cite{boley17} started with a completely cold 
 planetesimal disc. Thus, the presence of these features seems robust to the choice of initial conditions.
 
@@ -538,7 +536,7 @@ other words, the gap structure is argued to be due to the interfaces between the
 eccentricity, resonant regions of the disc. This explanation, however, does not hold for a large collection of planetesimals, 
 especially when there is no forced eccentricity. In such a case, the orbits of planetesimals near resonance would be randomly 
 aligned, and the axisymmetric structure should become washed out. Furthermore, when the perturbing planet is on a circular 
-orbit, this structure is still present (see figure 3 of \cite{tabeshian16} and Appendix \ref{sec:boley_plot}). The only connection 
+orbit, this structure is still present (see figure 3 of \cite{tabeshian16} and section \ref{sec:boley_plot}). The only connection 
 between the structure of the gaps in the disc and the path of a resonant particle in the corotating frame is that both phenomena 
 produce the same symmetries, which depend on the particular MMR considered.
 
@@ -746,7 +744,7 @@ radio facilities like the NG-VLA are expected to achieve sub-au resolution for n
 more near-term, techniques like Gaussian process fitting present a promising way to recover substructure at sub-beam 
 resolution \cite{jennings20}.
 
-\section{Appendix A: Timescale for Secular Forcing}\label{sec:sec_forcing_timescale}
+\section{Timescale for Secular Forcing}\label{sec:sec_forcing_timescale}
 
 The timescale for secular forcing is given by the period at which the free eccentricity of a body cycles in the complex plane. The 
 time-dependent imaginary and real components of the eccentricity of a planetesimal are given by \cite{murray99} (see ch. 7, pg. 
@@ -770,7 +768,7 @@ a matrix, which describes the secular interaction between two bodies, given by \
 a giant planet, $m_{1} = m_{g}$ and $m_{2} = 0$. The frequency of the secular forcing is simply the difference of the two 
 eigenvalue frequencies $g_{1} - g_{2}$.
 
-\section{Appendix B: Libration in Mean Motion Resonance}\label{sec:libration}
+\section{Libration in Mean Motion Resonance}\label{sec:libration}
 
 For second order and higher MMRs, the maximum libration width is given by \cite{murray99} (ch. 8, pg. 338, eq. 8.58) as
 
@@ -808,8 +806,6 @@ pericenter precession rate such that
 	\right)^{1/2} - \frac{2}{9 p e}  \frac{\left| C_{r} \right|}{n}
 \end{equation}
 
-% TODO: Discussion low eccentricity?
-
 \noindent (see \cite{murray99} ch. 8, pg. 340, eq. 8.76, with $j_{2} = p$).
 
 In mean-motion resonance, the orbital elements of a perturbed body, along with the critical angle described by equation
@@ -820,7 +816,9 @@ characteristic frequency, given by (see \cite{murray99} ch. 8, pg. 332, eq. 8.47
 	\omega_{0} = 3 p^{2} C_{r} n e^{\left| -q \right|}.
 \end{equation}
 
-\section{Appendix C: Nonaxisymmetric Structure in Boley 2017}\label{sec:boley_plot}
+\textbf{As discussed in the previous chapter, (see section \ref{sec:resonances}), a perturbative approach to calculating the physical extent of resonances breaks down at small eccentricities. For the simulations presented in this chapter, the secular forcing imparted on the planetesimals by the giant planet acts to keep the system out of this low eccentricity regime. We should note, however, that choosing $e_{pl} < 1/2 e_{jup}$ produced some discrepancies between the predicted and observed extent of the 2:1 MMR. For this reason, we did include any simulations with the perturber on a near-circular orbit in this chapter.}
+
+\section{Nonaxisymmetric Structure in Boley 2017}\label{sec:boley_plot}
 
 \begin{figure*}
     \includegraphics[width=\textwidth]{figures/grind/boley_rtheta.png}
