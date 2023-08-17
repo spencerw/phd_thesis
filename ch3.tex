@@ -94,7 +94,7 @@ encounter speeds of planetesimals. When the dynamical excitation of the disc is 
 the free eccentricity can be described by a Rayleigh distribution \cite{ida92}.
 
 For the case of a Jupiter mass planet at 5.2 au perturbing a test particle at 3 au, the timescale for secular forcing is 
-approximately 12,000 years. The details of this calculation can be found in section \ref{sec:sec_forcing_timescale}. \textbf{As we will show in section \ref{sec:pl_drag}, this is much shorter than the aerodynamic gas drag timescale. Therefore, the damping effects of gas should not be expected to circularize the orbits of the planetesimals.}
+approximately 12,000 years. The details of this calculation can be found in section \ref{sec:sec_forcing_timescale}. As we will show in section \ref{sec:pl_drag}, this is much shorter than the aerodynamic gas drag timescale. Therefore, the damping effects of gas should not be expected to circularize the orbits of the planetesimals.
 
 \subsection{Mean-Motion Resonances}\label{sec:mmr}
 
@@ -224,7 +224,7 @@ e2m3 & 2.0 $M_{jup}$                     & 1.0 $e_{jup}$                        
 
 In total, five simulations are run, which are listed in table \ref{tab:sims}. The second is a ``nominal'' case, in which the perturbing 
 planet's mass and eccentricity are set to that of Jupiter's. In the other four cases, the mass or eccentricity is altered by a factor of 
-two from the nominal value. \textbf{One should note that we did not choose to include a planet on a circular orbit because the perturbative approach used deriving MMR widths breaks down for small eccentricities. For more discussion of this issue, see section \ref{sec:libration}.} 
+two from the nominal value. One should note that we did not choose to include a planet on a circular orbit because the perturbative approach used to derive MMR widths breaks down for small eccentricities. For a discussion of this issue, see section \ref{sec:libration} of this thesis.
 
 In all cases, the perturbing giant is placed on a 5.2 au orbit around a 1 $M_{\odot}$ star. The 
 planetesimal disc extends from 2.2 to 3.8 au, which covers the two most prominent mean-motion resonances with the giant 
@@ -249,7 +249,7 @@ integration time, and so the dynamical excitation of the disc (excluding resonan
 damping forces from the gas. This is done by first calculating the equilibrium eccentricity $e_{eq}$ due to viscous stirring and 
 gas drag as a function of semimajor axis according to equation 12 of \cite{kokubo02}. The eccentricities of the bodies are drawn 
 randomly from a Rayleigh distribution with a mode of $e_{eq}$, while the inclinations are drawn from a similar distribution with a 
-mode of $e_{eq}$/2. \textbf{For a planetesimal disk, the inclination dispersion naturally takes on a value half that of the eccentricity dispersion \cite{ida93a}}. The arguments of perihelion $\omega$, longitude of ascending nodes $\Omega$ and the 
+mode of $e_{eq}$/2. For a planetesimal disk, the inclination dispersion naturally takes on a value half that of the eccentricity dispersion \cite{ida93a}. The arguments of perihelion $\omega$, longitude of ascending nodes $\Omega$ and the 
 mean anomalies $M$ of the bodies are drawn uniformly $\in [0, 2 \pi)$.
 
 To account for the effects of secular forcing by the planet, the eccentricity vectors of the planetesimals are first decomposed into 
@@ -259,7 +259,7 @@ real and imaginary components:
 	z = (k, ih) = e \, exp(i \varpi)
 \end{equation}
 
-\noindent and a forced component is added to $h$ according to equation \ref{eq:eforced} (where we have set $\varpi_{g}$ = 0). \textbf{Because the perturbing planet is placed on a coplanar orbit with the planetesimal disk, there is no forced component of inclination.}
+\noindent and a forced component is added to $h$ according to equation \ref{eq:eforced} (where we have set $\varpi_{g}$ = 0). Because the perturbing planet is placed on a coplanar orbit with the planetesimal disk, there is no forced component of inclination.
 
 \subsection{Time Stepping Scheme}\label{sec:timestep}
 
@@ -280,7 +280,7 @@ which the radii of all bodies are inflated by a factor of 2.5. Any bodies with i
 are placed on a time step that is a factor of 16 smaller than the orbital time step. Although this is still a factor of roughly 7 larger 
 than the dynamical time of a planetesimal, we found no difference in the collision rate when using any smaller of a minimum time 
 step size. The purpose of the two-tiered scheme is to properly resolve the gravitational interactions between any bodies that 
-undergo a close encounter\textbf{, without requiring all particles to evolve on that timestep.} This prevents the coarser base time step 
+undergo a close encounter, without requiring all particles to evolve on that timestep. This prevents the coarser base time step 
 from reducing the effectiveness of gravitational focusing, while minimizing the additional computational expense.
 
 \begin{figure}
@@ -816,7 +816,7 @@ characteristic frequency, given by (see \cite{murray99} ch. 8, pg. 332, eq. 8.47
 	\omega_{0} = 3 p^{2} C_{r} n e^{\left| -q \right|}.
 \end{equation}
 
-\textbf{As discussed in the previous chapter, (see section \ref{sec:resonances}), a perturbative approach to calculating the physical extent of resonances breaks down at small eccentricities. For the simulations presented in this chapter, the secular forcing imparted on the planetesimals by the giant planet acts to keep the system out of this low eccentricity regime. We should note, however, that choosing $e_{pl} < 1/2 e_{jup}$ produced some discrepancies between the predicted and observed extent of the 2:1 MMR. For this reason, we did include any simulations with the perturber on a near-circular orbit in this chapter.}
+As discussed in the previous chapter, (see section \ref{sec:resonances}), a perturbative approach to calculating the physical extent of resonances breaks down at small eccentricities. For the simulations presented in this chapter, the secular forcing imparted on the planetesimals by the giant planet acts to keep the system out of this low eccentricity regime. We should note, however, that choosing $e_{pl} < 1/2 e_{jup}$ produced some discrepancies between the predicted and observed extent of the 2:1 MMR. For this reason, we did include any simulations with the perturber on a near-circular orbit in this chapter.
 
 \section{Chapter Appendix: Nonaxisymmetric Structure in Boley 2017}\label{sec:boley_plot}
 
